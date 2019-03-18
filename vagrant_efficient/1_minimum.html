@@ -8,45 +8,48 @@
 
 <body>
   <a href="1_minimum_pt.html">Português</a>
+
   <h1>Efficient Vagrantfiles – Part 1 – The minimum</h1>
+
   <h2>Nice to meet you, Vagrant</h2>
-  Vagrant is a very powerful tool which, as a helper for a virtualizer like <a href="https://www.virtualbox.org/">VirtualBox</a>, allows developers to create, configure, start, stop and erase a bunch of virtual machines, with some simple commands, from a configuration file (<code>Vagrantfile</code>). That makes configuration and software testing fairly easier.
-  For those who don't know Vagrant yet, I recommend reading the <a href="https://www.vagrantup.com/intro/index.html">intro</a> from official docs.
 
-  This series with 3 articles shows how to work with Vagrant with several VMs, with a range of hardware, OS and software configurations, in a simpler and more efficient fashion - without repeating and/or changing <code>Vagrantfile</code> sections all the time.
+  <p>Vagrant is a very powerful tool which, as a helper for a virtualizer like <a href="https://www.virtualbox.org/">VirtualBox</a>, allows developers to create, configure, start, stop and erase a bunch of virtual machines, with some simple commands, from a configuration file (<code>Vagrantfile</code>). That makes configuration and software testing fairly easier.
+  For those who don't know Vagrant yet, I recommend reading the <a href="https://www.vagrantup.com/intro/index.html">intro</a> from official docs.</p>
+  <p>This series with 3 articles shows how to work with Vagrant with several VMs, with a range of hardware, OS and software configurations, in a simpler and more efficient fashion - without repeating and/or changing <code>Vagrantfile</code> sections all the time.</p>
+
   <h2>Bare minimum for Vagrant to work</h2>
-  Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
-  I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.
 
-  A nice starting point is to run <code>vagrant init</code> inside your project's base directory. This command creates a minimum <code>Vagrantfile</code>, with lots of comments which teach how to write basic settings. I recommend reading the resulting file to get a good grasp. I also recommend reading the command help with <code>vagrant init -h</code>.
+  <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
+  I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
+  <p>A nice starting point is to run <code>vagrant init</code> inside your project's base directory. This command creates a minimum <code>Vagrantfile</code>, with lots of comments which teach how to write basic settings. I recommend reading the resulting file to get a good grasp. I also recommend reading the command help with <code>vagrant init -h</code>.</p>
+  <p>But, for really mastering the stuff, it's good to write a <code>Vagrantfile</code> from scratch. The bare minimum mandatory contents is:</p>
 
-  But, for really mastering the stuff, it's good to write a <code>Vagrantfile</code> from scratch. The bare minimum mandatory contents is:
-  <ol>
-  	<li style="list-style-type:none;">
-  <ol>
-  	<li style="list-style-type:none;">
   <ol>
   	<li>A block with <code>Vagrant.configure("2") do |config|</code>, where <code>config</code> is a <b>configurations object</b>. Vagrant is a Ruby module, and <code>Vagrant.configure</code> is a method which processes configurations inside the block.</li>
   	<li>Inside the <code>Vagrant.configure</code> block, more blocks with <code>config.vm.define 'name' do |vm|</code>, where <code>vm</code> is the <b>virtual machine object</b>, with each virtual machine settings. <code>name</code> will be the one used in Vagrant shell commands.</li>
   	<li>Inside each <code>vm.define</code> block, the virtual machine settings. At the very least, the box name, for Vagrant to download and “mirror”, then create the virtual machine.</li>
   </ol>
-  </li>
-  </ol>
-  </li>
-  </ol>
-  Here is an example of an extremely minimalist, yet already functional, Vagrantfile:
-  <pre>Vagrant.configure("2") do |config|
+
+  <p>Here is an example of an extremely minimalist, yet already functional, Vagrantfile:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
     config.vm.define 'vm_1' do |vm|
       vm.vm.box = "ARTACK/debian-jessie"
     end
   end
   </pre>
-  Since Vagrant is a Ruby module (always remember this statement), let's think in Ruby: the call to method <code>Vagrant.configure</code> creates an object we call <code>config</code>. This object groups all your current project settings. From this object, we call method <code>vm.define</code>, which creates another object, called <code>vm</code>, which will contain settings specific for a virtual machine.
+
+  <p>Since Vagrant is a Ruby module (always remember this statement), let's think in Ruby: the call to method <code>Vagrant.configure</code> creates an object we call <code>config</code>. This object groups all your current project settings. From this object, we call method <code>vm.define</code>, which creates another object, called <code>vm</code>, which will contain settings specific for a virtual machine.
   Note the name <code>vm_1</code>, in the VM object creation. This will be used in Vagrant commands.
-  Note also the box name: <code>ARTACK/debian-jessie</code>. It's one from the uncountable boxes available in <a href="https://app.vagrantup.com/boxes/search">Vagrant's repository</a>. You can search suitable boxes there – check OS, hardware settings, pre-installed software, and so on – then simply copy the box name to one or more virtual machines <code>vm.box</code> attribute. You can also create boxes of your own and reference them in this setting, but this talk goes elsewhere.
+  Note also the box name: <code>ARTACK/debian-jessie</code>. It's one from the uncountable boxes available in <a href="https://app.vagrantup.com/boxes/search">Vagrant's repository</a>. You can search suitable boxes there – check OS, hardware settings, pre-installed software, and so on – then simply copy the box name to one or more virtual machines <code>vm.box</code> attribute. You can also create boxes of your own and reference them in this setting, but this talk goes elsewhere.</p>
+
   <h2>Is that really enough?</h2>
-  Is it? Run <code>vagrant up</code> from the base directory, then follow the output, which probably looks like:
-  <pre>$ vagrant up
+
+  <p>Is it? Run <code>vagrant up</code> from the base directory, then follow the output, which probably looks like:</p>
+
+  <pre>
+  $ vagrant up
   Bringing machine 'vm_1' up with 'virtualbox' provider...
   ==> vm_1: Importing base box 'ARTACK/debian-jessie'...
   ...
@@ -57,16 +60,23 @@
   ==> vm_1: Mounting shared folders...
       vm_1: /vagrant =>
   </pre>
-  Then, run <code>vagrant ssh vm_1</code>. That's it – you're inside the virtual machine just created:
-  <pre>$ vagrant ssh vm_1
+
+  <p>Then, run <code>vagrant ssh vm_1</code>. That's it – you're inside the virtual machine just created:</p>
+
+  <pre>
+  $ vagrant ssh vm_1
   ...
   vagrant@debian:~$
   </pre>
-  Play at your will. Then exit with <code>exit</code> (wow). If you want to stop, start again, or restart the machine, just run <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> or <code>vagrant reload vm_1</code>, respectively.
-  If your tests wrecked the machine, or you just want to start over, no problems. Just exit from it, then erase and recreate your VM with <code>vagrant destroy vm_1</code> and <code>vagrant up vm_1</code>. Done. Brand new virtual machine, just like nothing happened. As many times as wanted.
+  <p>Play at your will. Then exit with <code>exit</code> (wow). If you want to stop, start again, or restart the machine, just run <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> or <code>vagrant reload vm_1</code>, respectively.
+  If your tests wrecked the machine, or you just want to start over, no problems. Just exit from it, then erase and recreate your VM with <code>vagrant destroy vm_1</code> and <code>vagrant up vm_1</code>. Done. Brand new virtual machine, just like nothing happened. As many times as wanted.</p>
+
   <h2>What's next?</h2>
-  Now you can include several other virtual machines, using the same or different boxes - just state the one used by each machine, and Vagrant takes care of everything - then write settings for each machine, along with global ones. Example:
-  <pre>Vagrant.configure("2") do |config|
+
+  <p>Now you can include several other virtual machines, using the same or different boxes - just state the one used by each machine, and Vagrant takes care of everything - then write settings for each machine, along with global ones. Example:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
     config.vm.provision "shell" do |shell|
       shell.inline = 'echo "Provisioning in `date`"'
     end
@@ -84,15 +94,23 @@
     end
   end
   </pre>
-  Here, the 3 calls to <code>vm.define</code> create 3 virtual machines, two with the already downloaded box - Vagrant stores boxes locally - and another one with a different box, also from the repository. Inside each VM definition, an internal (that is, only accessible from the host and the project VMs) network IP setting, and a global definition for a shell command - only for demonstration purposes.
+
+  <p>Here, the 3 calls to <code>vm.define</code> create 3 virtual machines, two with the already downloaded box - Vagrant stores boxes locally - and another one with a different box, also from the repository. Inside each VM definition, an internal (that is, only accessible from the host and the project VMs) network IP setting, and a global definition for a shell command - only for demonstration purposes.</p>
+
   <blockquote>You can include many settings inside each MV object, which will affect the MV itself, or global settings, outside the <code>vm.define</code> blocks, which will affect all machines.</blockquote>
-  You create and start all machines with <code>vagrant up</code>, which will generate an output like:
-  <pre>==> vm_X: Importing base box '...'...
+
+  <p>You create and start all machines with <code>vagrant up</code>, which will generate an output like:</p>
+
+  <pre>
+  ==> vm_X: Importing base box '...'...
   ...
-  ==> vm_X: Provisioning in <Date/time>
+  ==> vm_X: Provisioning in &lt;Date/time&gt;
   </pre>
-  In the end, you can ping all VMs to veriry the given IPs:
-  <pre>$ for IP in 192.168.1.{2..4} ; do ping -c 1 $IP ; done
+
+  <p>In the end, you can ping all VMs to veriry the given IPs:</p>
+
+  <pre>
+  $ for IP in 192.168.1.{2..4} ; do ping -c 1 $IP ; done
   ...
   --- 192.168.1.2 ping statistics ---
   1 packets transmitted, 1 received, 0% packet loss, time 0ms
@@ -104,8 +122,9 @@
   1 packets transmitted, 1 received, 0% packet loss, time 0ms
   ...
   </pre>
-  And so on. Read the <a href="https://www.vagrantup.com/docs/">official docs</a> and let your mind go.
 
-  Code is already getting repetitive. Time to go to part 2!
+  <p>And so on. Read the <a href="https://www.vagrantup.com/docs/">official docs</a> and let your mind go.</p>
+  <br>
+  <p>Code is already getting repetitive. Time to go to <a href="2_ruby.html">part 2</a>!</p>
 </body>
 </html>

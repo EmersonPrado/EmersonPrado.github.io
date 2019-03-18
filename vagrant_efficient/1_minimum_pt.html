@@ -8,45 +8,47 @@
 
 <body>
   <a href="1_minimum.html">English</a>
+
   <h1>Vagrantfiles eficientes - Parte 1 - Mínimo</h1>
+
   <h2>Muito prazer, Vagrant</h2>
-  O <a href="https://www.vagrantup.com/intro/index.html">Vagrant</a> é uma ferramenta poderosíssima que, atuando com um virtualizador como o <a href="https://www.virtualbox.org/">VirtualBox</a>, permite criar, configurar, iniciar, desligar e apagar várias máquinas virtuais com comandos simples, a partir de um arquivo de configuração (<code>Vagrantfile</code>). Isso facilita enormemente testes de configurações e softwares.
-  Se ainda não o conhece, recomendo <a href="http://gutocarvalho.net/octopress/2014/05/09/entenda-o-vagrant/">este artigo</a> do Guto Carvalho, referência em infraestrutura ágil. Lembrando que, no Linux, normalmente não baixamos instaladores - os gerenciadores de pacotes cuidam disso - e que o próprio Vagrant pode baixar os <i>boxes</i>.
 
-  Esta série de 3 artigos mostra como tornar mais simples e eficiente o trabalho do Vagrant com várias MVs, com variedades de hardware, SO e configurações, sem ter que repetir e/ou alterar trechos do <code>Vagrantfile</code> o tempo todo.
+  <p>O <a href="https://www.vagrantup.com/intro/index.html">Vagrant</a> é uma ferramenta poderosíssima que, atuando com um virtualizador como o <a href="https://www.virtualbox.org/">VirtualBox</a>, permite criar, configurar, iniciar, desligar e apagar várias máquinas virtuais com comandos simples, a partir de um arquivo de configuração (<code>Vagrantfile</code>). Isso facilita enormemente testes de configurações e softwares.
+  Se ainda não o conhece, recomendo <a href="http://gutocarvalho.net/octopress/2014/05/09/entenda-o-vagrant/">este artigo</a> do Guto Carvalho, referência em infraestrutura ágil. Lembrando que, no Linux, normalmente não baixamos instaladores - os gerenciadores de pacotes cuidam disso - e que o próprio Vagrant pode baixar os <i>boxes</i>.</p>
+  <p>Esta série de 3 artigos mostra como tornar mais simples e eficiente o trabalho do Vagrant com várias MVs, com variedades de hardware, SO e configurações, sem ter que repetir e/ou alterar trechos do <code>Vagrantfile</code> o tempo todo.</p>
+
   <h2>Mínimo necessário para o Vagrant funcionar</h2>
-  Além de instalar o software necessário - um virtualizador como o VirtualBox, o Ruby, e o próprio Vagrant - você deve criar um diretório para o seu projeto, e desenvolver um <b>Vagrantfile</b>, que é o arquivo de configuração geral do ambiente virtual a ser gerenciado. Também recomendo, <b>muito</b>, o uso de alguma ferramenta de versionamento como o <a href="https://git-scm.com/">Git</a>.
 
-  Uma ótima forma de começar é executar <code>vagrant init</code> dentro do diretório do projeto. Este comando cria um <code>Vagrantfile</code> mínimo, com muitos comentários ensinando como escrever as configurações básicas. Recomendo ler o arquivo gerado para ter uma ótima noção. Também recomendo ver a ajuda do comando com <code>vagrant init -h</code>.
+  <p>Além de instalar o software necessário - um virtualizador como o VirtualBox, o Ruby, e o próprio Vagrant - você deve criar um diretório para o seu projeto, e desenvolver um <b>Vagrantfile</b>, que é o arquivo de configuração geral do ambiente virtual a ser gerenciado. Também recomendo, <b>muito</b>, o uso de alguma ferramenta de versionamento como o <a href="https://git-scm.com/">Git</a>.</p>
+  <p>Uma ótima forma de começar é executar <code>vagrant init</code> dentro do diretório do projeto. Este comando cria um <code>Vagrantfile</code> mínimo, com muitos comentários ensinando como escrever as configurações básicas. Recomendo ler o arquivo gerado para ter uma ótima noção. Também recomendo ver a ajuda do comando com <code>vagrant init -h</code>.</p>
+  <p>Mas, para realmente dominar a técnica, é interessante criar um <code>Vagrantfile</code> do zero. O mínimo que o arquivo deve conter é:</p>
 
-  Mas, para realmente dominar a técnica, é interessante criar um <code>Vagrantfile</code> do zero. O mínimo que o arquivo deve conter é:
-  <ol>
-   <li style="list-style-type: none;">
-  <ol>
-   <li style="list-style-type: none;">
   <ol>
    <li>Um bloco contendo <code>Vagrant.configure("2") do |config|</code>, onde <code>config</code> é o <b>objeto de configurações</b>. O Vagrant é um módulo Ruby, e Vagrant.configure é um método que processa as configurações dentro do bloco</li>
    <li>Dentro do bloco <code>Vagrant.configure</code>, blocos <code>config.vm.define 'nome' do |mv|</code>, onde <code>mv</code> é o <b>objeto de máquina virtual</b>, com as configurações de cada máquina virtual. <code>nome</code> é o que será usado nos comandos do Vagrant no seu <i>shell</i></li>
    <li>Dentro de cada bloco <code>vm.define</code>, as configurações da máquina virtual. O mínimo possível é o nome do <i>box</i>, para que o Vagrant baixar e "espelhar" pra criar a máquina virtual.</li>
-   <li style="list-style-type: none;"></li>
   </ol>
-  </li>
-  </ol>
-  </li>
-  </ol>
-  Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:
-  <pre>Vagrant.configure("2") do |config|
+
+  <p>Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
    config.vm.define 'vm_1' do |vm|
      vm.vm.box = "ARTACK/debian-jessie"
    end
   end
   </pre>
-  Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: a chamada ao método <code>Vagrant.configure</code> cria um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.
+
+  <p>Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: a chamada ao método <code>Vagrant.configure</code> cria um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.
   Note o nome <code>vm_1</code>, na criação do objeto da MV. Este nome será o usado nos comandos do Vagrant.
-  Note também o nome do <i>box</i>: <code>ARTACK/debian-jessie</code>. É um dos incontáveis disponíveis no <a href="https://app.vagrantup.com/boxes/search">repositório do Vagrant</a>. Você pode procurar <i>boxes</i> que te atendam neste repositório - ver SO, configurações de hardware, software pré-instalado, etc. - e simplesmente colocar o nome no atributo <code>vm.box</code> de uma ou mais máquinas virtuais. Você também pode criar <i>boxes</i> e referenciar os arquivos nesta configuração, mas isto já é outro papo.
+  Note também o nome do <i>box</i>: <code>ARTACK/debian-jessie</code>. É um dos incontáveis disponíveis no <a href="https://app.vagrantup.com/boxes/search">repositório do Vagrant</a>. Você pode procurar <i>boxes</i> que te atendam neste repositório - ver SO, configurações de hardware, software pré-instalado, etc. - e simplesmente colocar o nome no atributo <code>vm.box</code> de uma ou mais máquinas virtuais. Você também pode criar <i>boxes</i> e referenciar os arquivos nesta configuração, mas isto já é outro papo.</p>
+
   <h2>Só isso já funciona?</h2>
-  Duvida? Execute <code>vagrant up</code> no diretório criado e acompanhe as mensagens, que devem se parecer com isso:
-  <pre>$ vagrant up
+
+  <p>Duvida? Execute <code>vagrant up</code> no diretório criado e acompanhe as mensagens, que devem se parecer com isso:</p>
+
+  <pre>
+  $ vagrant up
   Bringing machine 'vm_1' up with 'virtualbox' provider...
   ==> vm_1: Importing base box 'ARTACK/debian-jessie'...
   ...
@@ -57,16 +59,24 @@
   ==> vm_1: Mounting shared folders...
      vm_1: /vagrant =>
   </pre>
-  Depois, execute <code>vagrant ssh vm_1</code>. Pronto - você está na máquina virtual criada:
-  <pre>$ vagrant ssh vm_1
+
+  <p>Depois, execute <code>vagrant ssh vm_1</code>. Pronto - você está na máquina virtual criada:</p>
+
+  <pre>
+  $ vagrant ssh vm_1
   ...
   vagrant@debian:~$
   </pre>
-  Brinque à vontade. Depois saia com <code>exit</code>. Se quiser desligar, ativar novamente ou reiniciar a máquina, basta usar <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> ou <code>vagrant reload vm_1</code>, respectivamente.
-  Se, nos seus testes, você arrebentou a máquina, ou se quiser começar de novo, sem problemas. Saia dela normalmente, apague a máquina com <code>vagrant destroy vm_1</code> e <code>vagrant up vm_1</code>. Pronto. Máquina virtual novinha em folha, como se nada tivesse acontecido. Quantas vezes quiser.
+
+  <p>Brinque à vontade. Depois saia com <code>exit</code>. Se quiser desligar, ativar novamente ou reiniciar a máquina, basta usar <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> ou <code>vagrant reload vm_1</code>, respectivamente.
+  Se, nos seus testes, você arrebentou a máquina, ou se quiser começar de novo, sem problemas. Saia dela normalmente, apague a máquina com <code>vagrant destroy vm_1</code> e <code>vagrant up vm_1</code>. Pronto. Máquina virtual novinha em folha, como se nada tivesse acontecido. Quantas vezes quiser.</p>
+
   <h2>E depois?</h2>
-  Agora você pode incluir várias outras máquinas virtuais, usando o mesmo <i>box</i> ou <i>boxes</i> diferentes - só especifique o <i>box</i> usado por cada máquina virtual, e o Vagrant cuida do resto - e incluir configurações para cada máquina, e também configurações globais. Exemplo:
-  <pre>Vagrant.configure("2") do |config|
+
+  <p>Agora você pode incluir várias outras máquinas virtuais, usando o mesmo <i>box</i> ou <i>boxes</i> diferentes - só especifique o <i>box</i> usado por cada máquina virtual, e o Vagrant cuida do resto - e incluir configurações para cada máquina, e também configurações globais. Exemplo:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
    config.vm.provision "shell" do |shell|
      shell.inline = 'echo "Provisionando em `date`"'
    end
@@ -84,15 +94,23 @@
    end
   end
   </pre>
-  Aqui, as 3 chamadas a <code>vm.define</code> criam 3 máquinas virtuais, duas com o <i>box</i> já baixado - o Vagrant armazena em disco - e uma com outro <i>box</i>, também do repositório. Dentro de cada definição de MV, uma configuração de IP para uma rede interna (acessível apenas do hospedeiro e das outras MVs do projeto), e uma configuração global para execução de um comando de <i>shell</i> - que só serve para demonstração mesmo.
+
+  <p>Aqui, as 3 chamadas a <code>vm.define</code> criam 3 máquinas virtuais, duas com o <i>box</i> já baixado - o Vagrant armazena em disco - e uma com outro <i>box</i>, também do repositório. Dentro de cada definição de MV, uma configuração de IP para uma rede interna (acessível apenas do hospedeiro e das outras MVs do projeto), e uma configuração global para execução de um comando de <i>shell</i> - que só serve para demonstração mesmo.</p>
+
   <blockquote>Você pode incluir várias configurações dentro de cada objeto MV, e elas valerão pra MV específica, ou configurações globais, fora dos blocos <code>vm.define</code>, que valem para todas as MVs.</blockquote>
-  Ao subir as máquinas com <code>vagrant up</code>, você vai ver as mensagens criadas pelo comando <i>shell</i>:
-  <pre>==> vm_X: Importing base box '...'...
+
+  <p>Ao subir as máquinas com <code>vagrant up</code>, você vai ver as mensagens criadas pelo comando <i>shell</i>:</p>
+
+  <pre>
+  ==> vm_X: Importing base box '...'...
   ...
-  ==> vm_X: Provisionando em <Data/hora>
+  ==> vm_X: Provisionando em &lt;Data/hora&gt;
   </pre>
-  E, ao final, você pode confirmar os IPs atribuídos "pingando" as máquinas:
-  <pre>$ for IP in 192.168.1.{2..4} ; do ping -c 1 $IP ; done
+
+  <p>E, ao final, você pode confirmar os IPs atribuídos "pingando" as máquinas:</p>
+
+  <pre>
+  $ for IP in 192.168.1.{2..4} ; do ping -c 1 $IP ; done
   ...
   --- 192.168.1.2 ping statistics ---
   1 packets transmitted, 1 received, 0% packet loss, time 0ms
@@ -104,8 +122,9 @@
   1 packets transmitted, 1 received, 0% packet loss, time 0ms
   ...
   </pre>
-  E assim por diante. Leia a <a href="https://www.vagrantup.com/docs/">documentação</a> e deixe a imaginação voar.
 
-  O código já começou a ficar repetitivo. Agora vamos pro artigo 2!
+  <p>E assim por diante. Leia a <a href="https://www.vagrantup.com/docs/">documentação</a> e deixe a imaginação voar.</p>
+  <br>
+  <p>O código já começou a ficar repetitivo. Agora vamos pro <a href="2_ruby_pt.html">artigo 2</a>!<p>
 </body>
 </html>
