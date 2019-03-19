@@ -133,5 +133,137 @@
   '
   </pre>
 
+  <h2>Onde isso entra no Vagrantfile?</h2>
+
+  <p>Usando estes recursos, podemos transformar um código repetido em um código único, geral, com variáveis para incluir os dados.</p>
+
+  <blockquote>Você pode testar os códigos abaixo com <code>vagrant status</code>, <code>vagrant up</code>, <code>vagrant ssh</code>, etc., depois apagar as MVs com <code>vagrant destroy</code></blockquote>
+
+  <p>Por exemplo, vamos criar várias MVs iguais, trocando só o nome:</p>
+
+  <pre>Vagrant.configure("2") do |config|
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+    config.vm.define 'vm_3' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+  end
+  </pre>
+
+  <p>O código é sempre o mesmo, só mudando o nome da MV. Que tal um laço iterando uma lista com os nomes, executando um só trecho de código?</p>
+
+  <pre>Vagrant.configure("2") do |config|
+    [
+      'vm_1',
+      'vm_2',
+      'vm_3'
+    ].each do |nome|
+      config.vm.define nome do |vm|
+        vm.vm.box = 'ARTACK/debian-jessie'
+      end
+    end
+  end
+  </pre>
+
+  <p>Além do código mais enxuto, note a facilidade de incluir, excluir e alterar máquinas virtuais, só alterando o <code>Array</code>.</p>
+  <p>E se as MVs não forem iguais? Simples: basta fazer um <code>Hash</code>, tendo os nomes como chaves, e a configuração variável como valor:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => 'ARTACK/debian-jessie',
+      'vm_2' => 'ARTACK/debian-jessie',
+      'vm_3' => 'centos/7'
+    }.each do |nome, box|
+      config.vm.define nome do |vm|
+        vm.vm.box = box
+      end
+    end
+  end
+  </pre>
+
+  <p>E se houver mais configurações variáveis? Bom, tanto as chaves quanto os valores de um <code>Hash</code> podem ser praticamente qualquer objeto. E se os valores fossem outros <code>Hashes</code>, com as configurações de cada MV? Na iteração, vamos chamar de 'confs' estes <code>Hashes</code> internos:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+        :ip => '192.168.1.4'
+      }
+    }.each do |nome, confs|
+      config.vm.define nome do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip]
+      end
+    end
+  end
+  </pre>
+
+  <p>Se estiver complicado de entender o <code>Hash</code> de <code>Hashes</code>, vamos visualizar na linha de comando:</p>
+
+  <pre>$ ruby -e '
+  {
+    "vm_1" ={
+      :box ="ARTACK/debian-jessie",
+      :ip ="192.168.1.2"
+    },
+    "vm_2" ={
+      :box ="ARTACK/debian-jessie",
+      :ip ="192.168.1.3"
+    },
+    "vm_3" ={
+      :box ="centos/7",
+      :ip ="192.168.1.4"
+    }
+  }.each do |nome, confs|
+    puts "Chave: #{nome} - Valor: #{confs}"
+  end
+  '
+  Chave: vm_1 - Valor: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.2"}
+  Chave: vm_2 - Valor: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.3"}
+  Chave: vm_3 - Valor: {:box=>"centos/7", :ip=>"192.168.1.4"}
+  </pre>
+
+  <p>Veja os <code>Hashes</code> de configurações como valores de cada item do <code>Hash</code> principal.</p>
+  <p>E se nem todas as MVs usam uma determinada configuração? Aqui entram os condicionais:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+      }
+    }.each do |nome, confs|
+      config.vm.define nome do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+      end
+    end
+  end
+  </pre>
+
+  <p>Aqui, a ausência da chave <code>:ip</code> no <code>Hash</code> de configurações da MV 'mv_3' faz com que a diretiva <code>if confs.has_key?(:ip)</code> seja falsa, então a configuração <code>vm.network</code> não é incluída. Ou seja, não se inclui IP de rede privada na MV 'mv_3'.</p>
+
 </body>
 </html>

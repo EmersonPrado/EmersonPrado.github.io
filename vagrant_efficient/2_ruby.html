@@ -132,6 +132,72 @@
   '
   </pre>
 
+  <h2>What does it have to do with the Vagrantfile?</h2>
+
+  <p>With these resources, we can turn repeated chunks of code in a single general block, which uses variables for the changing data.</p>
+
+  <blockquote>You can test codes below with <code>vagrant status</code>, <code>vagrant up</code>, <code>vagrant ssh</code>, etc., then delete the VMs with <code>vagrant destroy</code></blockquote>
+
+  <p>For example, let's create some VMs with the same settings, only changing names:</p>
+
+  <pre>Vagrant.configure("2") do |config|
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+    config.vm.define 'vm_3' do |vm|
+      vm.vm.box = 'ARTACK/debian-jessie'
+    end
+  end
+  </pre>
+
+  <p>The code chunks are equal, except for the VM names. What about a loop iterating on a name list, running a single code block?</p>
+
+  <pre>Vagrant.configure("2") do |config|
+    [
+      'vm_1',
+      'vm_2',
+      'vm_3'
+    ].each do |name|
+      config.vm.define name do |vm|
+        vm.vm.box = 'ARTACK/debian-jessie'
+      end
+    end
+  end
+  </pre>
+
+  <p>Besides getting the code slimmer, see how easy it became to include, exclude and change virtual machines, by only changing <code>Array</code> elements.</p>
+  <p>What if the VMs aren't equal? Simple: all we need is a <code>Hash</code>, with VM names as keys, and the changing setting as a value:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => 'ARTACK/debian-jessie',
+      'vm_2' => 'ARTACK/debian-jessie',
+      'vm_3' => 'centos/7'
+    }.each do |name, box|
+      config.vm.define name do |vm|
+        vm.vm.box = box
+      end
+    end
+  end
+  </pre>
+
+  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if we get all these values in other <code>Hashes</code>, with the settings inside? We'll call these internal <code>Hashes</code> as 'confs' for our iteration:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
       'vm_3' => {
         :box => 'centos/7',
         :ip => '192.168.1.4'
@@ -144,6 +210,59 @@
     end
   end
   </pre>
+
+  <p>If the <code>Hash</code> of <code>Hashes</code> is getting difficult to visualize, let's use a command line to unwrap it:</p>
+
+  <pre>$ ruby -e '
+  {
+    "vm_1" ={
+      :box ="ARTACK/debian-jessie",
+      :ip ="192.168.1.2"
+    },
+    "vm_2" ={
+      :box ="ARTACK/debian-jessie",
+      :ip ="192.168.1.3"
+    },
+    "vm_3" ={
+      :box ="centos/7",
+      :ip ="192.168.1.4"
+    }
+  }.each do |name, confs|
+    puts "Key: #{name} - Value: #{confs}"
+  end
+  '
+  Key: vm_1 - Value: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.2"}
+  Key: vm_2 - Value: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.3"}
+  Key: vm_3 - Value: {:box=>"centos/7", :ip=>"192.168.1.4"}
+  </pre>
+
+  <p>See how the config <code>Hashes</code> are item values for each main <code>Hash</code> item.</p>
+  <p>What if some setting is not present in all VMs? That's when we call conditionals into action:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+      end
+    end
+  end
+  </pre>
+
+  <p>The key <code>:ip</code> absense in the VM 'mv_3' settings <code>Hash</code> causes directive <code>if confs.has_key?(:ip)</code> return false, so <code>vm.network</code> setting is not included. That is: 'mv_3' has no private network IP.</p>
 
 </body>
 </html>
