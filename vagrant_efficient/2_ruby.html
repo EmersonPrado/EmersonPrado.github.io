@@ -264,5 +264,10 @@
 
   <p>The key <code>:ip</code> absense in the VM 'mv_3' settings <code>Hash</code> causes directive <code>if confs.has_key?(:ip)</code> return false, so <code>vm.network</code> setting is not included. That is: 'mv_3' has no private network IP.</p>
 
+  <h2>How far can we get?</h2>
+
+  <p>We can also include multiple settings of the same type (like more IPs in the same VM), using <code>Arrays</code> as the setting value, use loops for global settings, and so on. The practical limit is readability - <code>Hashes</code> with too many nesting levels make data too hard to understand, and any analysis or change would take too much work. And we intend very opposite.</p>
+  <br>
+  <p>Now code is well organized, but still too cluttered due to the huge <code>Hash</code> hung in the loop beginning. Time to go to part 3.</p>
 </body>
 </html>

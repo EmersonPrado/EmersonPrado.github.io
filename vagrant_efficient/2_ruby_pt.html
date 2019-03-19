@@ -265,5 +265,10 @@
 
   <p>Aqui, a ausência da chave <code>:ip</code> no <code>Hash</code> de configurações da MV 'mv_3' faz com que a diretiva <code>if confs.has_key?(:ip)</code> seja falsa, então a configuração <code>vm.network</code> não é incluída. Ou seja, não se inclui IP de rede privada na MV 'mv_3'.</p>
 
+  <h2>O céu é o limite?</h2>
+
+  <p>É possível também criar configurações múltiplas (como vários IPs na mesma MV), usando <code>Arrays</code> como valor da configuração, usar laços para criar configurações globais, e assim por diante. O limite é a legibilidade - muitos níveis de aninhamento nos <code>Hashes</code> acabam dificultando a compreensão dos dados, e qualquer análise ou alteração seria muito trabalhosa. E a intenção aqui é exatamente o contrário.</p>
+  <br>
+  <p>Agora o código está mais organizado, mas ainda meio "embolado" com o <code>Hash</code> enorme no início. Hora de ir pra parte 3.</p>
 </body>
 </html>
