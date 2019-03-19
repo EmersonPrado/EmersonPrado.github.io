@@ -38,5 +38,100 @@
 
   <p>O código feito assim tende a ficar muito longo, e trabalhoso pacas para criar (copia-cola-edita-cola-edita...). Também fica ruim para manter - se for adicionar MVs, tem que repetir todo o processo. Pra mudar uma configuração comum, é necessário editar todas as MVs. Fora que, pra achar um erro aí...</p>
 
+  <h2>A solução - variáveis, laços e condicionais</h2>
+
+  <p>Caso você seja um desenvolvedor (e provavelmente é), já percebeu que o código acima tem um padrão de repetição, com mudanças previsíveis em pontos chave. Ruby é uma linguagem de programação, então...</p>
+  <p>Vamos rever alguns conceitos do Ruby que vão ajudar muito. Não será uma aula de verdade, mas só uma pincelada no que vamos usar.</p>
+
+  <blockquote>Usaremos o comando <code>ruby -e</code>, que executa código Ruby no <i>shell</i></blockquote>
+
+  <h3><i>Arrays</i> e <i>Hashes</i></h3>
+
+  <p><i>Arrays</i> são conjuntos de objetos. Simples assim: uma lista com vários itens. Eles devem ser especificados entre colchetes, separados por vírgulas.</p>
+  <p><i>Hashes</i> são conjuntos indexados. Cada item tem um índice, chamado <b>chave</b>, e um <b>valor</b> associado. Eles devem ser especificados entre chaves, separados por vírgulas.</p>
+
+  <blockquote>Usaremos o método <code>class</code>, que retorna a classe da qual o objeto é instância</blockquote>
+
+  <pre>
+  $ ruby -e 'puts [-5, 3.14, "Text", :simbolo].class'
+  Array
+
+  $ ruby -e 'puts ({1 => "b", "c" => 5.5, :outra => "coisa"}.class)'
+  Hash
+  </pre>
+
+  <p>Lembrando que no Ruby tudo é objeto. Então não faz sentido falarmos em "tipos". <code>Array</code> e <code>Hash</code> são <b>classes</b>.</p>
+  <p>E os <code>Arrays</code> e <code>Hashes</code> podem ser aninhados (dividindo em linhas para melhor visualização):</p>
+
+  <pre>
+  $ ruby -e 'puts [
+    1,
+    [2, 3, 4],
+    {1 => "a"}
+  ].class'
+  Array
+
+  $ ruby -e 'puts ({
+    1 => [2, 3, 4],
+    "c" => {1 => "a"},
+    [1, 2] => "f",
+    {1 => "a"} => 5
+  }.class)'
+  Hash
+  </pre>
+
+  <h3>O laço <code>each</code></h3>
+
+  <p>Podemos criar laços de repetição muito facilmente no Ruby usando o método <code>each</code>. Ao iterar um <code>Array</code>, o laço se repete, com uma variável armazenando cada item em uma repetição. Ao iterar um <code>Hash</code>, colocamos as chaves em uma variável, e os valores em outra.</p>
+  <p>Para invocar o método, usamos a sintaxe comum de linguagens orientadas a objeto: <code>&lt;Objeto&gt;.&lt;Método&gt;</code>, ou seja, <code>Array/Hash.each</code>. A sintaxe do método <code>each</code> é:</p>
+
+  <pre>
+  &lt;Objeto&gt;.each do |&lt;variável(is)&gt;|
+    &lt;Bloco utilizando a(s) variável(is)&gt;
+  end
+  </pre>
+
+  <p>Demonstrando uma iteração com <code>Array</code> e outra com <code>Hash</code>:</p>
+
+  <pre>$ ruby -e '
+  [1, 2, 3].each do |var|
+    puts var
+  end
+  '
+  1
+  2
+  3
+
+  $ ruby -e '
+  {1 => "a", 2 => "b", 3 => "c"}.each do |key, value|
+    puts "Key: #{key} - Value: #{value}"
+  end
+  '
+  Key: 1 - Value: a
+  Key: 2 - Value: b
+  Key: 3 - Value: c
+  </pre>
+
+  <h3>Condicionais</h3>
+
+  <p>Condicionais são a mesma coisa em qualquer linguagem: você executa um bloco de instruções se um conjunto de condições forem verdadeiras. Em Ruby, as instruções condicionais são <code>if</code>, <code>elsif</code>, <code>else</code> e <code>unless</code>:</p>
+
+  <pre>$ ruby -e '
+  puts "Pls type the age"
+  age = gets().to_i
+  unless age < 0 then
+    if age >= 18 then
+      puts "Adult"
+    elsif age >= 12
+      puts "Teen"
+    else
+      puts "Child"
+    end
+  else
+    puts "?"
+  end
+  '
+  </pre>
+
 </body>
 </html>
