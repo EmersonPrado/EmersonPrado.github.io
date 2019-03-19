@@ -7,5 +7,49 @@
 </head>
 
 <body>
+  <a href="2_ruby_pt.html">Português</a>
+
+  <h1>Efficient Vagrantfiles – Part 2 – Vagrant is Ruby!</h1>
+
+  <p>In the <a href="1_minimum.html">first part</a> of this series, I kept stating that Vagrant is Ruby. Let's see what's that for.</p>
+
+  <h2>Problem - code repetition</h2>
+
+  <p>Suppose you need a Vagrant environment with lots of virtual machines. Following the way of the first part - which I used when I started - you would need to repeat the same code for each VM. Example:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Settings&gt;
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Settings&gt;
+    end
+    ...
+    config.vm.define 'vm_N' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Settings&gt;
+    end
+  end
+  </pre>
+
+  <p>Code like this tends to get lengthy, and takes a lot of effort to create (copy-paste-edit-paste-edit...). It's also hard to mantain - you have to repeat the process for each VM you want to add. Besides, finding an error would be a pain...</p>
+
+      'vm_3' => {
+        :box => 'centos/7',
+        :ip => '192.168.1.4'
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip]
+      end
+    end
+  end
+  </pre>
+
 </body>
 </html>

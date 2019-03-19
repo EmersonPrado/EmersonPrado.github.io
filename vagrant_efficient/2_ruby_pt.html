@@ -7,5 +7,36 @@
 </head>
 
 <body>
+  <a href="2_ruby.html">English</a>
+
+  <h1>Vagrantfiles eficientes – Parte 2 – Vagrant é Ruby!</h1>
+
+  <p>Na <a href="1_minimum_pt.html">parte 1</a> desta série de artigos, eu insisti na ideia de que Vagrant é Ruby. Agora vamos ver pra que isso serve.</p>
+
+  <h2>O problema - repetição de código</h2>
+
+  <p>Imagine que você vai criar um ambiente Vagrant com várias máquinas virtuais. Na forma mostrada na primeira parte - e que eu usava quando comecei - o Vagrantfile teria que conter o mesmo código para todas. Exemplo:</p>
+
+  <pre>
+  Vagrant.configure("2") do |config|
+
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Configurações&gt;
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Configurações&gt;
+    end
+    ...
+    config.vm.define 'vm_N' do |vm|
+      vm.vm.box = &lt;Box&gt;
+      &lt;Configurações&gt;
+    end
+  end
+  </pre>
+
+  <p>O código feito assim tende a ficar muito longo, e trabalhoso pacas para criar (copia-cola-edita-cola-edita...). Também fica ruim para manter - se for adicionar MVs, tem que repetir todo o processo. Pra mudar uma configuração comum, é necessário editar todas as MVs. Fora que, pra achar um erro aí...</p>
+
 </body>
 </html>
