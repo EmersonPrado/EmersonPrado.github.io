@@ -7,9 +7,22 @@ layout: default
 
   <h1>Vagrantfiles eficientes – Parte 2 – Vagrant é Ruby!</h1>
 
+  <ol>
+    <li><a href="#problema">O problema - repetição de código</a></li>
+    <li><a href="#solucao">A solução - variáveis, laços e condicionais</a>
+      <ol>
+        <li><a href="#arrays_hashes"><i>Arrays</i> e <i>Hashes</i></a></li>
+        <li><a href="#each">O laço <code>each</code></a></li>
+        <li><a href="#conditionais">Condicionais</a></li>
+      </ol>
+    </li>
+    <li><a href="#vagrantfile">Onde isso entra no Vagrantfile?</a></li>
+    <li><a href="#limite">O céu é o limite?</a></li>
+  </ol>
+
   <p>Na <a href="1_minimum_pt.html">parte 1</a> desta série de artigos, eu insisti na ideia de que Vagrant é Ruby. Agora vamos ver pra que isso serve.</p>
 
-  <h2>O problema - repetição de código</h2>
+  <h2 id="problema">O problema - repetição de código</h2>
 
   <p>Imagine que você vai criar um ambiente Vagrant com várias máquinas virtuais. Na forma mostrada na primeira parte - e que eu usava quando comecei - o Vagrantfile teria que conter o mesmo código para todas. Exemplo:</p>
 
@@ -34,14 +47,14 @@ layout: default
 
   <p>O código feito assim tende a ficar muito longo, e trabalhoso pacas para criar (copia-cola-edita-cola-edita...). Também fica ruim para manter - se for adicionar MVs, tem que repetir todo o processo. Pra mudar uma configuração comum, é necessário editar todas as MVs. Fora que, pra achar um erro aí...</p>
 
-  <h2>A solução - variáveis, laços e condicionais</h2>
+  <h2 id="solucao">A solução - variáveis, laços e condicionais</h2>
 
   <p>Caso você seja um desenvolvedor (e provavelmente é), já percebeu que o código acima tem um padrão de repetição, com mudanças previsíveis em pontos chave. Ruby é uma linguagem de programação, então...</p>
   <p>Vamos rever alguns conceitos do Ruby que vão ajudar muito. Não será uma aula de verdade, mas só uma pincelada no que vamos usar.</p>
 
   <blockquote>Usaremos o comando <code>ruby -e</code>, que executa código Ruby no <i>shell</i></blockquote>
 
-  <h3><i>Arrays</i> e <i>Hashes</i></h3>
+  <h3 id="arrays_hashes"><i>Arrays</i> e <i>Hashes</i></h3>
 
   <p><i>Arrays</i> são conjuntos de objetos. Simples assim: uma lista com vários itens. Eles devem ser especificados entre colchetes, separados por vírgulas.</p>
   <p><i>Hashes</i> são conjuntos indexados. Cada item tem um índice, chamado <b>chave</b>, e um <b>valor</b> associado. Eles devem ser especificados entre chaves, separados por vírgulas.</p>
@@ -76,7 +89,7 @@ layout: default
   Hash
   </pre>
 
-  <h3>O laço <code>each</code></h3>
+  <h3 id="each">O laço <code>each</code></h3>
 
   <p>Podemos criar laços de repetição muito facilmente no Ruby usando o método <code>each</code>. Ao iterar um <code>Array</code>, o laço se repete, com uma variável armazenando cada item em uma repetição. Ao iterar um <code>Hash</code>, colocamos as chaves em uma variável, e os valores em outra.</p>
   <p>Para invocar o método, usamos a sintaxe comum de linguagens orientadas a objeto: <code>&lt;Objeto&gt;.&lt;Método&gt;</code>, ou seja, <code>Array/Hash.each</code>. A sintaxe do método <code>each</code> é:</p>
@@ -108,7 +121,7 @@ layout: default
   Key: 3 - Value: c
   </pre>
 
-  <h3>Condicionais</h3>
+  <h3 id="conditionais">Condicionais</h3>
 
   <p>Condicionais são a mesma coisa em qualquer linguagem: você executa um bloco de instruções se um conjunto de condições forem verdadeiras. Em Ruby, as instruções condicionais são <code>if</code>, <code>elsif</code>, <code>else</code> e <code>unless</code>:</p>
 
@@ -129,7 +142,7 @@ layout: default
   '
   </pre>
 
-  <h2>Onde isso entra no Vagrantfile?</h2>
+  <h2 id="vagrantfile">Onde isso entra no Vagrantfile?</h2>
 
   <p>Usando estes recursos, podemos transformar um código repetido em um código único, geral, com variáveis para incluir os dados.</p>
 
@@ -261,7 +274,7 @@ layout: default
 
   <p>Aqui, a ausência da chave <code>:ip</code> no <code>Hash</code> de configurações da MV 'mv_3' faz com que a diretiva <code>if confs.has_key?(:ip)</code> seja falsa, então a configuração <code>vm.network</code> não é incluída. Ou seja, não se inclui IP de rede privada na MV 'mv_3'.</p>
 
-  <h2>O céu é o limite?</h2>
+  <h2 id="limite">O céu é o limite?</h2>
 
   <p>É possível também criar configurações múltiplas (como vários IPs na mesma MV), usando <code>Arrays</code> como valor da configuração, usar laços para criar configurações globais, e assim por diante. O limite é a legibilidade - muitos níveis de aninhamento nos <code>Hashes</code> acabam dificultando a compreensão dos dados, e qualquer análise ou alteração seria muito trabalhosa. E a intenção aqui é exatamente o contrário.</p>
   <br>

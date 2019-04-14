@@ -7,7 +7,15 @@ layout: default
 
   <h1>Efficient Vagrantfiles – Part 1 – The minimum</h1>
 
-  <h2>Prerequisites</h2>
+  <ol>
+    <li><a href="#prereqs">Prerequisites</a></li>
+    <li><a href="#intro">Nice to meet you, Vagrant</a></li>
+    <li><a href="#minimum">Bare minimum for Vagrant to work</a></li>
+    <li><a href="#is_that_all">Is that really enough?</a></li>
+    <li><a href="#whats_next">What's next?</a></li>
+  </ol>
+
+  <h2 id="prereqs">Prerequisites</h2>
 
   <p>See below required knowledge for a full understanding of this article series. In fact, you only need the very basic of:</p>
 
@@ -24,13 +32,13 @@ layout: default
     <li>Object-oriented programming <a href="http://www.tutorialspoint.com/cplusplus/cpp_object_oriented.htm">concepts</a></li>
   </ol>
 
-  <h2>Nice to meet you, Vagrant</h2>
+  <h2 id="intro">Nice to meet you, Vagrant</h2>
 
   <p>Vagrant is a very powerful tool which, as a helper for a virtualizer like <a href="https://www.virtualbox.org/">VirtualBox</a>, allows developers to create, configure, start, stop and erase a bunch of virtual machines, with some simple commands, from a configuration file (<code>Vagrantfile</code>). That makes configuration and software testing fairly easier.
   For those who don't know Vagrant yet, I recommend reading the <a href="https://www.vagrantup.com/intro/index.html">intro</a> from official docs.</p>
   <p>This series with 3 articles shows how to work with Vagrant with several VMs, with a range of hardware, OS and software configurations, in a simpler and more efficient fashion - without repeating and/or changing <code>Vagrantfile</code> sections all the time.</p>
 
-  <h2>Bare minimum for Vagrant to work</h2>
+  <h2 id="minimum">Bare minimum for Vagrant to work</h2>
 
   <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
   I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
@@ -60,7 +68,7 @@ layout: default
   Note the name <code>vm_1</code>, in the VM object creation. This will be used in Vagrant commands.
   Note also the box name: <code>ARTACK/debian-jessie</code>. It's one from the uncountable boxes available in <a href="https://app.vagrantup.com/boxes/search">Vagrant's repository</a>. You can search suitable boxes there – check OS, hardware settings, pre-installed software, and so on – then simply copy the box name to one or more virtual machines <code>vm.box</code> attribute. You can also create boxes of your own and reference them in this setting, but this talk goes elsewhere.</p>
 
-  <h2>Is that really enough?</h2>
+  <h2 id="is_that_all">Is that really enough?</h2>
 
   <p>Is it? Run <code>vagrant up</code> from the base directory, then follow the output, which probably looks like:</p>
 
@@ -87,7 +95,7 @@ layout: default
   <p>Play at your will. Then exit with <code>exit</code> (wow). If you want to stop, start again, or restart the machine, just run <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> or <code>vagrant reload vm_1</code>, respectively.
   If your tests wrecked the machine, or you just want to start over, no problems. Just exit from it, then erase and recreate your VM with <code>vagrant destroy vm_1</code> and <code>vagrant up vm_1</code>. Done. Brand new virtual machine, just like nothing happened. As many times as wanted.</p>
 
-  <h2>What's next?</h2>
+  <h2 id="whats_next">What's next?</h2>
 
   <p>Now you can include several other virtual machines, using the same or different boxes - just state the one used by each machine, and Vagrant takes care of everything - then write settings for each machine, along with global ones. Example:</p>
 
