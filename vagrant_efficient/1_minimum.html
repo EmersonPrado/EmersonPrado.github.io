@@ -34,6 +34,7 @@ layout: default
 
   <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
   I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
+  <blockquote>The <code>Vagrantfile</code> is the Vagrant environment's central piece. It contains the specifications for the virtual machines and the configurations to be done in them.</blockquote>
   <p>A nice starting point is to run <code>vagrant init</code> inside your project's base directory. This command creates a minimum <code>Vagrantfile</code>, with lots of comments which teach how to write basic settings. I recommend reading the resulting file to get a good grasp. I also recommend reading the command help with <code>vagrant init -h</code>.</p>
   <p>But, for really mastering the stuff, it's good to write a <code>Vagrantfile</code> from scratch. The bare minimum mandatory contents is:</p>
 
@@ -44,6 +45,8 @@ layout: default
   </ol>
 
   <p>Here is an example of an extremely minimalist, yet already functional, Vagrantfile:</p>
+
+  <blockquote>Open your preferred editor and create a file called <code>Vagrantfile</code>, with contents below, in your project's root directory</blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -87,6 +90,8 @@ layout: default
   <h2>What's next?</h2>
 
   <p>Now you can include several other virtual machines, using the same or different boxes - just state the one used by each machine, and Vagrant takes care of everything - then write settings for each machine, along with global ones. Example:</p>
+
+  <blockquote>Remember: this code with VMs settings goes into your <code>Vagrantfile</code></blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|

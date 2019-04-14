@@ -33,6 +33,7 @@ layout: default
   <h2>Mínimo necessário para o Vagrant funcionar</h2>
 
   <p>Além de instalar o software necessário - um virtualizador como o VirtualBox, o Ruby, e o próprio Vagrant - você deve criar um diretório para o seu projeto, e desenvolver um <b>Vagrantfile</b>, que é o arquivo de configuração geral do ambiente virtual a ser gerenciado. Também recomendo, <b>muito</b>, o uso de alguma ferramenta de versionamento como o <a href="https://git-scm.com/">Git</a>.</p>
+  <blockquote>O <code>Vagrantfile</code> é o principal componente de um ambiente Vagrant. É ele que contém as especificações das máquinas virtuais e das configurações a serem feitas nelas.</blockquote>
   <p>Uma ótima forma de começar é executar <code>vagrant init</code> dentro do diretório do projeto. Este comando cria um <code>Vagrantfile</code> mínimo, com muitos comentários ensinando como escrever as configurações básicas. Recomendo ler o arquivo gerado para ter uma ótima noção. Também recomendo ver a ajuda do comando com <code>vagrant init -h</code>.</p>
   <p>Mas, para realmente dominar a técnica, é interessante criar um <code>Vagrantfile</code> do zero. O mínimo que o arquivo deve conter é:</p>
 
@@ -43,6 +44,8 @@ layout: default
   </ol>
 
   <p>Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:</p>
+
+  <blockquote>Abra seu editor preferido e crie um arquivo chamado <code>Vagrantfile</code>, com o conteúdo abaixo, no diretório base do seu projeto</blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -87,6 +90,8 @@ layout: default
   <h2>E depois?</h2>
 
   <p>Agora você pode incluir várias outras máquinas virtuais, usando o mesmo <i>box</i> ou <i>boxes</i> diferentes - só especifique o <i>box</i> usado por cada máquina virtual, e o Vagrant cuida do resto - e incluir configurações para cada máquina, e também configurações globais. Exemplo:</p>
+
+  <blockquote>Lembre-se: este código com configurações das MVs vai no seu <code>Vagrantfile</code></blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
