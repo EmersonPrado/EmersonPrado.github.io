@@ -17,7 +17,7 @@ layout: default
 
   <h2 id="prereqs">Prerequisites</h2>
 
-  <p>See below required knowledge for a full understanding of this article series. In fact, you only need the very basic of:</p>
+  <p>This is the required knowledge for a full understanding of this article series. In fact, you only need the very basic of:</p>
 
   <ol>
     <li><a href="https://opensource.com/resources/virtualization">Virtualization</a> - What is a virtual machine and what it means to allocate hardware and network resources</li>
@@ -42,7 +42,7 @@ layout: default
 
   <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
   I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
-  <blockquote>The <code>Vagrantfile</code> is the Vagrant environment's central piece. It contains the specifications for the virtual machines and the configurations to be done in them.</blockquote>
+  <blockquote>The <code>Vagrantfile</code> is Vagrant environment's central piece. It tells Vagrant how the virtual machines should be created and configured.</blockquote>
   <p>A nice starting point is to run <code>vagrant init</code> inside your project's base directory. This command creates a minimum <code>Vagrantfile</code>, with lots of comments which teach how to write basic settings. I recommend reading the resulting file to get a good grasp. I also recommend reading the command help with <code>vagrant init -h</code>.</p>
   <p>But, for really mastering the stuff, it's good to write a <code>Vagrantfile</code> from scratch. The bare minimum mandatory contents is:</p>
 

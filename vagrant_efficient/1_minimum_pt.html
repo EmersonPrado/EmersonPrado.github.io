@@ -17,7 +17,7 @@ layout: default
 
   <h2 id="prereqs">Pré requisitos</h2>
 
-  <p>Segue a lista de conhecimentos necessários para entender esta série de artigos. Na verdade, você só precisa de noções de:</p>
+  <p>Veja abaixo os conhecimentos necessários para entender esta série de artigos. Na verdade, você só precisa de noções de:</p>
 
   <ol>
     <li><a href="https://opensource.com/resources/virtualization">Virtualização</a> - O que é uma máquina virtual e o que significa alocar recursos de <i>hardware</i> e rede</li>
@@ -41,7 +41,7 @@ layout: default
   <h2 id="minimo">Mínimo necessário para o Vagrant funcionar</h2>
 
   <p>Além de instalar o software necessário - um virtualizador como o VirtualBox, o Ruby, e o próprio Vagrant - você deve criar um diretório para o seu projeto, e desenvolver um <b>Vagrantfile</b>, que é o arquivo de configuração geral do ambiente virtual a ser gerenciado. Também recomendo, <b>muito</b>, o uso de alguma ferramenta de versionamento como o <a href="https://git-scm.com/">Git</a>.</p>
-  <blockquote>O <code>Vagrantfile</code> é o principal componente de um ambiente Vagrant. É ele que contém as especificações das máquinas virtuais e das configurações a serem feitas nelas.</blockquote>
+  <blockquote>O <code>Vagrantfile</code> é o principal componente de um ambiente Vagrant. É ele que informa o Vagrant como as máquinas virtuais devem ser criadas e configuradas.</blockquote>
   <p>Uma ótima forma de começar é executar <code>vagrant init</code> dentro do diretório do projeto. Este comando cria um <code>Vagrantfile</code> mínimo, com muitos comentários ensinando como escrever as configurações básicas. Recomendo ler o arquivo gerado para ter uma ótima noção. Também recomendo ver a ajuda do comando com <code>vagrant init -h</code>.</p>
   <p>Mas, para realmente dominar a técnica, é interessante criar um <code>Vagrantfile</code> do zero. O mínimo que o arquivo deve conter é:</p>
 
@@ -99,7 +99,7 @@ layout: default
 
   <p>Agora você pode incluir várias outras máquinas virtuais, usando o mesmo <i>box</i> ou <i>boxes</i> diferentes - só especifique o <i>box</i> usado por cada máquina virtual, e o Vagrant cuida do resto - e incluir configurações para cada máquina, e também configurações globais. Exemplo:</p>
 
-  <blockquote>Lembre-se: este código com configurações das MVs vai no seu <code>Vagrantfile</code></blockquote>
+  <blockquote>Lembre-se: este código com as configurações das MVs vai no seu <code>Vagrantfile</code></blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
