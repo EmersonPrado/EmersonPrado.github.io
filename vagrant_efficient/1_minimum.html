@@ -8,12 +8,77 @@ layout: default
   <h1>Efficient Vagrantfiles – Part 1 – The minimum</h1>
 
   <ol>
+    <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#prereqs">Prerequisites</a></li>
     <li><a href="#intro">Nice to meet you, Vagrant</a></li>
     <li><a href="#minimum">Bare minimum for Vagrant to work</a></li>
     <li><a href="#is_that_all">Is that really enough?</a></li>
     <li><a href="#whats_next">What's next?</a></li>
   </ol>
+
+  <h2 id="tldr">TL;DR</h2>
+
+  <p>If you already know Vagrant and understand what a Vagrantfile is, you might skip this part, and get going with what I've summarized below.</p>
+  <p>First, create your base directory and a file called "Vagrantfile" in it. Then, fill your Vagrantfile by:</p>
+
+  <p>Instantiate a <code>configure</code> object.</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+  end
+  </pre>
+
+  <p>Instantiate the virtual machines objects. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    config.vm.define 'vm_1' do |vm|
+    end
+    config.vm.define 'vm_2' do |vm|
+    end
+    config.vm.define 'vm_3' do |vm|
+    end
+  end
+  </pre>
+
+  <p>Configure your virtual machines by setting attributes to the VMs objects. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = "ARTACK/debian-jessie"
+      vm.vm.network "private_network", ip: "192.168.1.2"
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = "ARTACK/debian-jessie"
+      vm.vm.network "private_network", ip: "192.168.1.3"
+    end
+    config.vm.define 'vm_3' do |vm|
+      vm.vm.box = "centos/7"
+      vm.vm.network "private_network", ip: "192.168.1.4"
+    end
+  end
+  </pre>
+
+  <p>Optionally, include global settings (that is, for all VMs) by setting attributes to the <code>configure</code> object. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    config.vm.provision "shell" do |shell|
+      shell.inline = 'echo "Provisioning in `date`"'
+    end
+    config.vm.define 'vm_1' do |vm|
+      vm.vm.box = "ARTACK/debian-jessie"
+      vm.vm.network "private_network", ip: "192.168.1.2"
+    end
+    config.vm.define 'vm_2' do |vm|
+      vm.vm.box = "ARTACK/debian-jessie"
+      vm.vm.network "private_network", ip: "192.168.1.3"
+    end
+    config.vm.define 'vm_3' do |vm|
+      vm.vm.box = "centos/7"
+      vm.vm.network "private_network", ip: "192.168.1.4"
+    end
+  end
+  </pre>
+
+  <p>Then, play around as usual and move on to <a href="2_ruby.html">part 2</a>.</p>
 
   <h2 id="prereqs">Prerequisites</h2>
 
