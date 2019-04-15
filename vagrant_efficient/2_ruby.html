@@ -10,6 +10,7 @@ layout: default
   <p>In the <a href="1_minimum.html">first part</a> of this series, I kept stating that Vagrant is Ruby. Let's see what's that for.</p>
 
   <ol>
+    <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#problem">Problem - code repetition</a></li>
     <li><a href="#solution">Solution - variables, loops and conditionals</a>
       <ol>
@@ -22,6 +23,90 @@ layout: default
     <li><a href="#how_far">How far can we get?</a></li>
   </ol>
 
+  <h2 id="tldr">TL;DR</h2>
+
+  <p>If you already know Ruby basics, and can play with arrays, hashes, <code>each</code> loops and conditionals, you might skip this part, and get going with what I've summarized below.</p>
+  <p>You already have a working Vagrantfile, but it has a reasonable amount of repeated code. You can get rid of repetitions by:</p>
+
+  <p>Iterating an array to instantiate similar virtual machine objects. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    [
+      'vm_1',
+      'vm_2',
+      'vm_3'
+    ].each do |name|
+      config.vm.define name do |vm|
+      end
+    end
+  end
+  </pre>
+
+  <p>Iterating a hash to instantiate virtual machine objects with one variyng attribute. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => 'ARTACK/debian-jessie',
+      'vm_2' => 'ARTACK/debian-jessie',
+      'vm_3' => 'centos/7'
+    }.each do |name, box|
+      config.vm.define name do |vm|
+        vm.vm.box = box
+      end
+    end
+  end
+  </pre>
+
+  <p>Iterating a hash of hashes to instantiate virtual machine objects with multiple varying attributes. Example:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+        :ip => '192.168.1.4'
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip]
+      end
+    end
+  end
+  </pre>
+
+  <p>Use conditionals to set attributes to a subset of virtual machine objects. Example (<code>ip</code>, in this case):</p>
+  <pre>
+    Vagrant.configure("2") do |config|
+      {
+        'vm_1' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.2'
+        },
+        'vm_2' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.3'
+        },
+        'vm_3' => {
+          :box => 'centos/7',
+        }
+      }.each do |name, confs|
+        config.vm.define name do |vm|
+          vm.vm.box = confs[:box]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+        end
+      end
+    end
+  </pre>
+
+  <p>Now you surely can think of several ways to use nested hashes and conditionals in a myriad of possible situations. Just keep in mind that the hashes should be readable by non-developers - Vagrant is made to make VMs management simpler, not rocket science. Now let's go to part 3 and get rid of the messy look of big hashes prepended to loops.</p>
 
   <h2 id="problem">Problem - code repetition</h2>
 

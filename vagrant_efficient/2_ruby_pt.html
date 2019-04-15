@@ -10,6 +10,7 @@ layout: default
   <p>Na <a href="1_minimum_pt.html">parte 1</a> desta série de artigos, eu insisti na ideia de que Vagrant é Ruby. Agora vamos ver pra que isso serve.</p>
 
   <ol>
+    <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#problema">O problema - repetição de código</a></li>
     <li><a href="#solucao">A solução - variáveis, laços e condicionais</a>
       <ol>
@@ -22,6 +23,90 @@ layout: default
     <li><a href="#limite">O céu é o limite?</a></li>
   </ol>
 
+  <h2 id="tldr">TL;DR</h2>
+
+  <p>Se você já sabe o básico de Ruby, e usa regularmente <i>arrays</i>, <i>hashes</i>, laços com <code>each</code> e condicionais, talvez você possa pular esta parte, e fazer tudo funcionar com o resumo abaixo.</p>
+  <p>Você já tem um Vagrantfile funcional, mas com uma boa quantidade de código repetido. Vejamos como nos livrar das repetições:</p>
+
+  <p>Iterando um <i>array</i> pra instanciar objetos similares de máquinas virtuais. Exemplo:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    [
+      'vm_1',
+      'vm_2',
+      'vm_3'
+    ].each do |name|
+      config.vm.define name do |vm|
+      end
+    end
+  end
+  </pre>
+
+  <p>Iterando um <i>hash</i> pra instanciar objetos de máquinas virtuais com um atributo variável. Exemplo:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => 'ARTACK/debian-jessie',
+      'vm_2' => 'ARTACK/debian-jessie',
+      'vm_3' => 'centos/7'
+    }.each do |name, box|
+      config.vm.define name do |vm|
+        vm.vm.box = box
+      end
+    end
+  end
+  </pre>
+
+  <p>Iterando um <i>hash</i> de <i>hashes</i> pra instanciar objetos de máquinas virtuais com múltiplos atributos variáveis. Exemplo:</p>
+  <pre>
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+        :ip => '192.168.1.4'
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip]
+      end
+    end
+  end
+  </pre>
+
+  <p>Usando conditionais para incluir atributos em um subconjunto dos objetos de máquinas vituais. Exemplo (<code>ip</code>, neste caso):</p>
+  <pre>
+    Vagrant.configure("2") do |config|
+      {
+        'vm_1' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.2'
+        },
+        'vm_2' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.3'
+        },
+        'vm_3' => {
+          :box => 'centos/7',
+        }
+      }.each do |name, confs|
+        config.vm.define name do |vm|
+          vm.vm.box = confs[:box]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+        end
+      end
+    end
+  </pre>
+
+  <p>Agora você deve estar pensando em várias formas de usar <i>hashes</i> aninhados e condicionais em inúmeras situações possíveis. Lembre sempre que os <i>hashes</i> precisam ficar legíveis para não programadores - o Vagrant serve pra tornar o gerenciamento de MVs mais simples, não nível Einstein. Agora vamos pra parte 3 pra nos livrar da bagunça visual de <i>hashes</i> enormes pendurados no início dos laços.</p>
 
   <h2 id="problema">O problema - repetição de código</h2>
 
