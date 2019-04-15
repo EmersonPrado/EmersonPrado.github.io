@@ -21,13 +21,13 @@ layout: default
   <p>If you already know Vagrant and understand what a Vagrantfile is, you might skip this part, and get going with what I've summarized below.</p>
   <p>First, create your base directory and a file called "Vagrantfile" in it. Then, fill your Vagrantfile by:</p>
 
-  <p>Instantiate a <code>configure</code> object.</p>
+  <p>Instantiating a <code>configure</code> object.</p>
   <pre>
   Vagrant.configure("2") do |config|
   end
   </pre>
 
-  <p>Instantiate the virtual machines objects. Example:</p>
+  <p>Instantiating the virtual machines objects. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     config.vm.define 'vm_1' do |vm|
@@ -39,7 +39,7 @@ layout: default
   end
   </pre>
 
-  <p>Configure your virtual machines by setting attributes to the VMs objects. Example:</p>
+  <p>Configuring your virtual machines by setting attributes to the VMs objects. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     config.vm.define 'vm_1' do |vm|
@@ -57,7 +57,7 @@ layout: default
   end
   </pre>
 
-  <p>Optionally, include global settings (that is, for all VMs) by setting attributes to the <code>configure</code> object. Example:</p>
+  <p>Optionally, including global settings (that is, for all VMs) by setting attributes to the <code>configure</code> object. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     config.vm.provision "shell" do |shell|
