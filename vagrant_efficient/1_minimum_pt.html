@@ -19,7 +19,7 @@ layout: default
   <h2 id="tldr">TL;DR</h2>
 
   <p>Se você já sabe usar o Vagrant e sabe o que é um Vagrantfile, talvez você possa pular esta parte, e fazer tudo funcionar com o resumo abaixo.</p>
-  <p>Comece criando um diretório base e um arquivo chamado "Vagrantfile" neste diretório. Então, inclua as ações abaixo no Vagrantfile:</p>
+  <p>Comece criando um diretório base e um arquivo chamado "Vagrantfile" (com esta grafia exata, inicial maiúscula e sem extensão) neste diretório. Então, inclua as ações abaixo no Vagrantfile:</p>
 
   <p>Instancie um objeto <code>configure</code>.</p>
   <pre>
@@ -119,6 +119,7 @@ layout: default
   <p>Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:</p>
 
   <blockquote>Abra seu editor preferido e crie um arquivo chamado <code>Vagrantfile</code>, com o conteúdo abaixo, no diretório base do seu projeto</blockquote>
+  <blockquote>Importante: "Vagrantfile" se escreve exatamente assim, com a inicial maiúscula e sem extensão. Caso contrário, Vagrant simplesmente não encontra o arquivo, e seu ambiente não funcionará.</blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
