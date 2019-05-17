@@ -21,21 +21,21 @@ layout: default
   <p>If you already know Vagrant and understand what a Vagrantfile is, you might skip this part, and get going with what I've summarized below.</p>
   <p>First, create your base directory and a file called "Vagrantfile" (spelled exactly like this, capitalized and no extension) in it. Then, fill your Vagrantfile by:</p>
 
-  <p>Send a code block to <code>Vagrant.configure</code> method. Name the returned object - Here, we call it "<code>config</code>".</p>
   <pre>
+  # Send a code block to Vagrant.configure method
+  # Name the returned object - Here, we call it "config"
   Vagrant.configure("2") do |config|
-  end
-  </pre>
 
-  <p>Instantiating the virtual machines objects. Example:</p>
-  <pre>
-  Vagrant.configure("2") do |config|
+    # Send your virtual machine definitions to the created object ("config")
+    # Pass the VM names as an attribute
+    # Name the returned object - Here, we call it "vm"
     config.vm.define 'vm_1' do |vm|
     end
     config.vm.define 'vm_2' do |vm|
     end
     config.vm.define 'vm_3' do |vm|
     end
+
   end
   </pre>
 

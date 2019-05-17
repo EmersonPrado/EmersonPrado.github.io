@@ -21,21 +21,21 @@ layout: default
   <p>Se você já sabe usar o Vagrant e sabe o que é um Vagrantfile, talvez você possa pular esta parte, e fazer tudo funcionar com o resumo abaixo.</p>
   <p>Comece criando um diretório base e um arquivo chamado "Vagrantfile" (com esta grafia exata, inicial maiúscula e sem extensão) neste diretório. Então, inclua as ações abaixo no Vagrantfile:</p>
 
-  <p>Passe um bloco de código para o método <code>Vagrant.configure</code>. Dê um nome ao objeto retornado - Aqui, chamaremos de "<code>config</code>".</p>
   <pre>
+  # Passe um bloco de código para o método Vagrant.configure
+  # Dê um nome ao objeto retornado - Aqui, chamaremos de "config"
   Vagrant.configure("2") do |config|
-  end
-  </pre>
 
-  <p>Instancie os objetos das máquinas virtuais. Exemplo:</p>
-  <pre>
-  Vagrant.configure("2") do |config|
+    # Passe as definições de máquinas virtuais ao objeto criado ("config")
+    # Informe os nomes das MVs como atributo
+    # Dê um nome ao objeto retornado - Aqui, chamaremos de "vm"
     config.vm.define 'vm_1' do |vm|
     end
     config.vm.define 'vm_2' do |vm|
     end
     config.vm.define 'vm_3' do |vm|
     end
+
   end
   </pre>
 
