@@ -26,7 +26,7 @@ layout: default
   # Name the returned object - Here, we call it "config"
   Vagrant.configure("2") do |config|
 
-    # Opcionally, include settings inside the global block
+    # Optionally, include settings inside the global block
     # These apply to all VMs
     config.vm.provision "shell" do |shell|
       shell.inline = 'echo "Provisioning in `date`"'
