@@ -92,6 +92,7 @@ layout: default
    <li>Um bloco contendo <code>Vagrant.configure("2") do |config|</code>, onde <code>config</code> é o <b>objeto de configurações</b>. O Vagrant é um módulo Ruby, e <code>Vagrant.configure<code> é um método que processa as configurações dentro do bloco</li>
    <li>Dentro do bloco <code>Vagrant.configure</code>, blocos <code>config.vm.define 'nome' do |mv|</code>, onde <code>mv</code> é o <b>objeto de máquina virtual</b>, com as configurações de cada máquina virtual. <code>nome</code> é o que será usado nos comandos do Vagrant no seu <i>shell</i></li>
    <li>Dentro de cada bloco <code>vm.define</code>, as configurações da máquina virtual. O mínimo possível é o nome do <i>box</i>, para o Vagrant baixar e "espelhar" pra criar a máquina virtual.</li>
+   <li>Opcionalmente, configurações globais, dentro do bloco <code>Vagrant.configure</code> e fora dos blocos <code>vm.define</code>, que valerão para todas as MVs.</li>
   </ol>
 
   <p>Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:</p>
