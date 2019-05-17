@@ -21,7 +21,7 @@ layout: default
   <p>Se você já sabe usar o Vagrant e sabe o que é um Vagrantfile, talvez você possa pular esta parte, e fazer tudo funcionar com o resumo abaixo.</p>
   <p>Comece criando um diretório base e um arquivo chamado "Vagrantfile" (com esta grafia exata, inicial maiúscula e sem extensão) neste diretório. Então, inclua as ações abaixo no Vagrantfile:</p>
 
-  <p>Instancie um objeto <code>configure</code>.</p>
+  <p>Passe um bloco de código para o método <code>Vagrant.configure</code>. Dê um nome ao objeto retornado - Aqui, chamaremos de "<code>config</code>".</p>
   <pre>
   Vagrant.configure("2") do |config|
   end
