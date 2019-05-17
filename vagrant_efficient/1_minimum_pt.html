@@ -108,7 +108,7 @@ layout: default
   end
   </pre>
 
-  <p>Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: a chamada ao método <code>Vagrant.configure</code> cria um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.
+  <p>Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: ao passar um bloco ao método <code>Vagrant.configure</code>, ele devolve um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.
   Note o nome <code>vm_1</code>, na criação do objeto da MV. Este nome será o usado nos comandos do Vagrant.
   Note também o nome do <i>box</i>: <code>ARTACK/debian-jessie</code>. É um dos incontáveis disponíveis no <a href="https://app.vagrantup.com/boxes/search">repositório do Vagrant</a>. Você pode procurar <i>boxes</i> que te atendam neste repositório - ver SO, configurações de hardware, software pré-instalado, etc. - e simplesmente colocar o nome no atributo <code>vm.box</code> de uma ou mais máquinas virtuais. Você também pode criar <i>boxes</i> e referenciar os arquivos nesta configuração, mas isto já é outro papo.</p>
 
