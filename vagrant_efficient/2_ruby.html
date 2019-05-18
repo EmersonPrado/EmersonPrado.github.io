@@ -141,8 +141,8 @@ layout: default
 
   <h3 id="arrays_hashes">Arrays and Hashes</h3>
 
-  <p><i>Arrays</i> are sets of objects. Easy as this: a list containing some items. You should put them inside square brackets, separated by commas.</p>
-  <p><i>Hashes</i> indexed sets. Each item has an index, called <b>key</b>, which ponts to a <b>value</b>. You should put them inside curly brackets, separated by commas.</p>
+  <p>Arrays are sets of objects. Easy as this: a list containing some items. You should put them inside square brackets, separated by commas.</p>
+  <p>Hashes are indexed sets. Each item has an index, called <b>key</b>, which ponts to a <b>value</b>. You should put them inside curly brackets, separated by commas.</p>
 
   <blockquote>We'll use <code>class</code> method, which returns the class from which the object is an instance</blockquote>
 
@@ -180,8 +180,8 @@ layout: default
   <p>The method is invoked with a syntax common in object-oriented languages: <code>&lt;Object&gt;.&lt;Method&gt;</code>, that is, <code>&lt;Array/Hash&gt;.each</code>. The <code>each</code> method syntax is:</p>
 
   <pre>
-  &lt;Object&gt;.each do |&lt;variável(is)&gt;|
-    &lt;Bloco utilizando a(s) variável(is)&gt;
+  &lt;Object&gt;.each do |&lt;variable(s)&gt;|
+    &lt;Block which uses the variables&gt;
   end
   </pre>
 
@@ -211,15 +211,15 @@ layout: default
   <p>Conditionals are the same thing in every language: a code block is executed if a set of conditions is met. In Ruby, the conditional statements are <code>if</code>, <code>elsif</code>, <code>else</code> and <code>unless</code>:</p>
 
   <pre>$ ruby -e '
-  puts "Digite a idade"
+  puts "Type the age"
   age = gets().to_i
   unless age &lt; 0 then
     if age >= 18 then
-      puts "Adulto"
+      puts "Adult"
     elsif age >= 12
-      puts "Adolescente"
+      puts "Teen"
     else
-      puts "Criança"
+      puts "Child"
     end
   else
     puts "?"
@@ -280,7 +280,7 @@ layout: default
   end
   </pre>
 
-  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if we get all these values in other <code>Hashes</code>, with the settings inside? We'll call these internal <code>Hashes</code> as 'confs' for our iteration:</p>
+  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if we get all these values in other <code>Hashes</code>, with the settings inside? We'll call these internal <code>Hashes</code> 'confs' for our iteration:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
