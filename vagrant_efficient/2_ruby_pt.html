@@ -156,8 +156,8 @@ layout: default
   Hash
   </pre>
 
-  <p>Lembrando que no Ruby tudo é objeto. Então não faz sentido falarmos em "tipos". <code>Array</code> e <code>Hash</code> são <b>classes</b>.</p>
-  <p>E os <code>Arrays</code> e <code>Hashes</code> podem ser aninhados (dividindo em linhas para melhor visualização):</p>
+  <p>Lembrando que no Ruby tudo é objeto. Então não faz sentido falarmos em "tipos". <i>array</i> e <i>hash</i> são <b>classes</b>.</p>
+  <p>E os <i>arrays</i> e <i>hashes</i> podem ser aninhados (dividindo em linhas para melhor visualização):</p>
 
   <pre>
   $ ruby -e 'puts [
@@ -178,8 +178,8 @@ layout: default
 
   <h3 id="each">O laço <code>each</code></h3>
 
-  <p>Podemos criar laços de repetição muito facilmente no Ruby usando o método <code>each</code>. Ao iterar um <code>Array</code>, o laço se repete, com uma variável armazenando cada item em uma repetição. Ao iterar um <code>Hash</code>, colocamos as chaves em uma variável, e os valores em outra.</p>
-  <p>Para invocar o método, usamos a sintaxe comum de linguagens orientadas a objeto: <code>&lt;Objeto&gt;.&lt;Método&gt;</code>, ou seja, <code>Array/Hash.each</code>. A sintaxe do método <code>each</code> é:</p>
+  <p>Podemos criar laços de repetição muito facilmente no Ruby usando o método <code>each</code>. Ao iterar um <i>array</i>, o laço se repete, com uma variável armazenando cada item em uma repetição. Ao iterar um <i>hash</i>, colocamos as chaves em uma variável, e os valores em outra.</p>
+  <p>Para invocar o método, usamos a sintaxe comum de linguagens orientadas a objeto: <code>&lt;Objeto&gt;.&lt;Método&gt;</code>, ou seja, <code>array/hash.each</code>. A sintaxe do método <code>each</code> é:</p>
 
   <pre>
   &lt;Objeto&gt;.each do |&lt;variável(is)&gt;|
@@ -187,7 +187,7 @@ layout: default
   end
   </pre>
 
-  <p>Demonstrando uma iteração com <code>Array</code> e outra com <code>Hash</code>:</p>
+  <p>Demonstrando uma iteração com <i>array</i> e outra com <i>hash</i>:</p>
 
   <pre>$ ruby -e '
   [1, 2, 3].each do |var|
@@ -250,7 +250,7 @@ layout: default
   end
   </pre>
 
-  <p>O código é sempre o mesmo, só mudando o nome da MV. Que tal um laço iterando uma lista com os nomes, executando um só trecho de código?</p>
+  <p>O código é sempre o mesmo, só mudando o nome da MV. Que tal um laço iterando um <i>array</i> com os nomes, executando um só trecho de código?</p>
 
   <pre>Vagrant.configure("2") do |config|
     [
@@ -265,8 +265,8 @@ layout: default
   end
   </pre>
 
-  <p>Além do código mais enxuto, note a facilidade de incluir, excluir e alterar máquinas virtuais, só alterando o <code>Array</code>.</p>
-  <p>E se as MVs não forem iguais? Simples: basta fazer um <code>Hash</code>, tendo os nomes como chaves, e a configuração variável como valor:</p>
+  <p>Além do código mais enxuto, note a facilidade de incluir, excluir e alterar máquinas virtuais, só alterando o <i>array</i>.</p>
+  <p>E se as MVs não forem iguais? Simples: basta fazer um <i>hash</i>, tendo os nomes como chaves, e a configuração variável como valor:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -282,7 +282,7 @@ layout: default
   end
   </pre>
 
-  <p>E se houver mais configurações variáveis? Bom, tanto as chaves quanto os valores de um <code>Hash</code> podem ser praticamente qualquer objeto. E se os valores fossem outros <code>Hashes</code>, com as configurações de cada MV? Na iteração, vamos chamar de 'confs' estes <code>Hashes</code> internos:</p>
+  <p>E se houver mais configurações variáveis? Bom, tanto as chaves quanto os valores de um <i>hash</i> podem ser praticamente qualquer objeto. E se os valores fossem outros <i>hashes</i>, com as configurações de cada MV? Na iteração, vamos chamar de 'confs' estes <i>hashes</i> internos:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -308,7 +308,7 @@ layout: default
   end
   </pre>
 
-  <p>Se estiver complicado de entender o <code>Hash</code> de <code>Hashes</code>, vamos visualizar na linha de comando:</p>
+  <p>Se estiver complicado de entender o <i>hash</i> de <i>hashes</i>, vamos visualizar na linha de comando:</p>
 
   <pre>$ ruby -e '
   {
@@ -333,7 +333,7 @@ layout: default
   Chave: vm_3 - Valor: {:box=>"centos/7", :ip=>"192.168.1.4"}
   </pre>
 
-  <p>Veja os <code>Hashes</code> de configurações como valores de cada item do <code>Hash</code> principal.</p>
+  <p>Veja os <i>hashes</i> de configurações como valores de cada item do <i>hash</i> principal.</p>
   <p>E se nem todas as MVs usam uma determinada configuração? Aqui entram os condicionais:</p>
 
   <pre>
@@ -359,11 +359,11 @@ layout: default
   end
   </pre>
 
-  <p>Aqui, a ausência da chave <code>:ip</code> no <code>Hash</code> de configurações da MV 'mv_3' faz com que a diretiva <code>if confs.has_key?(:ip)</code> seja falsa, então a configuração <code>vm.network</code> não é incluída. Ou seja, não se inclui IP de rede privada na MV 'mv_3'.</p>
+  <p>Aqui, a ausência da chave <code>:ip</code> no <i>hash</i> de configurações da MV 'mv_3' faz com que a diretiva <code>if confs.has_key?(:ip)</code> seja falsa, então a configuração <code>vm.network</code> não é incluída. Ou seja, não se inclui IP de rede privada na MV 'mv_3'.</p>
 
   <h2 id="limite">O céu é o limite?</h2>
 
-  <p>É possível também criar configurações múltiplas (como vários IPs na mesma MV), usando <code>Arrays</code> como valor da configuração, usar laços para criar configurações globais, e assim por diante. O limite é a legibilidade - muitos níveis de aninhamento nos <code>Hashes</code> acabam dificultando a compreensão dos dados, e qualquer análise ou alteração seria muito trabalhosa. E a intenção aqui é exatamente o contrário.</p>
+  <p>É possível também criar configurações múltiplas (como vários IPs na mesma MV), usando <i>arrays</i> como valor da configuração, usar laços para criar configurações globais, e assim por diante. O limite é a legibilidade - muitos níveis de aninhamento nos <i>hashes</i> acabam dificultando a compreensão dos dados, e qualquer análise ou alteração seria muito trabalhosa. E a intenção aqui é exatamente o contrário.</p>
   <br>
-  <p>Agora o código está mais organizado, mas ainda meio "embolado" com o <code>Hash</code> enorme no início. Hora de ir pra parte 3 (em breve).</p>
+  <p>Agora o código está mais organizado, mas ainda meio "embolado" com o <i>hash</i> enorme no início. Hora de ir pra parte 3 (em breve).</p>
 </body>

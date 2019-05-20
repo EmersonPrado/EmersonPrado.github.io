@@ -156,7 +156,7 @@ layout: default
   </pre>
 
   <p>Let's remind ourselves that, in Ruby, everything is an object. So the concept of <b>types</b> makes no sense. <code>Array</code> and <code>Hash</code> are <b>classes</b>.</p>
-  <p>Also, <code>Arrays</code> and <code>Hashes</code> can be nested (I divided in multiple lines for a better view):</p>
+  <p>Also, arrays and hashes can be nested (I divided in multiple lines for a better view):</p>
 
   <pre>
   $ ruby -e 'puts [
@@ -177,7 +177,7 @@ layout: default
 
   <h3 id="each">The <code>each</code> loop</h3>
 
-  <p>It's easy to create repetition loops in Ruby using method <code>each</code>. When iterating an <code>Array</code>, the loop repeats itself, with a variable which contains, in each execution, one array item. when iterating a <code>Hash</code>, we use one variable for the keys and another one for the values.</p>
+  <p>It's easy to create repetition loops in Ruby using method <code>each</code>. When iterating an array, the loop repeats itself, with a variable which contains, in each execution, one array item. when iterating a hash, we use one variable for the keys and another one for the values.</p>
   <p>The method is invoked with a syntax common in object-oriented languages: <code>&lt;Object&gt;.&lt;Method&gt;</code>, that is, <code>&lt;Array/Hash&gt;.each</code>. The <code>each</code> method syntax is:</p>
 
   <pre>
@@ -186,7 +186,7 @@ layout: default
   end
   </pre>
 
-  <p>Showing an <code>Array</code> and a <code>Hash</code> iterations:</p>
+  <p>Showing an array and a hash iterations:</p>
 
   <pre>$ ruby -e '
   [1, 2, 3].each do |var|
@@ -264,8 +264,8 @@ layout: default
   end
   </pre>
 
-  <p>Besides getting the code slimmer, see how easy it became to include, exclude and change virtual machines, by only changing <code>Array</code> elements.</p>
-  <p>What if the VMs aren't equal? Simple: all we need is a <code>Hash</code>, with VM names as keys, and the changing setting as a value:</p>
+  <p>Besides getting the code slimmer, see how easy it became to include, exclude and change virtual machines, by only changing array elements.</p>
+  <p>What if the VMs aren't equal? Simple: all we need is a hash, with VM names as keys, and the changing setting as a value:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -281,7 +281,7 @@ layout: default
   end
   </pre>
 
-  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if these values are other <code>Hashes</code>, with the settings names as keys and values as values themselves? We'll call these internal <code>Hashes</code> 'confs' for our iteration:</p>
+  <p>What if they have more than one changing setting? It happens that both hash keys and values can be virtually any object. What if these values are other hashes, with the settings names as keys and values as values themselves? We'll call these internal hashes 'confs' for our iteration:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -307,7 +307,7 @@ layout: default
   end
   </pre>
 
-  <p>If the <code>Hash</code> of <code>Hashes</code> is getting difficult to visualize, let's use a command line to unwrap it:</p>
+  <p>If the hash of hashes is getting difficult to visualize, let's use a command line to unwrap it:</p>
 
   <pre>$ ruby -e '
   {
@@ -332,7 +332,7 @@ layout: default
   Key: vm_3 - Value: {:box=>"centos/7", :ip=>"192.168.1.4"}
   </pre>
 
-  <p>See how the config <code>Hashes</code> are item values for each main <code>Hash</code> item.</p>
+  <p>See how the config hashes are item values for each main hash item.</p>
   <p>What if some setting is not present in all VMs? That's when we call conditionals into action:</p>
 
   <pre>
@@ -358,11 +358,11 @@ layout: default
   end
   </pre>
 
-  <p>The key <code>:ip</code> absense in the VM 'mv_3' settings <code>Hash</code> causes directive <code>if confs.has_key?(:ip)</code> return false, so <code>vm.network</code> setting is not included. That is: 'mv_3' has no private network IP.</p>
+  <p>The key <code>:ip</code> absense in the VM 'mv_3' settings hash causes directive <code>if confs.has_key?(:ip)</code> return false, so <code>vm.network</code> setting is not included. That is: 'mv_3' has no private network IP.</p>
 
   <h2 id="how_far">How far can we get?</h2>
 
-  <p>We can also include multiple settings of the same type (like more IPs in the same VM), using <code>Arrays</code> as the setting value, use loops for global settings, and so on. The practical limit is readability - <code>Hashes</code> with too many nesting levels make data too hard to understand, and any analysis or change would take too much work. And we intend the very opposite.</p>
+  <p>We can also include multiple settings of the same type (like more IPs in the same VM), using arrays as the setting value, use loops for global settings, and so on. The practical limit is readability - hashes with too many nesting levels make data too hard to understand, and any analysis or change would take too much work. And we intend the very opposite.</p>
   <br>
-  <p>Now code is well organized, but still too cluttered due to the huge <code>Hash</code> hung in the loop beginning. Time to go to part 3 (coming soon).</p>
+  <p>Now code is well organized, but still too cluttered due to the huge hash hung in the loop beginning. Time to go to part 3 (coming soon).</p>
 </body>
