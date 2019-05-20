@@ -132,7 +132,7 @@ layout: default
   end
   </pre>
 
-  <p>Code like this tends to get lengthy, and takes a lot of effort to create (copy-paste-edit-paste-edit...). It's also hard to mantain - you have to repeat the process for each VM you want to add. Besides, finding an error would be a pain...</p>
+  <p>Code like this tends to get lengthy, and takes a lot of effort to create (copy-paste-edit-paste-edit...). It's also hard to mantain - you have to repeat the process for each VM you want to add, or for settings you have to mess with in multiple VMs. Besides, finding an error would be a pain...</p>
 
   <h2 id="solution">Solution - variables, loops and conditionals</h2>
 
@@ -182,7 +182,7 @@ layout: default
 
   <pre>
   &lt;Object&gt;.each do |&lt;variable(s)&gt;|
-    &lt;Block which uses the variables&gt;
+    &lt;Block which uses the variable(s)&gt;
   end
   </pre>
 
@@ -281,7 +281,7 @@ layout: default
   end
   </pre>
 
-  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if we get all these values in other <code>Hashes</code>, with the settings inside? We'll call these internal <code>Hashes</code> 'confs' for our iteration:</p>
+  <p>What if they have more than one changing setting? It happens that both <code>Hash</code> keys and values can be virtually any object. What if these values are other <code>Hashes</code>, with the settings names as keys and values as values themselves? We'll call these internal <code>Hashes</code> 'confs' for our iteration:</p>
 
   <pre>
   Vagrant.configure("2") do |config|
