@@ -213,15 +213,15 @@ layout: default
   <p>Condicionais são a mesma coisa em qualquer linguagem: você executa um bloco de instruções se um conjunto de condições forem verdadeiras. Em Ruby, as instruções condicionais são <code>if</code>, <code>elsif</code>, <code>else</code> e <code>unless</code>:</p>
 
   <pre>$ ruby -e '
-    puts "Pls type the age"
+    puts "Favor digitar a idade"
     age = gets().to_i
     unless age &lt; 0 then
       if age >= 18 then
-        puts "Adult"
+        puts "Adulto"
       elsif age >= 12
-        puts "Teen"
+        puts "Adolescente"
       else
-        puts "Child"
+        puts "Criança"
       end
     else
       puts "?"
