@@ -85,26 +85,26 @@ layout: default
 
   <p>Use conditionals to set attributes to a subset of virtual machine objects. Example (<code>ip</code>, in this case):</p>
   <pre>
-    Vagrant.configure("2") do |config|
-      {
-        'vm_1' => {
-          :box => 'ARTACK/debian-jessie',
-          :ip => '192.168.1.2'
-        },
-        'vm_2' => {
-          :box => 'ARTACK/debian-jessie',
-          :ip => '192.168.1.3'
-        },
-        'vm_3' => {
-          :box => 'centos/7',
-        }
-      }.each do |name, confs|
-        config.vm.define name do |vm|
-          vm.vm.box = confs[:box]
-          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
-        end
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
       end
     end
+  end
   </pre>
 
   <p>Now you surely can think of several ways to use nested hashes and conditionals in a myriad of possible situations. Just keep in mind that the hashes should be readable by non-developers - Vagrant is made to make VMs management simpler, not rocket science. Now let's go to part 3 (coming soon) and get rid of the messy look of big hashes prepended to loops.</p>
@@ -212,19 +212,19 @@ layout: default
   <p>Conditionals are the same thing in every language: a code block is executed if a set of conditions is met. In Ruby, the conditional statements are <code>if</code>, <code>elsif</code>, <code>else</code> and <code>unless</code>:</p>
 
   <pre>$ ruby -e '
-  puts "Type the age"
-  age = gets().to_i
-  unless age &lt; 0 then
-    if age >= 18 then
-      puts "Adult"
-    elsif age >= 12
-      puts "Teen"
+    puts "Type the age"
+    age = gets().to_i
+    unless age &lt; 0 then
+      if age >= 18 then
+        puts "Adult"
+      elsif age >= 12
+        puts "Teen"
+      else
+        puts "Child"
+      end
     else
-      puts "Child"
+      puts "?"
     end
-  else
-    puts "?"
-  end
   '
   </pre>
 
@@ -236,7 +236,8 @@ layout: default
 
   <p>For example, let's create some VMs with the same settings, only changing names:</p>
 
-  <pre>Vagrant.configure("2") do |config|
+  <pre>
+  Vagrant.configure("2") do |config|
     config.vm.define 'vm_1' do |vm|
       vm.vm.box = 'ARTACK/debian-jessie'
     end
@@ -251,7 +252,8 @@ layout: default
 
   <p>The code chunks are equal, except for the VM names. What about a loop iterating on a name list, running a single code block?</p>
 
-  <pre>Vagrant.configure("2") do |config|
+  <pre>
+  Vagrant.configure("2") do |config|
     [
       'vm_1',
       'vm_2',
@@ -310,22 +312,22 @@ layout: default
   <p>If the hash of hashes is getting difficult to visualize, let's use a command line to unwrap it:</p>
 
   <pre>$ ruby -e '
-  {
-    "vm_1" ={
-      :box ="ARTACK/debian-jessie",
-      :ip ="192.168.1.2"
-    },
-    "vm_2" ={
-      :box ="ARTACK/debian-jessie",
-      :ip ="192.168.1.3"
-    },
-    "vm_3" ={
-      :box ="centos/7",
-      :ip ="192.168.1.4"
-    }
-  }.each do |name, confs|
-    puts "Key: #{name} - Value: #{confs}"
-  end
+    {
+      "vm_1" ={
+        :box ="ARTACK/debian-jessie",
+        :ip ="192.168.1.2"
+      },
+      "vm_2" ={
+        :box ="ARTACK/debian-jessie",
+        :ip ="192.168.1.3"
+      },
+      "vm_3" ={
+        :box ="centos/7",
+        :ip ="192.168.1.4"
+      }
+    }.each do |name, confs|
+      puts "Key: #{name} - Value: #{confs}"
+    end
   '
   Key: vm_1 - Value: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.2"}
   Key: vm_2 - Value: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.3"}

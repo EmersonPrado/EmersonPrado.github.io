@@ -85,26 +85,26 @@ layout: default
 
   <p>Usando condicionais para incluir atributos em um subconjunto dos objetos de máquinas vituais. Exemplo (<code>ip</code>, neste caso):</p>
   <pre>
-    Vagrant.configure("2") do |config|
-      {
-        'vm_1' => {
-          :box => 'ARTACK/debian-jessie',
-          :ip => '192.168.1.2'
-        },
-        'vm_2' => {
-          :box => 'ARTACK/debian-jessie',
-          :ip => '192.168.1.3'
-        },
-        'vm_3' => {
-          :box => 'centos/7',
-        }
-      }.each do |name, confs|
-        config.vm.define name do |vm|
-          vm.vm.box = confs[:box]
-          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
-        end
+  Vagrant.configure("2") do |config|
+    {
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+      }
+    }.each do |name, confs|
+      config.vm.define name do |vm|
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
       end
     end
+  end
   </pre>
 
   <p>Agora você deve estar pensando em várias formas de usar <i>hashes</i> aninhados e condicionais em inúmeras situações possíveis. Lembre sempre que os <i>hashes</i> precisam ficar legíveis para não programadores - o Vagrant serve pra tornar o gerenciamento de MVs mais simples, não nível Einstein. Agora vamos pra parte 3 (em breve) pra nos livrar da bagunça visual de <i>hashes</i> enormes pendurados no início dos laços.</p>
@@ -213,19 +213,19 @@ layout: default
   <p>Condicionais são a mesma coisa em qualquer linguagem: você executa um bloco de instruções se um conjunto de condições forem verdadeiras. Em Ruby, as instruções condicionais são <code>if</code>, <code>elsif</code>, <code>else</code> e <code>unless</code>:</p>
 
   <pre>$ ruby -e '
-  puts "Pls type the age"
-  age = gets().to_i
-  unless age &lt; 0 then
-    if age >= 18 then
-      puts "Adult"
-    elsif age >= 12
-      puts "Teen"
+    puts "Pls type the age"
+    age = gets().to_i
+    unless age &lt; 0 then
+      if age >= 18 then
+        puts "Adult"
+      elsif age >= 12
+        puts "Teen"
+      else
+        puts "Child"
+      end
     else
-      puts "Child"
+      puts "?"
     end
-  else
-    puts "?"
-  end
   '
   </pre>
 
@@ -237,7 +237,8 @@ layout: default
 
   <p>Por exemplo, vamos criar várias MVs iguais, trocando só o nome:</p>
 
-  <pre>Vagrant.configure("2") do |config|
+  <pre>
+  Vagrant.configure("2") do |config|
     config.vm.define 'vm_1' do |vm|
       vm.vm.box = 'ARTACK/debian-jessie'
     end
@@ -252,7 +253,8 @@ layout: default
 
   <p>O código é sempre o mesmo, só mudando o nome da MV. Que tal um laço iterando um <i>array</i> com os nomes, executando um só trecho de código?</p>
 
-  <pre>Vagrant.configure("2") do |config|
+  <pre>
+  Vagrant.configure("2") do |config|
     [
       'vm_1',
       'vm_2',
@@ -311,22 +313,22 @@ layout: default
   <p>Se estiver complicado de entender o <i>hash</i> de <i>hashes</i>, vamos visualizar na linha de comando:</p>
 
   <pre>$ ruby -e '
-  {
-    "vm_1" ={
-      :box ="ARTACK/debian-jessie",
-      :ip ="192.168.1.2"
-    },
-    "vm_2" ={
-      :box ="ARTACK/debian-jessie",
-      :ip ="192.168.1.3"
-    },
-    "vm_3" ={
-      :box ="centos/7",
-      :ip ="192.168.1.4"
-    }
-  }.each do |nome, confs|
-    puts "Chave: #{nome} - Valor: #{confs}"
-  end
+    {
+      "vm_1" ={
+        :box ="ARTACK/debian-jessie",
+        :ip ="192.168.1.2"
+      },
+      "vm_2" ={
+        :box ="ARTACK/debian-jessie",
+        :ip ="192.168.1.3"
+      },
+      "vm_3" ={
+        :box ="centos/7",
+        :ip ="192.168.1.4"
+      }
+    }.each do |nome, confs|
+      puts "Chave: #{nome} - Valor: #{confs}"
+    end
   '
   Chave: vm_1 - Valor: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.2"}
   Chave: vm_2 - Valor: {:box=>"ARTACK/debian-jessie", :ip=>"192.168.1.3"}
