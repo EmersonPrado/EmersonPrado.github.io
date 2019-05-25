@@ -188,19 +188,20 @@ layout: default
 
   <p>Showing an array and a hash iterations:</p>
 
-  <pre>$ ruby -e '
-  [1, 2, 3].each do |var|
-    puts var
-  end
+  <pre>
+  $ ruby -e '
+    [1, 2, 3].each do |var|
+      puts var
+    end
   '
   1
   2
   3
 
   $ ruby -e '
-  {1 => "a", 2 => "b", 3 => "c"}.each do |key, value|
-    puts "Key: #{key} - Value: #{value}"
-  end
+    {1 => "a", 2 => "b", 3 => "c"}.each do |key, value|
+      puts "Key: #{key} - Value: #{value}"
+    end
   '
   Key: 1 - Value: a
   Key: 2 - Value: b
@@ -211,7 +212,8 @@ layout: default
 
   <p>Conditionals are the same thing in every language: a code block is executed if a set of conditions is met. In Ruby, the conditional statements are <code>if</code>, <code>elsif</code>, <code>else</code> and <code>unless</code>:</p>
 
-  <pre>$ ruby -e '
+  <pre>
+  $ ruby -e '
     puts "Type the age"
     age = gets().to_i
     unless age &lt; 0 then
@@ -311,7 +313,8 @@ layout: default
 
   <p>If the hash of hashes is getting difficult to visualize, let's use a command line to unwrap it:</p>
 
-  <pre>$ ruby -e '
+  <pre>
+  $ ruby -e '
     {
       "vm_1" ={
         :box ="ARTACK/debian-jessie",
