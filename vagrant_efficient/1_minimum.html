@@ -109,9 +109,9 @@ layout: default
   end
   </pre>
 
-  <p>Since Vagrant is a Ruby module (always remember this statement), let's think in Ruby: by sending a block to method <code>Vagrant.configure</code>, it returns an object we call <code>config</code>. This object groups all your current project settings. From this object, we call method <code>vm.define</code>, which creates another object, called <code>vm</code>, which will contain settings specific for a virtual machine.
-  Note the name <code>vm_1</code>, in the VM object creation. This will be used in Vagrant commands.
-  Note also the box name: <code>ARTACK/debian-jessie</code>. It's one from the uncountable boxes available in <a href="https://app.vagrantup.com/boxes/search">Vagrant's repository</a>. You can search suitable boxes there – check OS, hardware settings, pre-installed software, and so on – then simply copy the box name to one or more virtual machines <code>vm.box</code> attribute. You can also create boxes of your own and reference them in this setting, but this talk goes elsewhere.</p>
+  <p>Since Vagrant is a Ruby module (always remember this statement), let's think in Ruby: by sending a block to method <code>Vagrant.configure</code>, it returns an object we call <code>config</code>. This object groups all your current project settings. From this object, we call method <code>vm.define</code>, which creates another object, called <code>vm</code>, which will contain settings specific for a virtual machine.</p>
+  <p>Note the name <code>vm_1</code>, in the VM object creation. This will be used in Vagrant commands.</p>
+  <p>Note also the box name: <code>ARTACK/debian-jessie</code>. It's one from the uncountable boxes available in <a href="https://app.vagrantup.com/boxes/search">Vagrant's repository</a>. You can search suitable boxes there – check OS, hardware settings, pre-installed software, and so on – then simply copy the box name to one or more virtual machines <code>vm.box</code> attribute. Vagrant takes care of dowloading it. You can also create boxes of your own and reference them in this setting, but this talk goes elsewhere.</p>
 
   <h2 id="is_that_all">Is that really enough?</h2>
 
@@ -178,7 +178,7 @@ layout: default
   ==> vm_X: Provisioning in &lt;Date/time&gt;
   </pre>
 
-  <p>In the end, you can ping all VMs to veriry the given IPs:</p>
+  <p>In the end, you can ping all VMs to verify the given IPs:</p>
 
   <pre>
   $ for IP in 192.168.1.{2..4} ; do ping -c 1 $IP ; done

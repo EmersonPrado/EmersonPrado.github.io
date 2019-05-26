@@ -89,7 +89,7 @@ layout: default
   <p>Mas, para realmente dominar a técnica, é interessante criar um <code>Vagrantfile</code> do zero. O mínimo que o arquivo deve conter é:</p>
 
   <ol>
-   <li>Um bloco contendo <code>Vagrant.configure("2") do |config|</code>, onde <code>config</code> é o <b>objeto de configurações</b>. O Vagrant é um módulo Ruby, e <code>Vagrant.configure<code> é um método que processa as configurações dentro do bloco</li>
+   <li>Um bloco contendo <code>Vagrant.configure("2") do |config|</code>, onde <code>config</code> é o <b>objeto de configurações</b>. O Vagrant é um módulo Ruby, e <code>Vagrant.configure</code> é um método que processa as configurações dentro do bloco.</li>
    <li>Dentro do bloco <code>Vagrant.configure</code>, blocos <code>config.vm.define 'nome' do |mv|</code>, onde <code>mv</code> é o <b>objeto de máquina virtual</b>, com as configurações de cada máquina virtual. <code>nome</code> é o que será usado nos comandos do Vagrant no seu <i>shell</i></li>
    <li>Dentro de cada bloco <code>vm.define</code>, as configurações da máquina virtual. O mínimo possível é o nome do <i>box</i>, para o Vagrant baixar e "espelhar" pra criar a máquina virtual.</li>
    <li>Opcionalmente, configurações globais, dentro do bloco <code>Vagrant.configure</code> e fora dos blocos <code>vm.define</code>, que valerão para todas as MVs.</li>
@@ -98,7 +98,7 @@ layout: default
   <p>Aqui vai um exemplo de Vagrantfile extremamente minimalista, mas já funcional:</p>
 
   <blockquote>Abra seu editor preferido e crie um arquivo chamado <code>Vagrantfile</code>, com o conteúdo abaixo, no diretório base do seu projeto</blockquote>
-  <blockquote>Importante: "Vagrantfile" se escreve exatamente assim, com a inicial maiúscula e sem extensão. Caso contrário, Vagrant simplesmente não encontra o arquivo, e seu ambiente não funcionará.</blockquote>
+  <blockquote>Importante: "Vagrantfile" se escreve exatamente assim, com a inicial maiúscula e sem extensão. Caso contrário, o Vagrant simplesmente não encontra o arquivo, e seu ambiente não funcionará.</blockquote>
 
   <pre>
   Vagrant.configure("2") do |config|
@@ -108,9 +108,9 @@ layout: default
   end
   </pre>
 
-  <p>Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: ao passar um bloco ao método <code>Vagrant.configure</code>, ele devolve um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.
-  Note o nome <code>vm_1</code>, na criação do objeto da MV. Este nome será o usado nos comandos do Vagrant.
-  Note também o nome do <i>box</i>: <code>ARTACK/debian-jessie</code>. É um dos incontáveis disponíveis no <a href="https://app.vagrantup.com/boxes/search">repositório do Vagrant</a>. Você pode procurar <i>boxes</i> que te atendam neste repositório - ver SO, configurações de hardware, software pré-instalado, etc. - e simplesmente colocar o nome no atributo <code>vm.box</code> de uma ou mais máquinas virtuais. Você também pode criar <i>boxes</i> e referenciar os arquivos nesta configuração, mas isto já é outro papo.</p>
+  <p>Lembrando que Vagrant é um módulo Ruby (guarde bem esta frase), vamos pensar em Ruby: ao passar um bloco ao método <code>Vagrant.configure</code>, ele devolve um objeto que chamamos de <code>config</code>. Este objeto agrupa todas as configurações do projeto corrente do Vagrant. Deste objeto, chamamos o método <code>vm.define</code>, que cria outro objeto, chamado <code>vm</code>, que conterá as configurações da máquina virtual específica.</p>
+  <p>Note o nome <code>vm_1</code>, na criação do objeto da MV. Este nome será o usado nos comandos do Vagrant.</p>
+  <p>Note também o nome do <i>box</i>: <code>ARTACK/debian-jessie</code>. É um dos incontáveis disponíveis no <a href="https://app.vagrantup.com/boxes/search">repositório do Vagrant</a>. Você pode procurar <i>boxes</i> que te atendam neste repositório - ver SO, configurações de hardware, software pré-instalado, etc. - e simplesmente colocar o nome no atributo <code>vm.box</code> de uma ou mais máquinas virtuais. O Vagrant cuida do <i>download</i> pra você. Você também pode criar <i>boxes</i> e referenciar os arquivos nesta configuração, mas isto já é outro papo.</p>
 
   <h2 id="so_isso">Só isso já funciona?</h2>
 
@@ -138,7 +138,7 @@ layout: default
   </pre>
 
   <p>Brinque à vontade. Depois saia com <code>exit</code>. Se quiser desligar, ativar novamente ou reiniciar a máquina, basta usar <code>vagrant halt vm_1</code>, <code>vagrant up vm_1</code> ou <code>vagrant reload vm_1</code>, respectivamente.
-  Se, nos seus testes, você arrebentou a máquina, ou se quiser começar de novo, sem problemas. Saia dela normalmente, apague a máquina com <code>vagrant destroy vm_1</code> e <code>vagrant up vm_1</code>. Pronto. Máquina virtual novinha em folha, como se nada tivesse acontecido. Quantas vezes quiser.</p>
+  Se, nos seus testes, você arrebentou a máquina, ou se quiser começar de novo, sem problemas. Saia dela normalmente, apague a máquina com <code>vagrant destroy vm_1</code> e crie novamente com <code>vagrant up vm_1</code>. Pronto. Máquina virtual novinha em folha, como se nada tivesse acontecido. Quantas vezes quiser.</p>
 
   <h2 id="e_depois">E depois?</h2>
 
