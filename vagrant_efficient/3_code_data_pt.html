@@ -24,6 +24,15 @@ layout: default
 
   <h2 id="#tldr">TL;DR</h2>
   <h2 id="#problema">Problema - mexer no código a cada mudança no ambiente</h2>
+
+    <p>Seu ambiente vai mudar. Ponto final. Talvez você precise testar uma versão nova de uma aplicação, ou depurar algum problema nela, ou testá-la em outras opções de SO, ou atualizar <i>boxes</i>, etc. Esse é, afinal, um dos principais motivos pra você usar o Vagrant. Na forma corrqueira de uso do Vagrant, cada mudança implica em editar o Vagrantfile. Isto traz algumas dores de cabeça:</p>
+    <ul>
+      <li>Você pode acabar tendo um Vagrantfile enorme, com tudo dentro. Mudar alguma coisa nele vai ficando cada vez mais difícil.</li>
+      <li>Quando você precisa pensar no código, você também vê dados. Quando você edita o código, corre o risco de "esbarrar" nos dados. E vice-versa.</li>
+      <li>O reúso de Vagrantfiles se torna trabalhoso - é necessário remover todos os dados originais do Vagrantfile clonado.</li>
+      <li>O versionamento fica confuso - pra qualquer mudança feita, seu sistema de versionamento sempre indicará a mesma alteração: o Vagrantfile.</li>
+    </ul>
+
   <h2 id="#solucao">Solução - cada macaco no seu galho</h2>
   <h3 id="#variaveis">Variáveis versus lógica</h3>
   <h3 id="#yaml">Yaml</h3>

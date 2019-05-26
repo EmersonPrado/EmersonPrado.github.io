@@ -24,6 +24,15 @@ layout: default
 
   <h2 id="#tldr">TL;DR</h2>
   <h2 id="#problem">Problem - messing with code to each environment change</h2>
+
+  <p>Your environment will change. Period. You might have to test an application's new version, or debug something in it, or try it in more OS options, or update boxes, etc. That's one of the main reasons you're using Vagrant in first place. In the common Vagrant use, every change means editing your Vagrantfile. This means trouble because:</p>
+  <ul>
+    <li>You end up sometimes having a big Vagrantfile with everything in it. Changing things becomes increasingly more difficult.</li>
+    <li>When you have to think about code, you see data too. When you edit code, you risk messing data too. And vice-versa.</li>
+    <li>Reusing Vagrantfiles becomes tedious - you have to remove all original data from the cloned Vagrantfile.</li>
+    <li>Version tracking becomes a mess - no matter what had to change, your versioning system will always show the same change: Vagrantfile.</li>
+  </ul>
+
   <h2 id="#solution">Solution - each thing where it belongs</h2>
   <h3 id="#variables">Variables versus logic</h3>
   <h3 id="#yaml">Yaml</h3>
