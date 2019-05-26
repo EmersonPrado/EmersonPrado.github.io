@@ -28,7 +28,7 @@ layout: default
   <p>If you already know Ruby basics, and can play with arrays, hashes, <code>each</code> loops and conditionals, you might skip this part, and get going with what I've summarized below.</p>
   <p>You already have a working Vagrantfile, but it has a reasonable amount of repeated code. You can get rid of repetitions by:</p>
 
-  <p>Iterating an array to instantiate similar virtual machine objects. Example:</p>
+  <p>Iterating an array to create similar virtual machines. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     [
@@ -43,7 +43,7 @@ layout: default
   end
   </pre>
 
-  <p>Iterating a hash to instantiate virtual machine objects with one variyng attribute. Example:</p>
+  <p>Iterating a hash to create virtual machines with one variyng attribute. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     {
@@ -58,7 +58,7 @@ layout: default
   end
   </pre>
 
-  <p>Iterating a hash of hashes to instantiate virtual machine objects with multiple varying attributes. Example:</p>
+  <p>Iterating a hash of hashes to create virtual machines with multiple varying attributes. Example:</p>
   <pre>
   Vagrant.configure("2") do |config|
     {
@@ -83,7 +83,7 @@ layout: default
   end
   </pre>
 
-  <p>Use conditionals to set attributes to a subset of virtual machine objects. Example (<code>ip</code>, in this case):</p>
+  <p>Use conditionals to set attributes to a subset of virtual machines. Example (<code>ip</code>, in this case):</p>
   <pre>
   Vagrant.configure("2") do |config|
     {

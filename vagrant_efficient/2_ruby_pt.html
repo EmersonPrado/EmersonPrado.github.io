@@ -28,7 +28,7 @@ layout: default
   <p>Se você já sabe o básico de Ruby, e usa regularmente <i>arrays</i>, <i>hashes</i>, laços com <code>each</code> e condicionais, talvez você possa pular esta parte, e fazer tudo funcionar com o resumo abaixo.</p>
   <p>Você já tem um Vagrantfile funcional, mas com uma boa quantidade de código repetido. Vejamos como nos livrar das repetições:</p>
 
-  <p>Iterando um <i>array</i> pra instanciar objetos similares de máquinas virtuais. Exemplo:</p>
+  <p>Iterando um <i>array</i> pra criar máquinas virtuais similares. Exemplo:</p>
   <pre>
   Vagrant.configure("2") do |config|
     [
@@ -43,7 +43,7 @@ layout: default
   end
   </pre>
 
-  <p>Iterando um <i>hash</i> pra instanciar objetos de máquinas virtuais com um atributo variável. Exemplo:</p>
+  <p>Iterando um <i>hash</i> pra criar máquinas virtuais com um atributo variável. Exemplo:</p>
   <pre>
   Vagrant.configure("2") do |config|
     {
@@ -58,7 +58,7 @@ layout: default
   end
   </pre>
 
-  <p>Iterando um <i>hash</i> de <i>hashes</i> pra instanciar objetos de máquinas virtuais com múltiplos atributos variáveis. Exemplo:</p>
+  <p>Iterando um <i>hash</i> de <i>hashes</i> pra criar máquinas virtuais com múltiplos atributos variáveis. Exemplo:</p>
   <pre>
   Vagrant.configure("2") do |config|
     {
@@ -83,7 +83,7 @@ layout: default
   end
   </pre>
 
-  <p>Usando condicionais para incluir atributos em um subconjunto dos objetos de máquinas vituais. Exemplo (<code>ip</code>, neste caso):</p>
+  <p>Usando condicionais para incluir atributos em um subconjunto das máquinas vituais. Exemplo (<code>ip</code>, neste caso):</p>
   <pre>
   Vagrant.configure("2") do |config|
     {
