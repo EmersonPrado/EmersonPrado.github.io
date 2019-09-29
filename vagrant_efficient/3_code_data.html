@@ -336,5 +336,71 @@ layout: default
 
   <h3>More data files</h3>
 
+  <p>I heard you say "Hey, there's too much repetition in the data files!". That makes me proud of you.</p>
+  <p>Yes, there are settings that will repeat. All VMs from the same box use at least the same box name and version. Sometimes, same resources and/or custom settings. Why repeat them all if we can have a data file for the boxes themselves?</p>
+
+  <h4>Boxes data file</h4>
+  <pre>
+    ---
+    debian_jessie:
+      :name: ARTACK/debian-jessie
+      :ram: 256
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+    centos_7:
+      :name: centos/7
+      :cpu: 2
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+  </pre>
+
+  <h4>VMs data file</h4>
+  <pre>
+    ---
+    vm_1:
+      :box: debian_jessie
+      :ip: 192.168.1.2
+    vm_2:
+      :box: debian_jessie
+      :ip: 192.168.1.3
+    vm_3:
+      :box: centos_7
+  </pre>
+
+  <h4>Then, the Vagrantfile</h4>
+  <pre>
+    require 'yaml'
+    BOXES = YAML.load_file('etc/boxes.yaml')
+    VMS = YAML.load_file('etc/vms.yaml')
+
+    Vagrant.configure("2") do |config|
+      VMS.each do |name, confs|
+        config.vm.define name do |vm|
+          config.vbguest.auto_update = false
+          box = BOXES[confs[:box]]
+          vm.vm.box = box[:name]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+          vm.vm.provider 'virtualbox' do |virtualbox|
+            virtualbox.memory = box[:ram] if box.has_key?(:ram)
+            virtualbox.cpus = box[:cpu] if box.has_key?(:cpu)
+            box[:custom].each do |custom, value|
+              virtualbox.customize ['modifyvm', :id, custom, value]
+            end if box.has_key?(:custom)
+          end
+        end
+      end
+    end
+  </pre>
+
+  <p>There's no hard line telling which data should be in which file. Use what's most convenient.</p>
+  <br>
+  <p>Now we have 3 files with less than 20 lines each, all of them quite readable, and that gets us 3 VMs with different OSs, RAM and CPU settings, IP and provider specific stuff. And that we can very easily change and/or extend. Happy? Me too.</p>
+
   <h2 id="#where">Where do we go from here?</h2>
 </body>
