@@ -68,6 +68,76 @@ layout: default
   <p>I agree it didn't get quite neater - it got somewhat longer indeed. But it is more organized and focused. We just don't have a method and a code block around when we have to think about the data, nor a hash, or whatever data structure, when we have to think about the code. Just think about the huge hash we were dealing with in the last example of part 2, and the advantage becomes more clear.</p>
 
   <h3 id="#yaml">Yaml</h3>
+
+  <p>We still have code and data in the same file. Fortunately, we don't have to. Ruby has native support for a structured file format called YAML. This file format can store our data, making our Vagrantfile finally clean.</p>
+  <p>This is how it works: YAML files support simple variables, arrays, hashes and nesting, without much hassle (given you get familiar to the picky format). And Ruby can load an YAML file into a hash. So, all we have to do is to create a data file for each data structure, then load them in the Vagrantfile. With only code.</p>
+  <p>But how does a YAML file look like? Let's get some examples:</p>
+
+  <p>An array</p>
+  <pre>
+  ---
+  # My list
+  - Array element 1
+  - Array element 2
+  </pre>
+
+  <p>A hash</p>
+  <pre>
+  ---
+  # My mapping
+  key_1: value_1
+  key_1: value_1
+  </pre>
+
+  <p>A disturbing mess</p>
+  <pre>
+  ---
+  # A hash of arrays
+  key_1:
+    - value_1
+    - value_2
+  key_2:
+    - value_1
+    - value_2
+  # An array of hashes
+  - key_1: value_1
+  - key_2: value_2
+  - key 3:      # Who said all items should be equal?
+    - value 3_1
+    - value 3_2
+  # Is this trip really necessary?
+  key_1:
+    key_1_1:
+    - value_1_1_1
+    - value_1_1_2
+    key_1_2:
+    - value_1_2_1
+    - value_1_2_2
+  key_2:
+    key_2_1:
+    - value_2_1_1
+    - value_2_1_2
+    key_2_2:
+    - value_2_2_1
+    - value_2_2_2
+  # Yes, comments. Both inline and standalone. Try this into the hanging hash from part 2.
+  </pre>
+
+  <p>Things to note:</p>
+  <ul>
+    <li>The first line has 3 dashes. This tells the OS it's a YAML file. Not quite a strong requirement, but highly recommended.</li>
+    <li>Arrays have items prepended by <b>one</b> dash and <b>one</b> space. I do mean one. Remember: YAML is picky.</li>
+    <li>Hashes have keys appended by a colon, followed by the value. There must be space(s) before the value. Remember: YAML is picky.</li>
+    <li><b>Spaces in line beginnings are absolutely critical</b>. Use exactly two for each depth level. First-order variables use no spaces, key values use two, nested key values use four, and so on. I might not have warned you, but YAML is picky.</li>
+  </ul>
+
+  <p>For real YAML learning, check out:</p>
+  <ul>
+    <li>This <a href="https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html">nice overview</a> from Ansible docs. It is quite a thorough overview, but still a simple and light-reading one.</li>
+    <li>A <a href="https://www.tutorialspoint.com/yaml/index.htm">full tutorial</a> from Tutorials Point. Walks you through everything (I guess).</li>
+    <li>The <a href="https://yaml.org/spec/1.2/spec.html">official manual</a>. Official manuals should always be at hand.</li>
+  </ul>
+
   <h2 id="#together">Putting pieces together</h2>
   <h2 id="#where">Where do we go from here?</h2>
 </body>
