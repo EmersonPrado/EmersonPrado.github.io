@@ -241,6 +241,98 @@ layout: default
   <p>Done! We have two slim and readable files, one with code and another one with data. You don't touch the Vagrantfile anymore to change VMs.</p>
 
   <h3 id="#settings">More settings</h3>
+  <p>Yes, sure a virtual machine is not about only name and IPs. Maybe you need to change RAM and/or CPU settings, for example?</p>
+
+  <pre>
+    require 'yaml'
+    VMS = YAML.load_file('etc/vms.yaml')
+
+    Vagrant.configure("2") do |config|
+      VMS.each do |nome, confs|
+        config.vm.define nome do |vm|
+          config.vbguest.auto_update = false
+          vm.vm.box = confs[:box]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+          vm.vm.provider 'virtualbox' do |virtualbox|
+            virtualbox.memory = confs[:ram] if confs.has_key?(:ram)
+            virtualbox.cpus = confs[:cpu] if confs.has_key?(:cpu)
+          end
+        end
+      end
+    end
+  </pre>
+
+  <p>Then, in the data file:</p>
+  <pre>
+    ---
+    vm_1:
+      :box: ARTACK/debian-jessie
+      :ram: 256
+      :ip: 192.168.1.2
+    vm_2:
+      :box: ARTACK/debian-jessie
+      :ram: 256
+      :ip: 192.168.1.3
+    vm_3:
+      :box: centos/7
+      :cpu: 2
+  </pre>
+
+  <p>In my case, I needed some VirtualBox custom settings. In Vagrant, this is done by passing a setting name and a value into <code>virtualbox.customize</code> tag.</p>
+
+  <pre>
+    require 'yaml'
+    VMS = YAML.load_file('etc/vms.yaml')
+
+    Vagrant.configure("2") do |config|
+      VMS.each do |nome, confs|
+        config.vm.define nome do |vm|
+          config.vbguest.auto_update = false
+          vm.vm.box = confs[:box]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+          vm.vm.provider 'virtualbox' do |virtualbox|
+            virtualbox.memory = confs[:ram] if confs.has_key?(:ram)
+            virtualbox.cpus = confs[:cpu] if confs.has_key?(:cpu)
+            confs[:custom].each do |custom, value|
+              virtualbox.customize ['modifyvm', :id, custom, value]
+            end if confs.has_key?(:custom)
+          end
+        end
+      end
+    end
+  </pre>
+
+  <p>That was the code, so the settings themselves are irrelevant (no data in code!). Now, in the datafile, let's disable USB and VirtualBox Remote Desktop Extension, which already gave me pain in some VMs:</p>
+  <blockquote>For the custom settings, we need names and values, which means a hash</blockquote>
+  <pre>
+    ---
+    vm_1:
+      :box: ARTACK/debian-jessie
+      :ram: 256
+      :ip: 192.168.1.2
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+    vm_2:
+      :box: ARTACK/debian-jessie
+      :ram: 256
+      :ip: 192.168.1.3
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+    vm_3:
+      :box: centos/7
+      :cpu: 2
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+  </pre>
 
   <h3>More data files</h3>
 
