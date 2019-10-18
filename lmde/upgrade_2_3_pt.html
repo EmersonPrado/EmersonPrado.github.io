@@ -28,6 +28,74 @@ layout: default
 
   <h2 id="tldr">TL;DR</h2>
 
+  <p>Instale o LightDM e o Cinnamon, desinstale o MDM e reinicie (o meu computador precisou de um reinício pro LightDM funcionar direito).</p>
+  <pre>
+    sudo apt install lightdm cinnamon mint-meta-debian-cinnamon
+    sudo apt remove --purge mdm mint-mdm-themes*
+    sudo dpkg-reconfigure lightdm
+    sudo reboot
+  </pre>
+
+  <p>Teste até se acostumar com a combinação (e a sua família também, se for o caso), então desinstale os pacotes do Mate que sobraram e instale os que faltam do Cinnamon.</p>
+  <pre>
+    sudo dpkg -r –force-depends mint-info-debian-mate
+    sudo dpkg -r –force-depends mint-user-guide-mate
+    sudo apt install mint-info-debian-cinnamon mint-user-guide-cinnamon
+  </pre>
+
+  <p>Faça um <i>backup</i> e um <i>snapshot</i>. Faça o <i>backup</i> do seu jeito. Use o <code>timeshift</code> pro <i>snapshot</i>.</p>
+  <pre>
+    sudo apt install timeshift
+    sudo timeshift --create
+    ...
+    RSYNC Snapshot saved successfully (&lt;Tempo&gt;)
+    Tagged snapshot '&lt;Nome&gt;': ondemand
+    sudo timeshift --list
+    ...
+    Num     Name                 Tags  Description
+    ------------------------------------------------------------------------------
+    &lt;Número&gt;    >  &lt;Nome&gt;  O
+  </pre>
+
+  <p>Atualize o LMDE 2 e instale o atualizador pra LMDE 3.</p>
+  <pre>
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install mintupgrade
+  </pre>
+
+  <p>Configure rolagem ilimitada no seu terminal. No menu "Editar" do terminal, vá para "Preferências do perfil" -> "Rolagem" - "Ilimitada".</p>
+  <p>Verifique os requisitos e baixe os pacotes para a atualização.</p>
+  <pre>
+    # Repita cada passo até ficar 100% satisfeito, fazendo todas as correções que aparecerem
+    mintupgrade check
+    mintupgrade download
+  </pre>
+
+  <p>Atualize o <i>backup</i> e crie mais um <i>snapshot</i>.</p>
+  <pre>
+    # Aqui também - a parte do backup é com você
+    sudo timeshift --create
+  </pre>
+
+  <p>Atualize o LMDE!</p>
+  <blockquote>Anote os pacotes removidos - você talvez queira alguns de volta no final</blockquote>
+  <pre>
+    mintupgrade upgrade
+  </pre>
+
+  <p>Revise as configurações em geral. Aqui, eu tive que habilitar novamente 'Permitir início de sessão manual' e desabilitar 'Ocultar lista de usuários' no Menu principal - Administração - Janela de início de sessão - Usuários.</p>
+  <p>Quando estiver totalmente satisfeito com os resultados, apague os <i>snapshots</i>.</p>
+  <pre>
+    # Pra escolher snapshots a remover
+    sudo timeshift --list
+    timeshift --delete  --snapshot '&lt;Name&gt;'
+    # Pra remover todos os snapshots
+    timeshift --delete-all
+  </pre>
+
+  <p>Missão cumprida.</p>
+
   <h2 id="before">Antes de começar</h2>
 
   <h2 id="backup_snapshot">Primeiros <i>backup</i> e <i>snapshot</i></h2>

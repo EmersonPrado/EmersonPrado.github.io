@@ -28,6 +28,74 @@ layout: default
 
   <h2 id="tldr">TL;DR</h2>
 
+  <p>Install LightDM and Cinnamon, remove MDM and reboot (my system required a reboot for LightDM to fully work).</p>
+  <pre>
+    sudo apt install lightdm cinnamon mint-meta-debian-cinnamon
+    sudo apt remove --purge mdm mint-mdm-themes*
+    sudo dpkg-reconfigure lightdm
+    sudo reboot
+  </pre>
+
+  <p>Test them until you're OK (and your family too, if it's the case), then remove remaining Mate packages and install remaining Cinnamon ones.</p>
+  <pre>
+    sudo dpkg -r –force-depends mint-info-debian-mate
+    sudo dpkg -r –force-depends mint-user-guide-mate
+    sudo apt install mint-info-debian-cinnamon mint-user-guide-cinnamon
+  </pre>
+
+  <p>Do a backup and a snapshot. The backup procedure is up to you. Use <code>timeshift</code> for the snapshot.</p>
+  <pre>
+    sudo apt install timeshift
+    sudo timeshift --create
+    ...
+    RSYNC Snapshot saved successfully (&lt;Time&gt;)
+    Tagged snapshot '&lt;Name&gt;': ondemand
+    sudo timeshift --list
+    ...
+    Num     Name                 Tags  Description
+    ------------------------------------------------------------------------------
+    &lt;Number&gt;    >  &lt;Name&gt;  O
+  </pre>
+
+  <p>Update LMDE 2 and install the upgrader.</p>
+  <pre>
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install mintupgrade
+  </pre>
+
+  <p>Set your terminal to unlimited scrolling. In terminal's "Edit" menu, go to "Profile Preferences" -> "Scrolling" - "unlimited".</p>
+  <p>Check the update requisites and download packages.</p>
+  <pre>
+    # Repeat each step until 100% satisfied, fixing everything it tells you
+    mintupgrade check
+    mintupgrade download
+  </pre>
+
+  <p>Update your backup and do another snapshot.</p>
+  <pre>
+    # Again, the backup part is up to you
+    sudo timeshift --create
+  </pre>
+
+  <p>Upgrade LMDE!</p>
+  <blockquote>Note the packages it will remove - you might want some of them back afterwards</blockquote>
+  <pre>
+    mintupgrade upgrade
+  </pre>
+
+  <p>Review overall settings. In my case, I had to reenable 'Manual login' and disable 'Hide user list' in Main menu - Administration - Login Window - Users.</p>
+  <p>When fully satisfied with the results, remove the snapshots.</p>
+  <pre>
+    # If you want to select snapshots to remove
+    sudo timeshift --list
+    timeshift --delete  --snapshot '&lt;Name&gt;'
+    # If you want to remove all snapshots
+    timeshift --delete-all
+  </pre>
+
+  <p>Done.</p>
+
   <h2 id="before">Before you begin</h2>
 
   <h2 id="backup_snapshot">First backup and snapshot</h2>
