@@ -109,6 +109,14 @@ layout: default
 
   <h2 id="backup_snapshot">Primeiros <i>backup</i> e <i>snapshot</i></h2>
 
+  <p>Você decidiu continuar, então agora o negócio é sério. Vá pegar sua HD externa ou equivalente e faça o <i>backup</i> dos seus arquivos. Depois, instale uma ferramenta bem legal de <i>snapshot</i> chamada <a href="https://teejeetech.in/timeshift/">timeshift</a> e crie um <i>snapshot</i> do sistema. Aí você terá segurança pra começar a mexer com a sua instalação.</p>
+
+  <pre>
+    # Os comandos abaixo fazem só o snapshot, não backup. Faça o backup do seu jeito.
+    sudo apt install timeshift
+    sudo timeshift --create
+  </pre>
+
   <h2 id="switch">Troca do gerenciador de <i>display</i> e do <i>desktop</i> para LightDM e Cinnamon</h2>
 
   <h3 id="lightdm">Gerenciador de <i>display</i></h3>

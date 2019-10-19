@@ -109,6 +109,14 @@ layout: default
 
   <h2 id="backup_snapshot">First backup and snapshot</h2>
 
+  <p>You decided to go ahead, so it's serious now. Grab your external HD or whatever and backup your files. Plus, install the handy system snapshot tool <a href="https://teejeetech.in/timeshift/">timeshift</a> and create a system snapshot. Then, you're safe to begin messing with your installation.</p>
+
+  <pre>
+    # These commands only do the snapshot, not the backup. Do the backup your way.
+    sudo apt install timeshift
+    sudo timeshift --create
+  </pre>
+
   <h2 id="switch">Switch display manager and desktop environment to LightDM and Cinnamon</h2>
 
   <h3 id="lightdm">Display Manager</h3>
