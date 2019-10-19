@@ -119,9 +119,43 @@ layout: default
 
   <h2 id="switch">Switch display manager and desktop environment to LightDM and Cinnamon</h2>
 
+  <p>Although it sounds straightforward, there are some catches:</p>
+  <ol>
+    <li>It's not enough to install and configure Cinnamon. You must convince Mint Upgrade Tool you did by tricking with the packages - specially <code>mint-meta-debian-cinnamon</code>.</li>
+    <li>The way to trick the upgrader to accept you have Cinnamon in the original article breaks <code>apt</code> dependencies management before you finish - so you can't finish. Luckily, some commenters found the way out.</li>
+    <li>You better get used to LightDM and Cinnamon before ultimately switching. Specially if you share the computer with your family, like me.</li>
+  </ol>
+
+  <p>Here's how I managed to do it:</p>
+
   <h3 id="lightdm">Display Manager</h3>
 
+  <p>Install LightDM packages and purge MDM ones. This requires a later reconfiguring and a reboot.</p>
+  <pre>
+    sudo apt install lightdm
+    # The purging below requires a later fixup
+    sudo apt remove --purge mdm mint-mdm-themes*
+    # The fixup
+    sudo dpkg-reconfigure lightdm
+    # My system didn't get fully convinced till I rebooted
+    sudo reboot
+  </pre>
+
   <h3 id="cinnamon">Desktop environment</h3>
+
+  <p>This was the hardest part. The original instructions tell you to force remove some Mate packages and install the Cinnamon ones. But the force removal breaks dependencies, and <code>apt</code> won't install anything afterwards. But, in the order below, it works.</p>
+  <pre>
+    sudo apt install cinnamon
+    # This is when you can pause for some days till you and your family get OK with Cinnamon
+
+    # This metapackage is what tells the updater you have Cinnamon
+    sudo apt install mint-meta-debian-cinnamon
+    # These force removals would break apt, but the metapackage above saves the day
+    sudo dpkg -r --force-depends mint-info-debian-mate
+    sudo dpkg -r --force-depends mint-user-guide-mate
+    # With Mate packages out of the way, you can finish Cinnamon install
+    sudo apt install mint-info-debian-cinnamon mint-user-guide-cinnamon
+  </pre>
 
   <h2 id="another_backup_snapshot">Another backup and snapshot</h3>
 

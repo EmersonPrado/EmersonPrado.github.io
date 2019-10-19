@@ -119,9 +119,43 @@ layout: default
 
   <h2 id="switch">Troca do gerenciador de <i>display</i> e do <i>desktop</i> para LightDM e Cinnamon</h2>
 
+  <p>Parece simples, mas cuidado com as armadilhas:</p>
+  <ol>
+    <li>Não basta instalar e configurar o Cinnamon. Você precisa convencer o atualizador do Mint que você está usando Cinnamon, fazendo alguns malabarismos com pacotes - especialmente o <code>mint-meta-debian-cinnamon</code>.</li>
+    <li>Os truques do artigo original pra fazer o atualizador aceitar que o Cinnamon é o <i>desktop</i> ativo quebram o gerenciamento de dependências do <code>apt</code> no meio do caminho - aí você não tem como chegar no fim. Felizmente, os comentários do artigo têm a saída.</li>
+    <li>Recomendo se acostumar com o LightDM e o Cinnamon antes de trocar de vez. Especialmente se a sua família, como a minha, também usa o computador.</li>
+  </ol>
+
+  <p>Solução do problema dos pacotes:</p>
+
   <h3 id="lightdm">Gerenciador de <i>display</i></h3>
 
+  <p>Instale os pacotes do LightDM e expurgue os do MDM. Depois, é necessário reconfigurar e reiniciar.</p>
+  <pre>
+    sudo apt install lightdm
+    # O expurgo abaixo pede uma reconfiguração
+    sudo apt remove --purge mdm mint-mdm-themes*
+    # A reconfiguração
+    sudo dpkg-reconfigure lightdm
+    # Meu computador só se satisfez com a mudança depois de reiniciar
+    sudo reboot
+  </pre>
+
   <h3 id="cinnamon"><i>Desktop</i></h3>
+
+  <p>Essa foi a pior parte. As instruções originais falam pra forçar a remoção de alguns pacotes do Mate e instalar os do Cinnamon. Mas a remoção forçada quebra dependências, então o <code>apt</code> não consegue instalar mais nada. Mas, na ordem abaixo, a mudança dá certo.</p>
+  <pre>
+    sudo apt install cinnamon
+    # Essa é a hora de pausar por uns dias, pra você e, se for o caso, a sua família, se acostumar com o Cinnamon
+
+    # Este metapacote é o que faz o atualizador entender que você está usando o Cinnamon
+    sudo apt install mint-meta-debian-cinnamon
+    # As remoções forçadas quebrariam as dependências, mas o metapacote acima deixa em ordem
+    sudo dpkg -r --force-depends mint-info-debian-mate
+    sudo dpkg -r --force-depends mint-user-guide-mate
+    # Agora que se livrou dos pacotes do Mate, é só terminar a instalação do Cinnamon
+    sudo apt install mint-info-debian-cinnamon mint-user-guide-cinnamon
+  </pre>
 
   <h2 id="another_backup_snapshot">Mais <i>backup</i> e <i>snapshot</i></h3>
 
