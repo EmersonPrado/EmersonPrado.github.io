@@ -54,7 +54,7 @@ layout: default
     sudo timeshift --list
     ...
     Num     Name                 Tags  Description
-    ------------------------------------------------------------------------------
+    ----------------------------------------------
     &lt;Número&gt;    >  &lt;Nome&gt;  O
   </pre>
 
@@ -68,7 +68,8 @@ layout: default
   <p>Configure rolagem ilimitada no seu terminal. No menu "Editar" do terminal, vá para "Preferências do perfil" -> "Rolagem" - "Ilimitada".</p>
   <p>Verifique os requisitos e baixe os pacotes para a atualização.</p>
   <pre>
-    # Repita cada passo até ficar 100% satisfeito, fazendo todas as correções que aparecerem
+    # Repita cada passo até ficar 100% satisfeito,
+    # fazendo todas as correções que aparecerem
     mintupgrade check
     mintupgrade download
   </pre>
@@ -90,7 +91,7 @@ layout: default
   <pre>
     # Pra escolher snapshots a remover
     sudo timeshift --list
-    timeshift --delete  --snapshot '&lt;Name&gt;'
+    timeshift --delete  --snapshot '&lt;Nome&gt;'
     # Pra remover todos os snapshots
     timeshift --delete-all
   </pre>
@@ -113,7 +114,8 @@ layout: default
   <p>Você decidiu continuar, então agora o negócio é sério. Vá pegar sua HD externa ou equivalente e faça o <i>backup</i> dos seus arquivos. Depois, instale uma ferramenta bem legal de <i>snapshot</i> chamada <a href="https://teejeetech.in/timeshift/">timeshift</a> e crie um <i>snapshot</i> do sistema. Aí você terá segurança pra começar a mexer com a sua instalação.</p>
 
   <pre>
-    # Os comandos abaixo fazem só o snapshot, não backup. Faça o backup do seu jeito.
+    # Os comandos abaixo fazem só o snapshot, não backup
+    # Faça o backup do seu jeito
     sudo apt install timeshift
     sudo timeshift --create
   </pre>
@@ -149,12 +151,15 @@ layout: default
     sudo apt install cinnamon
     # Essa é a hora de pausar por uns dias, pra você e, se for o caso, a sua família, se acostumar com o Cinnamon
 
-    # Este metapacote é o que faz o atualizador entender que você está usando o Cinnamon
+    # Este metapacote é o que faz o atualizador entender
+    # que você está usando o Cinnamon
     sudo apt install mint-meta-debian-cinnamon
-    # As remoções forçadas quebrariam as dependências, mas o metapacote acima deixa em ordem
+    # As remoções forçadas abaixo quebrariam as dependências,
+    # mas o metapacote acima deixa em ordem
     sudo dpkg -r --force-depends mint-info-debian-mate
     sudo dpkg -r --force-depends mint-user-guide-mate
-    # Agora que se livrou dos pacotes do Mate, é só terminar a instalação do Cinnamon
+    # Agora que se livrou dos pacotes do Mate,
+    # é só terminar a instalação do Cinnamon
     sudo apt install mint-info-debian-cinnamon mint-user-guide-cinnamon
   </pre>
 
@@ -162,15 +167,17 @@ layout: default
 
   <p>Seu sistema está no último estado seguro antes da atualização. Atualize seu <i>backup</i> e crie mais um <i>snapshot</i>. Na verdade, você nem deve precisar mais do primeiro <i>snapshot</i>. Mas este é crucial.</p>
   <pre>
-    # De novo: estes comandos fazem só o snapshot, não o backup. Faça o backup do seu jeito.
+    # De novo: estes comandos fazem só o snapshot, não o backup
+    # Faça o backup do seu jeito
     sudo timeshift --create
 
-    # Se você está tranquilo com o estado atual, você pode listar os snapshots e apagar o anterior
+    # Se você está tranquilo com o estado atual,
+    # você pode listar os snapshots e apagar o anterior
     sudo timeshift --list
     ...
 
     Num     Name                 Tags  Description
-    ------------------------------------------------------------------------------
+    ----------------------------------------------
     0    >  &lt;Nome&gt;                O
 
     # Tenha certeza de que vai apagar o snapshot certo!
@@ -189,9 +196,11 @@ layout: default
     sudo apt install mintupgrade
     # Leia a ajuda (sempre!)
     mintupgrade help
-    # Repita a checagem abaixo até estar plenamente satisfeito. Não dê nenhum outro passo até passar todas elas!
+    # Repita a checagem abaixo até estar plenamente satisfeito
+    # Não dê nenhum outro passo até passar todas elas!
     mintupgrade check
-    # Mais uma vez, faça e refaça até ter 100% de certeza que baixou tudo. Não siga em frente deixando pendências pra trás.
+    # Mais uma vez, faça e refaça até ter 100% de certeza que baixou tudo
+    # Não siga em frente deixando pendências pra trás
     mintupgrade download
   </pre>
 
