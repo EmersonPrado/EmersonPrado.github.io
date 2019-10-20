@@ -159,6 +159,25 @@ layout: default
 
   <h2 id="another_backup_snapshot">Mais <i>backup</i> e <i>snapshot</i></h3>
 
+  <p>Seu sistema está no último estado seguro antes da atualização. Atualize seu <i>backup</i> e crie mais um <i>snapshot</i>. Na verdade, você nem deve precisar mais do primeiro <i>snapshot</i>. Mas este é crucial.</p>
+  <pre>
+    # De novo: estes comandos fazem só o snapshot, não o backup. Faça o backup do seu jeito.
+    sudo timeshift --create
+
+    # Se você está tranquilo com o estado atual, você pode listar os snapshots e apagar o anterior
+    sudo timeshift --list
+    ...
+
+    Num     Name                 Tags  Description
+    ------------------------------------------------------------------------------
+    0    >  &lt;Nome&gt;                O
+
+    # Confira que vai apagar o snapshot certo!
+    sudo timeshift --delete  --snapshot '&lt;Nome&gt;'
+  </pre>
+
+  <p>Na hora do aperto, <code>timeshift --help</code> é seu amigo.</p>
+
   <h2 id="prepare">Preparação</h2>
 
   <h2 id="upgrade">Ação</h2>

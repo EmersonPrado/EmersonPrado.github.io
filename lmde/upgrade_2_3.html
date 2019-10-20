@@ -159,6 +159,25 @@ layout: default
 
   <h2 id="another_backup_snapshot">Another backup and snapshot</h3>
 
+  <p>This is the last safe state for your system before upgrading. Update your backup and do a snapshot. In fact, you might not need the first one anymore. But this one is crucial.</p>
+  <pre>
+    # Again: these commands only do the snapshot, not the backup. Do the backup your way.
+    sudo timeshift --create
+
+    # Since you're OK with the current state, you can list snapshots and then erase the previous one
+    sudo timeshift --list
+    ...
+
+    Num     Name                 Tags  Description
+    ------------------------------------------------------------------------------
+    0    >  &lt;Name&gt;                O
+
+    # Be sure to choose the right one!
+    sudo timeshift --delete  --snapshot '&lt;Name&gt;'
+  </pre>
+
+  <p>In case of fire, <code>timeshift --help</code> is your friend.</p>
+
   <h2 id="prepare">Preparing for the upgrade</h2>
 
   <h2 id="upgrade">The upgrade</h2>
