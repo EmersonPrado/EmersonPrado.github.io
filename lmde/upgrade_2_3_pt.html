@@ -196,4 +196,25 @@ layout: default
 
   <h2 id="upgrade">Ação</h2>
 
+  <p>Adivinhou:</p>
+
+  <pre>
+    mintupgrade upgrade
+  </pre>
+
+  <p>Este comando cuida de tudo. Mesmo assim, melhor acompanhar: o atualizador vai remover um monte de pacotes. Anote - talvez você queira reinstalar algum(ns) depois.</p>
+  <p>Quando a atualização terminar, verifique as configurações em geral. Eu precisei habilitar o 'Permitir início de sessão manual' e desabilitar 'Ocultar lista de usuários' no Menu principal - Administração - Janela de início de sessão - Usuários.</p>
+
+  <p>Com tudo terminado, quando você estiver satisfeito com os resultados, você pode apagar o <i>snapshot</i>.</p>
+
+  <pre>
+    # Pra escolher snapshots pra apagar
+    sudo timeshift --list
+    timeshift --delete  --snapshot '&lt;Name&gt;'
+    # Pra apagar todos
+    timeshift --delete-all
+  </pre>
+
+  <p>Feliz LMDE novo!</p>
+
 </body>
