@@ -180,6 +180,20 @@ layout: default
 
   <h2 id="prepare">Preparing for the upgrade</h2>
 
+  <p>First, set your terminal to unlimited scrolling. In terminal's "Edit" menu, go to "Profile Preferences" -> "Scrolling" - "unlimited". You might need a lot of shell logging.</p>
+  <p>Preparing to upgrade means to fully update your current LMDE version, then install the updater, run its checks and download packages.</p>
+  <pre>
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install mintupgrade
+    # Read the help (always!)
+    mintupgrade help
+    # Repeat check below until fully satisfied. Do not do anything else before passing absolutely all checks!
+    mintupgrade check
+    # Again, rinse and repeat until absolutely sure you downloaded everything. Don't allow any pendencies when proceeding.
+    mintupgrade download
+  </pre>
+
   <h2 id="upgrade">The upgrade</h2>
 
 </body>

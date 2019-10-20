@@ -180,6 +180,20 @@ layout: default
 
   <h2 id="prepare">Preparação</h2>
 
+  <p>Comece configurando o terminal pra rolagem ilimitada. No menu "Editar" do terminal, vá para "Preferências do perfil" -> "Rolagem" - "ilimitada". Você pode precisar de muito histórico do <i>shell</i>.</p>
+  <p>Preparar pra atualização quer dizer atualizar completamente a versão atual do LMDE, instalar o atualizador, executar suas checagens e baixar os pacotes.</p>
+  <pre>
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install mintupgrade
+    # Leia a ajuda (sempre!)
+    mintupgrade help
+    # Repita a checagem abaixo até estar plenamente satisfeito. Não dê nenhum outro passo até passar todas elas!
+    mintupgrade check
+    # Mais uma vez, faça e refaça até ter 100% de certeza que baixou tudo. Não siga em frente deixando pendências pra trás.
+    mintupgrade download
+  </pre>
+
   <h2 id="upgrade">Ação</h2>
 
 </body>
