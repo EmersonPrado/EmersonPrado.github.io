@@ -10,7 +10,7 @@ layout: default
   <h4>Para quem ainda está usando o Linux Mint Debian Edition versão 2, que está obsoleto faz tempo, veja aqui instruções pra uma atualização razoavelmente limpa</h4>
 
   <p>O procedimento abaixo é, na verdade, um apanhado das instruções e comentários <a href="https://community.linuxmint.com/tutorial/view/2419">deste artigo</a> da página do Linux Mint. É só pra poupar o seu tempo de vasculhar tudo pra resolver problemas já resolvidos.</p>
-  <blockquote>O procedimento considera que você está usando um usuário com permissões de sudo, mas não o <code>root</code>. É mais seguro do que virar <code>root</code>.</blockquote>
+  <blockquote>O procedimento considera que você está usando um usuário com permissões de sudo, não o <code>root</code>. É mais seguro do que virar <code>root</code>.</blockquote>
 
   <ol>
     <li><a href="#tldr">TL;DR</a></li>
@@ -173,7 +173,7 @@ layout: default
     ------------------------------------------------------------------------------
     0    >  &lt;Nome&gt;                O
 
-    # Confira que vai apagar o snapshot certo!
+    # Tenha certeza de que vai apagar o snapshot certo!
     sudo timeshift --delete  --snapshot '&lt;Nome&gt;'
   </pre>
 
@@ -211,7 +211,7 @@ layout: default
   <pre>
     # Pra escolher snapshots pra apagar
     sudo timeshift --list
-    timeshift --delete  --snapshot '&lt;Name&gt;'
+    timeshift --delete  --snapshot '&lt;Nome&gt;'
     # Pra apagar todos
     timeshift --delete-all
   </pre>
