@@ -114,7 +114,7 @@ layout: default
   <p>Você decidiu continuar, então agora o negócio é sério. Vá pegar sua HD externa ou equivalente e faça o <i>backup</i> dos seus arquivos. Depois, instale uma ferramenta bem legal de <i>snapshot</i> chamada <a href="https://teejeetech.in/timeshift/">timeshift</a> e crie um <i>snapshot</i> do sistema. Aí você terá segurança pra começar a mexer com a sua instalação.</p>
 
   <pre>
-    # Os comandos abaixo fazem só o snapshot, não backup
+    # Os comandos abaixo fazem só o snapshot, não o backup
     # Faça o backup do seu jeito
     sudo apt install timeshift
     sudo timeshift --create
@@ -124,7 +124,7 @@ layout: default
 
   <p>Parece simples, mas cuidado com as armadilhas:</p>
   <ol>
-    <li>Não basta instalar e configurar o Cinnamon. Você precisa convencer o atualizador do Mint que você está usando Cinnamon, fazendo alguns malabarismos com pacotes - especialmente o <code>mint-meta-debian-cinnamon</code>.</li>
+    <li>Não basta instalar e configurar o Cinnamon. Você precisa convencer o atualizador do Mint que está usando Cinnamon, fazendo alguns malabarismos com os pacotes - especialmente o <code>mint-meta-debian-cinnamon</code>.</li>
     <li>Os truques do artigo original pra fazer o atualizador aceitar que o Cinnamon é o <i>desktop</i> ativo quebram o gerenciamento de dependências do <code>apt</code> no meio do caminho - aí você não tem como chegar no fim. Felizmente, os comentários do artigo têm a saída.</li>
     <li>Recomendo se acostumar com o LightDM e o Cinnamon antes de trocar de vez. Especialmente se a sua família, como a minha, também usa o computador.</li>
   </ol>
@@ -146,7 +146,7 @@ layout: default
 
   <h3 id="cinnamon"><i>Desktop</i></h3>
 
-  <p>Essa foi a pior parte. As instruções originais falam pra forçar a remoção de alguns pacotes do Mate e instalar os do Cinnamon. Mas a remoção forçada quebra dependências, então o <code>apt</code> não consegue instalar mais nada. Mas, na ordem abaixo, a mudança dá certo.</p>
+  <p>Essa foi a pior parte. As instruções originais falam pra forçar a remoção de alguns pacotes do Mate e instalar os do Cinnamon. Mas a remoção forçada quebra dependências, então o <code>apt</code> não consegue instalar mais nada. Já seguindo a ordem abaixo, a mudança dá certo.</p>
   <pre>
     sudo apt install cinnamon
     # Essa é a hora de pausar por uns dias, pra você e,
@@ -156,7 +156,7 @@ layout: default
     # que você está usando o Cinnamon
     sudo apt install mint-meta-debian-cinnamon
     # As remoções forçadas abaixo quebrariam as dependências,
-    # mas o metapacote acima deixa em ordem
+    # mas o metapacote acima deixa tudo em ordem
     sudo dpkg -r --force-depends mint-info-debian-mate
     sudo dpkg -r --force-depends mint-user-guide-mate
     # Agora que se livrou dos pacotes do Mate,
