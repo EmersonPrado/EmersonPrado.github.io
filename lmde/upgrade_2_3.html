@@ -103,7 +103,7 @@ layout: default
   <p>Before you start thrashing in the shell, let's have a couple important things in mind:</p>
   <ul>
     <li>Linux Mint Debian Edition is not a rolling release distro. So, the only pain-free upgrade scheme is a fresh install. The upgrade recipe and tools are a incredibly great work from Mint mantainer <a href="https://community.linuxmint.com/user/view/3">Clement Lefebvre</a> for those who prefer not to wipe the system partition. But it's not trivial - you have been warned.</li>
-    <li>LMDE 3 comes with LightDM display manager and Cinnamon desktop environment, and the updater requires them. You can switch back later, but you'll <b>have to</b> go for LightDM and Cinnamon for the upgrade.</li>
+    <li>LMDE 3 comes with LightDM display manager and Cinnamon desktop environment, and the upgrader requires them. You can switch back later, but you'll <b>have to</b> go for LightDM and Cinnamon for the upgrade.</li>
     <li>You'll <b>have to</b> do a backup and a system snapshot. Even if you never did. <b>Do not</b> skip it this time.</li>
     <li>Fully read and understand the entire instructions before you start typing. You better not have surprises along the way.</li>
     <li>Are you comfortable with the command line? You'll need to be.</li>
@@ -152,7 +152,7 @@ layout: default
     # This is when you can pause for some days
     # till you and your family get OK with Cinnamon
 
-    # This metapackage is what tells the updater you have Cinnamon
+    # This metapackage is what tells the upgrader you have Cinnamon
     sudo apt install mint-meta-debian-cinnamon
     # The force removals below would break apt,
     # but the metapackage above saves the day
@@ -188,7 +188,7 @@ layout: default
   <h2 id="prepare">Preparing for the upgrade</h2>
 
   <p>First, set your terminal to unlimited scrolling. In terminal's "Edit" menu, go to "Profile Preferences" -> "Scrolling" - "unlimited". You might need a lot of shell logging.</p>
-  <p>Preparing to upgrade means to fully update your current LMDE version, then install the updater, run its checks and download packages.</p>
+  <p>Preparing to upgrade means to fully update your current LMDE version, then install the upgrader, run its checks and download packages.</p>
   <pre>
     sudo apt update
     sudo apt upgrade
