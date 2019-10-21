@@ -33,7 +33,7 @@ layout: default
   <p>Instale o LightDM e o Cinnamon, desinstale o MDM e reinicie (o meu computador precisou de um reinício pro LightDM funcionar direito).</p>
   <pre>
     sudo apt install lightdm cinnamon mint-meta-debian-cinnamon
-    sudo apt remove --purge mdm mint-mdm-themes*
+    sudo apt remove mdm mint-mdm-themes*
     sudo dpkg-reconfigure lightdm
     sudo reboot
   </pre>
@@ -134,11 +134,11 @@ layout: default
 
   <h3 id="lightdm">Gerenciador de <i>display</i></h3>
 
-  <p>Instale os pacotes do LightDM e expurgue os do MDM. Depois, é necessário reconfigurar e reiniciar.</p>
+  <p>Instale os pacotes do LightDM e desinstale os do MDM. Depois, é necessário reconfigurar e reiniciar.</p>
   <pre>
     sudo apt install lightdm
-    # O expurgo abaixo pede uma reconfiguração
-    sudo apt remove --purge mdm mint-mdm-themes*
+    # A remoção abaixo pede uma reconfiguração
+    sudo apt remove mdm mint-mdm-themes*
     # A reconfiguração
     sudo dpkg-reconfigure lightdm
     # Meu computador só se satisfez com a mudança depois de reiniciar
