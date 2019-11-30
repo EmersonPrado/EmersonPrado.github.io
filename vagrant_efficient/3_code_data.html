@@ -35,7 +35,7 @@ layout: default
   <ul>
     <li>You end up sometimes having a big Vagrantfile with everything in it. Changing things becomes increasingly more difficult.</li>
     <li>When you have to think about code, you see data too. When you edit code, you risk messing data too. And vice-versa.</li>
-    <li>Reusing Vagrantfiles becomes tedious - you have to remove all original data from the cloned Vagrantfile.</li>
+    <li>Reusing Vagrantfiles becomes tedious - you have to copy and paste Vagrantfiles then manually edit changes.</li>
     <li>Version tracking becomes a mess - no matter what had to change, your versioning system will always show the same change: Vagrantfile.</li>
   </ul>
 
@@ -92,7 +92,7 @@ layout: default
   ---
   # My mapping
   key_1: value_1
-  key_1: value_1
+  key_2: value_2
   </pre>
 
   <p>A disturbing mess</p>
@@ -108,7 +108,7 @@ layout: default
   # An array of hashes
   - key_1: value_1
   - key_2: value_2
-  - key 3:      # Who said all items should be equal?
+  - key_3:      # Who said all items should be equal?
     - value 3_1
     - value 3_2
   # Is this trip really necessary?
@@ -126,7 +126,8 @@ layout: default
     key_2_2:
     - value_2_2_1
     - value_2_2_2
-  # Yes, comments. Both inline and standalone. Try this into the hanging hash from part 2.
+  # Yes, comments - Both inline and standalone
+  # Try this into the hanging hash from part 2
   </pre>
 
   <p>Things to note:</p>
@@ -134,7 +135,7 @@ layout: default
     <li>The first line has 3 dashes. This tells the OS it's a YAML file. Not quite a strong requirement, but highly recommended.</li>
     <li>Arrays have items prepended by <b>one</b> dash and <b>one</b> space. I do mean one. Remember: YAML is picky.</li>
     <li>Hashes have keys appended by a colon, followed by the value. There must be space(s) before the value. Remember: YAML is picky.</li>
-    <li><b>Spaces in line beginnings are absolutely critical</b>. Use exactly two for each depth level. First-order variables use no spaces, key values use two, nested key values use four, and so on. I might not have warned you, but YAML is picky.</li>
+    <li><b>Spaces in line beginnings are absolutely critical</b>. Use exactly two for each depth level. Variable names use no spaces, array values and hash keys use two, nested items use four, and so on. I might not have warned you, but YAML is picky.</li>
   </ul>
 
   <p>For real YAML learning, check out:</p>
@@ -190,9 +191,10 @@ layout: default
   <p>Do it with any variable and see the results. Helps understanding YAML syntax.</p>
 
   <h2 id="#together">Putting pieces together</h2>
-  <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's dump it into a virtual machines list file:</p>
+  <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
   <pre>
-    mkdir etc   # A config dir in our Vagrant project. What better name then "etc"?
+    # A config dir in our project. What better name then "etc"?
+    mkdir etc
 
     ruby -e "
       require 'yaml'
@@ -335,7 +337,7 @@ layout: default
         '--vrde': 'off'
   </pre>
 
-  <h3>More data files</h3>
+  <h3 id="#datafiles">More data files</h3>
 
   <p>I heard you say "Hey, there's too much repetition in the data files!". That makes me proud of you.</p>
   <p>Yes, there are settings that will repeat. All VMs from the same box use at least the same box name and version. Sometimes, same resources and/or custom settings. Why repeat them all if we can have a data file for the boxes themselves?</p>
