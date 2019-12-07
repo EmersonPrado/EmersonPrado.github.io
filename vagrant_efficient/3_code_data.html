@@ -244,6 +244,7 @@ layout: default
   <p>Done! We have two slim and readable files, one with code and another one with data. You don't touch the Vagrantfile anymore to change VMs.</p>
 
   <h3 id="#settings">More settings</h3>
+
   <p>Yes, sure a virtual machine is not about only name and IPs. Maybe you need to change RAM and/or CPU settings, for example?</p>
 
   <pre>
@@ -251,8 +252,8 @@ layout: default
     VMS = YAML.load_file('etc/vms.yaml')
 
     Vagrant.configure("2") do |config|
-      VMS.each do |nome, confs|
-        config.vm.define nome do |vm|
+      VMS.each do |name, confs|
+        config.vm.define name do |vm|
           config.vbguest.auto_update = false
           vm.vm.box = confs[:box]
           vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
@@ -288,8 +289,8 @@ layout: default
     VMS = YAML.load_file('etc/vms.yaml')
 
     Vagrant.configure("2") do |config|
-      VMS.each do |nome, confs|
-        config.vm.define nome do |vm|
+      VMS.each do |name, confs|
+        config.vm.define name do |vm|
           config.vbguest.auto_update = false
           vm.vm.box = confs[:box]
           vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
