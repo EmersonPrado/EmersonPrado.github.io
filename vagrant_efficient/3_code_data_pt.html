@@ -74,6 +74,77 @@ layout: default
   <p>OK, não ficou mais enxuto - na verdade, ficou até um pouco maior. Mas mais organizado e focado. Agora, na hora de mexer nos dados, não estamos cercados de comandos, nem cercados de <i>arrays</i> e <i>hashes</i> na hora de mexer na lógica. Lembre do <i>hash</i> enorme que tínhamos no último exemplo da parte 2, e a vantagem fica mais clara.</p>
 
   <h3 id="#yaml">Yaml</h3>
+
+  <p>Os dados e o código ainda estão no mesmo arquivo. Felizmente, não precisam. O Ruby suporta nativamente um formato de arquivo de dados estruturados: YAML. Este formato pode guardar os dados, finalmente limpando nosso Vagrantfile.</p>
+  <p>Funciona assim: arquivos YAML podem conter variáveis simples, <i>arrays</i>, <i>hashes</i> e tudo isso aninhado, com alguma facilidade (desde que você se acostume com o formato detalhista). E o Ruby carrega arquivos YAML em <i>hashes</i>. Então, é só criar um arquivo pra cada estrutura de dados, e então carregar no Vagrantfile. Que agora só terá código.</p>
+  <p>Mas como é a cara de um arquivo YAML? Alguns exemplos:</p>
+
+  <p>Um <i>array</i></p>
+  <pre>
+  ---
+  # Minha lista
+  - Elemento 1
+  - Elemento 2
+  </pre>
+
+  <p>Um <i>hash</i></p>
+  <pre>
+  ---
+  # Meu mapeamento
+  chave_1: valor_1
+  chave_2: valor_2
+  </pre>
+
+  <p>Uma admirável loucura</p>
+  <pre>
+  ---
+  # Um hash de arrays
+  chave_1:
+    - valor_1
+    - valor_2
+  chave_2:
+    - valor_1
+    - valor_2
+  # An array of hashes
+  - chave_1: valor_1
+  - chave_2: valor_2
+  - chave_3:    # Quem disse que todos os itens precisam ser iguais?
+    - valor_3_1
+    - valor_3_2
+  # Essa viagem é realmente necessária?
+  chave_1:
+    chave_1_1:
+    - valor_1_1_1
+    - valor_1_1_2
+    chave_1_2:
+    - valor_1_2_1
+    - valor_1_2_2
+  chave_2:
+    chave_2_1:
+    - valor_2_1_1
+    - valor_2_1_2
+    chave_2_2:
+    - valor_2_2_1
+    - valor_2_2_2
+  # Isso mesmo: comentários - Inline e em linhas separadas
+  # Imagine isso no hash enorme da parte 2
+  </pre>
+
+  <p>Notar:</p>
+  <ul>
+    <li>A primeira linha tem 3 hífens. É isso que informa o SO que o arquivo é YAML. Não é uma exigência, mas é altamente recomendado.</li>
+    <li>Os itens de <i>arrays</i> são precedidos de <b>um</b> hífen e <b>um</b> espaço. É um mesmo. Lembre-se: YAML é detalhista.</li>
+    <li>As chaves de <i>arrays</i> são seguidas de dois pontos, seguido do valor. É necessário incluir espaço(s) antes do valor. Lembre-se: YAML é detalhista.</li>
+    <li><b>Os espaços no início das linhas são absolutamente críticos</b>. Use exatamente dois para cada nível de aninhamento. Nomes de variáveis não usam espaços, valores de <i>arrays</i> e chaves de <i>hashes</i> usam dois, items aninhados usam quatro, e assim por diante. Não sei se eu avisei, mas YAML é detalhista.</li>
+  </ul>
+
+  <p>Dicas pra aprender YAML de verdade:</p>
+  <ul>
+    <li>Esta <a href="https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html">ótima introdução</a> da documentação do Ansible. É uma introdução bem abrangente, mas simples e de fácil leitura.</li>
+    <li>Um <a href="https://www.tutorialspoint.com/yaml/index.htm">tutorial completo</a> do Tutorials Point. Passa por tudo (eu acho).</li>
+    <li>O <a href="https://yaml.org/spec/1.2/spec.html">manual oficial</a>. Mantenha sempre manuais oficiais por perto.</li>
+  </ul>
+
   <h2 id="#junto">Tudo ao mesmo tempo agora</h2>
   <h2 id="#depois">E depois?</h2>
 </body>
