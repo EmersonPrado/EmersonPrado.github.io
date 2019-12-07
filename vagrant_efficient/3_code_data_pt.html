@@ -191,5 +191,58 @@ layout: default
   <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
 
   <h2 id="#junto">Tudo ao mesmo tempo agora</h2>
+
+  <p>Vamos usar o comando <code>dump</code> com o <i>hash</i> do nosso Vagrantfile. Mas, em vez de ver o resultado na tela, vamos mandar pra um arquivo com a lista de máquinas virtuais:</p>
+  <pre>
+    # Um diretório de configurações no nosso projeto. Que nome seria melhor que "etc"?
+    mkdir etc
+
+    ruby -e "
+      require 'yaml'
+      IO.write('etc/mvs.yaml', YAML.dump({
+        'vm_1' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.2'
+        },
+        'vm_2' => {
+          :box => 'ARTACK/debian-jessie',
+          :ip => '192.168.1.3'
+        },
+        'vm_3' => {
+          :box => 'centos/7',
+        }
+      }))
+    "
+
+    cat etc/mvs.yaml
+    ---
+    vm_1:
+      :box: ARTACK/debian-jessie
+      :ip: 192.168.1.2
+    vm_2:
+      :box: ARTACK/debian-jessie
+      :ip: 192.168.1.3
+    vm_3:
+      :box: centos/7
+  </pre>
+
+  <p>Boa! Meio caminho andado. Agora a outra metade: orientando o Vagrant a ler o arquivo. é a mesma coisa, só que invertida:</p>
+  <blockquote>Vamos colocar os dados em constantes, que são variáveis com nomes iniciando em maiúsculas. Não faz sentido mudar estes valores ao longo do Vagrantfile.</blockquote>
+  <pre>
+    require 'yaml'
+    MVS = YAML.load_file('etc/mvs.yaml')
+
+    Vagrant.configure("2") do |config|
+      MVS.each do |nome, confs|
+        config.vm.define nome do |vm|
+          vm.vm.box = confs[:box]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+        end
+      end
+    end
+  </pre>
+
+  <p>Pronto! Dois arquivos enxutos e fáceis de ler, um com código e outro com dados. Você não vai mais precisar mexer no Vagrantfile pra alterar as MVs.</p>
+
   <h2 id="#depois">E depois?</h2>
 </body>
