@@ -145,6 +145,51 @@ layout: default
     <li>O <a href="https://yaml.org/spec/1.2/spec.html">manual oficial</a>. Mantenha sempre manuais oficiais por perto.</li>
   </ul>
 
+  <p>Um truque. O Ruby suporta carregar um arquivo YAML numa variável. E o contrário também: jogar uma variável em um arquivo YAML. Isso ajuda muito na conversão que vamos fazer:</p>
+  <pre>
+  ruby -e '
+    require "yaml"
+    puts YAML.dump({
+      "chave_1" => {
+        "chave_1_1" => [
+          "item_1_1_1",
+          "item_1_1_2"
+        ],
+        "chave_1_2" => [
+          "item_1_2_1",
+          "item_1_2_2"
+        ]
+      },
+      "chave_2" => {
+        "chave_2_1" => [
+          "item_2_1_1",
+          "item_2_1_2"
+        ],
+        "chave_2_2" => [
+          "item_2_2_1",
+          "item_2_2_2"
+        ]
+      }
+    })
+  '
+  ---
+  chave_1:
+    chave_1_1:
+    - item_1_1_1
+    - item_1_1_2
+    chave_1_2:
+    - item_1_2_1
+    - item_1_2_2
+  chave_2:
+    chave_2_1:
+    - item_2_1_1
+    - item_2_1_2
+    chave_2_2:
+    - item_2_2_1
+    - item_2_2_2
+  </pre>
+  <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
+
   <h2 id="#junto">Tudo ao mesmo tempo agora</h2>
   <h2 id="#depois">E depois?</h2>
 </body>
