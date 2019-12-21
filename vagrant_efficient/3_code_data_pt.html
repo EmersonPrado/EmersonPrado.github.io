@@ -34,7 +34,7 @@ layout: default
     <p>Seu ambiente vai mudar. Ponto final. Talvez você precise testar uma versão nova de uma aplicação, ou depurar algum problema nela, ou testá-la em outras opções de SO, ou atualizar <i>boxes</i>, etc. Esse é, afinal, um dos principais motivos pra você usar o Vagrant. Na forma corriqueira de uso do Vagrant, cada mudança implica em editar o Vagrantfile. Isto traz algumas dores de cabeça:</p>
     <ul>
       <li>Você pode acabar tendo um Vagrantfile enorme, com tudo dentro. Mudar alguma coisa nele vai ficando cada vez mais difícil.</li>
-      <li>Quando você precisa pensar no código, você também vê dados. Quando você edita o código, corre o risco de "esbarrar" nos dados. E vice-versa.</li>
+      <li>Quando você precisa mexer no código, você está cercado de dados. E vice-versa. É mais difícil focar em um - e mais fácil "esbarrar" no outro.</li>
       <li>O reúso de Vagrantfiles se torna trabalhoso - é necessário copiar e colar Vagrantfiles e editar manualmente as diferenças.</li>
       <li>O versionamento fica confuso - pra qualquer mudança, seu sistema de versionamento sempre indicará a mesma alteração: o Vagrantfile.</li>
     </ul>
@@ -76,7 +76,7 @@ layout: default
   <h3 id="#yaml">Yaml</h3>
 
   <p>Os dados e o código ainda estão no mesmo arquivo. Felizmente, não precisam. O Ruby suporta nativamente um formato de arquivo de dados estruturados: YAML. Este formato pode guardar os dados, finalmente limpando nosso Vagrantfile.</p>
-  <p>Funciona assim: arquivos YAML podem conter variáveis simples, <i>arrays</i>, <i>hashes</i> e tudo isso aninhado, com alguma facilidade (desde que você se acostume com o formato detalhista). E o Ruby carrega arquivos YAML em <i>hashes</i>. Então, é só criar um arquivo pra cada estrutura de dados, e então carregar no Vagrantfile. Que agora só terá código.</p>
+  <p>Funciona assim: arquivos YAML podem conter variáveis simples, <i>arrays</i>, <i>hashes</i> e tudo isso aninhado, com alguma facilidade (desde que você se acostume com o formato detalhista). E o Ruby carrega arquivos YAML em variáveis. Então, é só criar um arquivo pra cada estrutura de dados, e então carregar no Vagrantfile. Que agora só terá código.</p>
   <p>Mas como é a cara de um arquivo YAML? Alguns exemplos:</p>
 
   <p>Um <i>array</i></p>
@@ -126,7 +126,7 @@ layout: default
     chave_2_2:
     - valor_2_2_1
     - valor_2_2_2
-  # Isso mesmo: comentários - Inline e em linhas separadas
+  # Isso mesmo: comentários - Alinhados e em linhas separadas
   # Imagine isso no hash enorme da parte 2
   </pre>
 
@@ -226,8 +226,8 @@ layout: default
       :box: centos/7
   </pre>
 
-  <p>Boa! Meio caminho andado. Agora a outra metade: orientando o Vagrant a ler o arquivo. é a mesma coisa, só que invertida:</p>
-  <blockquote>Vamos colocar os dados em constantes, que são variáveis com nomes iniciando em maiúsculas. Não faz sentido mudar estes valores ao longo do Vagrantfile.</blockquote>
+  <p>Boa! Meio caminho andado. Agora a outra metade: orientando o Vagrant a ler o arquivo. É a mesma coisa, só que invertida:</p>
+  <blockquote>Vamos colocar os dados em constantes - é só iniciar os nomes das variáveis com maiúsculas, e o Ruby sabe que são constantes. Não faz sentido mudar estes valores ao longo do Vagrantfile.</blockquote>
   <pre>
     require 'yaml'
     MVS = YAML.load_file('etc/mvs.yaml')
@@ -342,7 +342,7 @@ layout: default
   <h3 id="#arq_dados">Mais arquivos de dados</h3>
 
   <p>Eu ouvi você dizer "Peraí! Os arquivos de dados estão muito repetitivos!". Fiquei orgulhoso de você!</p>
-  <p>Sim, muitas configurações serão parecidas. Todas as MVs de um mesmo <i>box</i> têm, pelo menos, o mesmo nome e versão de <i>box</i>. Às vezes, os mesmos recursos e/ou configurações personalizadas. Pra que repetir configurações de VMs se podemos ter um arquivo pros próprios <i>boxes</i>?</p>
+  <p>Sim, muitas configurações serão parecidas. Todas as MVs de um mesmo <i>box</i> têm, pelo menos, o mesmo nome e versão de <i>box</i>. Às vezes, os mesmos recursos e/ou configurações personalizadas. Pra que repetir configurações de MVs se podemos ter um arquivo pros próprios <i>boxes</i>?</p>
 
   <h4>Arquivo de dados dos <i>boxes</i></h4>
   <pre>
