@@ -408,4 +408,12 @@ layout: default
   <p>Agora temos 3 arquivos com menos de 20 linhas cada um, todos fáceis de ler, e que resultam em 3 MVs com configurações múltiplas de SO, RAM, CPU, IP e particularidades do provedor. E que são fáceis de mudar, expandir e/ou reutilizar. Satisfeito? Eu também.</p>
 
   <h2 id="#depois">E depois?</h2>
+
+  <p>Que outros dados podem ser colocados em arquivos separados para o código usar? Talvez algumas configurações de <i>hardware</i>, rede, algum provisionamento?</p>
+  <p>Procure padrões de repetição. Só conseguimos começar a separar dados de código quando ficou claro que o código era praticamente o mesmo para todas as MVs. Pudemos criar arquivos com dados dos <i>boxes</i> porque vimos que as configurações das MVs também se repetiam. É por aí.</p>
+  <p>Isso não quer dizer que seja uma boa ideia colocar cada mínima repetição em um arquivo separado. Dependendo do caso, você pode acabar com arquivos demais, com conteúdo de menos, e desenvolvendo sobre um emaranhado de arquivos e variáveis.</p>
+  <p>O que você precisa ter sempre em mente é que dividir dados em arquivos deve deixar a manutenção mais fácil. Além disso, que quem não é programador Ruby também precisa conseguir usar seu Vagrantfile. Se você mudou a arquitetura dos dados, e desconfia que ficou mais complicada, provavelmente ficou mesmo. Principalmente pra quem não criou os arquivos. Refaça ou descarte.</p>
+
+  <p>Agora que já sabe por que e como separar os dados do código, mãos à obra! Bons Vagrantfiles!</p>
+
 </body>
