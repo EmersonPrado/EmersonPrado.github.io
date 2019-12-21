@@ -198,7 +198,7 @@ layout: default
 
     ruby -e "
       require 'yaml'
-      IO.write('etc/mvs.yaml', YAML.dump({
+      IO.write('etc/vms.yaml', YAML.dump({
         'vm_1' => {
           :box => 'ARTACK/debian-jessie',
           :ip => '192.168.1.2'
@@ -213,7 +213,7 @@ layout: default
       }))
     "
 
-    cat etc/mvs.yaml
+    cat etc/vms.yaml
     ---
     vm_1:
       :box: ARTACK/debian-jessie
@@ -229,11 +229,11 @@ layout: default
   <blockquote>We'll load the data into constants, which are variables with names beginning with capitals. There's no sense in changing their values thoughout the Vagrantfile.</blockquote>
   <pre>
     require 'yaml'
-    MVS = YAML.load_file('etc/mvs.yaml')
+    VMS = YAML.load_file('etc/vms.yaml')
 
     Vagrant.configure("2") do |config|
-      MVS.each do |nome, confs|
-        config.vm.define nome do |vm|
+      VMS.each do |name, confs|
+        config.vm.define name do |vm|
           vm.vm.box = confs[:box]
           vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
         end

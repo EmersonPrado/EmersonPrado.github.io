@@ -382,10 +382,10 @@ layout: default
   <pre>
     require 'yaml'
     BOXES = YAML.load_file('etc/boxes.yaml')
-    VMS = YAML.load_file('etc/vms.yaml')
+    MVS = YAML.load_file('etc/mvs.yaml')
 
     Vagrant.configure("2") do |config|
-      VMS.each do |nome, confs|
+      MVS.each do |nome, confs|
         config.vm.define nome do |vm|
           config.vbguest.auto_update = false
           box = BOXES[confs[:box]]
