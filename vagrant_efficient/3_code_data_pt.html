@@ -6,7 +6,7 @@ layout: default
   <a href="../index_pt.html">Página inicial</a><br>
   <a href="3_code_data.html">English</a>
 
-  <h1>Vagrantfiles eficientes – Parte 3 – Separação de dados e código</h1>
+  <h1>Vagrantfiles eficientes – Parte 3 – Separação de código e dados</h1>
 
   <p>Na <a href="2_ruby_pt.html">parte 2</a> desta série de artigos, nos livramos de muita repetição de código (e de muito lugar bom pra erros de digitação) usando <i>arrays</i>, <i>hashes</i>, laços e condicionais. Agora, vamos tornar o código mais limpo e a manutenção mais focada, colocando código e dados no lugar de cada um.</p>
 
@@ -163,14 +163,14 @@ layout: default
 
   <h2 id="solucao">Solução - cada macaco no seu galho</h2>
 
-  <p>Se o problema é data e código misturados, a solução é simples: basta separá-los. Vamos fazer isso em duas etapas: colocar dados e código em seções diferentes do Vagrantfile, depois remover os dados de vez.</p>
+  <p>Se o problema é código e dados misturados, a solução é simples: basta separá-los. Vamos fazer isso em duas etapas: colocar código e dados em seções diferentes do Vagrantfile, depois remover os dados de vez.</p>
 
   <h3 id="variaveis">Variáveis versus lógica</h3>
 
   <p>A primeira parte é fácil. Pra mover os dados pra cima no Vagrantfile, é só criar variáveis com os dados, antes de escrever a lógica. Assim:</p>
 
   <pre>
-  # Dados e código juntos
+  # Código e dados juntos
   $ ruby -e '
   {1 => "a", 2 => "b", 3 => "c"}.each do |chave, valor|
     puts "Chave: #{chave} - Valor: #{valor}"

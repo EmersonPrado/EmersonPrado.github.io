@@ -163,14 +163,14 @@ layout: default
 
   <h2 id="solution">Solution - each thing where it belongs</h2>
 
-  <p>If the problem is data and code mixed up, the solution is obvious: let's take them apart. We'll accomplish this in two steps: taking data and code to different Vagrantfile sections, then actually removing data from it.</p>
+  <p>If the problem is code and data mixed up, the solution is obvious: let's take them apart. We'll accomplish this in two steps: taking code and data to different Vagrantfile sections, then actually removing data from it.</p>
 
   <h3 id="variables">Variables versus logic</h3>
 
   <p>The first part is fairly easy. For us to move data upwards in the Vagrantfile, all we have to do is setting variables before we write logic. Like:</p>
 
   <pre>
-  # Data and code together
+  # Code and data together
   $ ruby -e '
   {1 => "a", 2 => "b", 3 => "c"}.each do |key, value|
     puts "Key: #{key} - Value: #{value}"
@@ -531,7 +531,7 @@ layout: default
   <h2 id="where">Where do we go from here?</h2>
 
   <p>What else can go in its own file and be consumed by the code? Maybe common hardware settings, network, some provisioning?</p>
-  <p>Look for repeating patterns. We took data and code apart at all when it became clear that the code was almost the same to all VMs. Then created the boxes file when VMs settings also seemed repetitive. That's the way to go.</p>
+  <p>Look for repeating patterns. We took code and data apart at all when it became clear that the code was almost the same to all VMs. Then created the boxes file when VMs settings also seemed repetitive. That's the way to go.</p>
   <p>It's not a good idea, though, to place every single repetiion pattern in distinct files. In some cases, you can end up with too many files with too little content and a file and variable maze to develop in.</p>
   <p>The most important thing to keep in mind about dividing all data in their files is that this should always make maintenance easier. Also, that other people who are not Ruby developers should be able to use your Vagrantfile. If you changed the data architecture, and it seems more complicated, it probably is. Even more to those who didn't write it. Rethink or discard.</p>
 
