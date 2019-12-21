@@ -28,7 +28,7 @@ layout: default
     <li><a href="#where">Where do we go from here?</a></li>
   </ol>
 
-  <h2 id="#tldr">TL;DR</h2>
+  <h2 id="tldr">TL;DR</h2>
 
   <p>If you already know about YAML files and how they're loaded into Ruby code, you might skip this part of the articles, and get going with what I've summarized below.</p>
 
@@ -151,7 +151,7 @@ layout: default
 
   <p>Complexity is the limit. You can have a single data file, or many ones dividing the data. Keep in mind the compromise between conciseness and simplicity. Always remember everything should be easy to understand and mantain by other people, including non-developers. Use your good sense and keep up!</p>
 
-  <h2 id="#problem">Problem - messing with code to each environment change</h2>
+  <h2 id="problem">Problem - messing with code to each environment change</h2>
 
   <p>Your environment will change. Period. You might have to test an application's new version, or debug something in it, or try it in more OS options, or update boxes, etc. That's one of the main reasons you're using Vagrant in first place. In the common Vagrant use, every change means editing your Vagrantfile. This means trouble because:</p>
   <ul>
@@ -161,11 +161,11 @@ layout: default
     <li>Version tracking becomes a mess - no matter what had to change, your versioning system will always show the same change: Vagrantfile.</li>
   </ul>
 
-  <h2 id="#solution">Solution - each thing where it belongs</h2>
+  <h2 id="solution">Solution - each thing where it belongs</h2>
 
   <p>If the problem is data and code mixed up, the solution is obvious: let's take them apart. We'll accomplish this in two steps: taking data and code to different Vagrantfile sections, then actually removing data from it.</p>
 
-  <h3 id="#variables">Variables versus logic</h3>
+  <h3 id="variables">Variables versus logic</h3>
 
   <p>The first part is fairly easy. For us to move data upwards in the Vagrantfile, all we have to do is setting variables before we write logic. Like:</p>
 
@@ -195,7 +195,7 @@ layout: default
 
   <p>I agree it didn't get quite neater - it got somewhat longer indeed. But it is more organized and focused. We just don't have a method and a code block around when we have to think about the data, nor a hash, or whatever data structure, when we have to think about the code. Just think about the huge hash we were dealing with in the last example of part 2, and the advantage becomes more clear.</p>
 
-  <h3 id="#yaml">Yaml</h3>
+  <h3 id="yaml">Yaml</h3>
 
   <p>We still have code and data in the same file. Fortunately, we don't have to. Ruby has native support for a structured file format called YAML. This file format can store our data, making our Vagrantfile finally clean.</p>
   <p>This is how it works: YAML files support simple variables, arrays, hashes and nesting, without much hassle (given you get familiar to the picky format). And Ruby can load an YAML file into a variable. So, all we have to do is to create a data file for each data structure, then load them in the Vagrantfile. With only code.</p>
@@ -312,7 +312,7 @@ layout: default
   </pre>
   <p>Do it with any variable and see the results. Helps understanding YAML syntax.</p>
 
-  <h2 id="#together">Putting pieces together</h2>
+  <h2 id="together">Putting pieces together</h2>
   <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
   <pre>
     # A config dir in our project. What better name then "etc"?
@@ -365,7 +365,7 @@ layout: default
 
   <p>Done! We have two slim and readable files, one with code and another one with data. You don't touch the Vagrantfile anymore to change VMs.</p>
 
-  <h3 id="#settings">More settings</h3>
+  <h3 id="settings">More settings</h3>
 
   <p>Yes, sure a virtual machine is not about only name and IPs. Maybe you need to change RAM and/or CPU settings, for example?</p>
 
@@ -460,7 +460,7 @@ layout: default
         '--vrde': 'off'
   </pre>
 
-  <h3 id="#datafiles">More data files</h3>
+  <h3 id="datafiles">More data files</h3>
 
   <p>I heard you say "Hey, there's too much repetition in the data files!". That makes me proud of you.</p>
   <p>Yes, there are settings that will repeat. All VMs from the same box use at least the same box name and version. Sometimes, same resources and/or custom settings. Why repeat them all if we can have a data file for the boxes themselves?</p>
@@ -528,7 +528,7 @@ layout: default
   <br>
   <p>Now we have 3 files with less than 20 lines each, all of them quite readable, and that gets us 3 VMs with different OSs, RAM and CPU settings, IP and provider specific stuff. And that we can very easily change, extend and/or reuse. Happy? Me too.</p>
 
-  <h2 id="#where">Where do we go from here?</h2>
+  <h2 id="where">Where do we go from here?</h2>
 
   <p>What else can go in its own file and be consumed by the code? Maybe common hardware settings, network, some provisioning?</p>
   <p>Look for repeating patterns. We took data and code apart at all when it became clear that the code was almost the same to all VMs. Then created the boxes file when VMs settings also seemed repetitive. That's the way to go.</p>

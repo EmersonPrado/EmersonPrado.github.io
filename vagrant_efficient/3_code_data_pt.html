@@ -28,7 +28,7 @@ layout: default
     <li><a href="#depois">E depois?</a></li>
   </ol>
 
-  <h2 id="#tldr">TL;DR</h2>
+  <h2 id="tldr">TL;DR</h2>
 
   <p>Se você já conhece arquivos YAML, e sabe como importá-los no código Ruby, talvez você possa pular esta parte dos artigos, e fazer tudo funcionar com o resumo abaixo.</p>
 
@@ -151,7 +151,7 @@ layout: default
 
   <p>Complexidade é o limite. Você pode ter só um arquivo de dados, ou dividir os dados em vários arquivos. Procure equilibrar concisão e simplicidade. O objetivo é facilitar a compreensão e a manutenção do conjunto, inclusive por outros, muitas vezes não programadores. Bom senso é seu amigo!</p>
 
-  <h2 id="#problema">Problema - mexer no código a cada mudança no ambiente</h2>
+  <h2 id="problema">Problema - mexer no código a cada mudança no ambiente</h2>
 
     <p>Seu ambiente vai mudar. Ponto final. Talvez você precise testar uma versão nova de uma aplicação, ou depurar algum problema nela, ou testá-la em outras opções de SO, ou atualizar <i>boxes</i>, etc. Esse é, afinal, um dos principais motivos pra você usar o Vagrant. Na forma corriqueira de uso do Vagrant, cada mudança implica em editar o Vagrantfile. Isto traz algumas dores de cabeça:</p>
     <ul>
@@ -161,11 +161,11 @@ layout: default
       <li>O versionamento fica confuso - pra qualquer mudança, seu sistema de versionamento sempre indicará a mesma alteração: o Vagrantfile.</li>
     </ul>
 
-  <h2 id="#solucao">Solução - cada macaco no seu galho</h2>
+  <h2 id="solucao">Solução - cada macaco no seu galho</h2>
 
   <p>Se o problema é data e código misturados, a solução é simples: basta separá-los. Vamos fazer isso em duas etapas: colocar dados e código em seções diferentes do Vagrantfile, depois remover os dados de vez.</p>
 
-  <h3 id="#variaveis">Variáveis versus lógica</h3>
+  <h3 id="variaveis">Variáveis versus lógica</h3>
 
   <p>A primeira parte é fácil. Pra mover os dados pra cima no Vagrantfile, é só criar variáveis com os dados, antes de escrever a lógica. Assim:</p>
 
@@ -195,7 +195,7 @@ layout: default
 
   <p>OK, não ficou mais enxuto - na verdade, ficou até um pouco maior. Mas mais organizado e focado. Agora, na hora de mexer nos dados, não estamos cercados de comandos, nem cercados de <i>arrays</i> e <i>hashes</i> na hora de mexer na lógica. Lembre do <i>hash</i> enorme que tínhamos no último exemplo da parte 2, e a vantagem fica mais clara.</p>
 
-  <h3 id="#yaml">Yaml</h3>
+  <h3 id="yaml">Yaml</h3>
 
   <p>Os dados e o código ainda estão no mesmo arquivo. Felizmente, não precisam. O Ruby suporta nativamente um formato de arquivo de dados estruturados: YAML. Este formato pode guardar os dados, finalmente limpando nosso Vagrantfile.</p>
   <p>Funciona assim: arquivos YAML podem conter variáveis simples, <i>arrays</i>, <i>hashes</i> e tudo isso aninhado, com alguma facilidade (desde que você se acostume com o formato detalhista). E o Ruby carrega arquivos YAML em variáveis. Então, é só criar um arquivo pra cada estrutura de dados, e então carregar no Vagrantfile. Que agora só terá código.</p>
@@ -312,7 +312,7 @@ layout: default
   </pre>
   <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
 
-  <h2 id="#junto">Tudo ao mesmo tempo agora</h2>
+  <h2 id="junto">Tudo ao mesmo tempo agora</h2>
 
   <p>Vamos usar o comando <code>dump</code> com o <i>hash</i> do nosso Vagrantfile. Mas, em vez de ver o resultado na tela, vamos mandar pra um arquivo com a lista de máquinas virtuais:</p>
   <pre>
@@ -366,7 +366,7 @@ layout: default
 
   <p>Pronto! Dois arquivos enxutos e fáceis de ler, um com código e outro com dados. Você não vai mais precisar mexer no Vagrantfile pra alterar as MVs.</p>
 
-  <h3 id="#confs">Mais configurações</h3>
+  <h3 id="confs">Mais configurações</h3>
 
   <p>É claro que uma máquina virtual não é feita só de nome e IPs. Que tal mexer, por exemplo, nas configurações de RAM e/ou CPU?</p>
 
@@ -461,7 +461,7 @@ layout: default
         '--vrde': 'off'
   </pre>
 
-  <h3 id="#arq_dados">Mais arquivos de dados</h3>
+  <h3 id="arq_dados">Mais arquivos de dados</h3>
 
   <p>Eu ouvi você dizer "Peraí! Os arquivos de dados estão muito repetitivos!". Fiquei orgulhoso de você!</p>
   <p>Sim, muitas configurações serão parecidas. Todas as MVs de um mesmo <i>box</i> têm, pelo menos, o mesmo nome e versão de <i>box</i>. Às vezes, os mesmos recursos e/ou configurações personalizadas. Pra que repetir configurações de MVs se podemos ter um arquivo pros próprios <i>boxes</i>?</p>
@@ -529,7 +529,7 @@ layout: default
   <br>
   <p>Agora temos 3 arquivos com menos de 20 linhas cada um, todos fáceis de ler, e que resultam em 3 MVs com configurações múltiplas de SO, RAM, CPU, IP e particularidades do provedor. E que são fáceis de mudar, expandir e/ou reutilizar. Satisfeito? Eu também.</p>
 
-  <h2 id="#depois">E depois?</h2>
+  <h2 id="depois">E depois?</h2>
 
   <p>Que outros dados podem ser colocados em arquivos separados para o código usar? Talvez algumas configurações de <i>hardware</i>, rede, algum provisionamento?</p>
   <p>Procure padrões de repetição. Só conseguimos começar a separar dados de código quando ficou claro que o código era praticamente o mesmo para todas as MVs. Pudemos criar arquivos com dados dos <i>boxes</i> porque vimos que as configurações das MVs também se repetiam. É por aí.</p>
