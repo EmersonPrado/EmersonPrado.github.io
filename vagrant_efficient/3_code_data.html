@@ -315,7 +315,8 @@ layout: default
   <h2 id="together">Putting pieces together</h2>
   <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
   <pre>
-    # A config dir in our project. What better name then "etc"?
+    # A config dir in our project
+    # What better name then "etc"?
     mkdir etc
 
     ruby -e "
@@ -330,7 +331,7 @@ layout: default
           :ip => '192.168.1.3'
         },
         'vm_3' => {
-          :box => 'centos/7',
+          :box => 'centos/7'
         }
       }))
     "
@@ -347,7 +348,7 @@ layout: default
       :box: centos/7
   </pre>
 
-  <p>Nice! Half way done. Now on the other half: instructing Vagrant to read the file. It's the same, but the other way round:</p>
+  <p>Nice! Half way done. Now on the second half: instructing Vagrant to read the file. It's the same, but the other way round:</p>
   <blockquote>We'll load the data into constants - just begin variables names with capitals and Ruby knows they're constants. There's no sense in changing their values thoughout the Vagrantfile.</blockquote>
   <pre>
     require 'yaml'
@@ -428,8 +429,8 @@ layout: default
     end
   </pre>
 
-  <p>That was the code, so the settings themselves are irrelevant (no data in code!). Now, in the datafile, let's disable USB and VirtualBox Remote Desktop Extension, which already gave me pain in some VMs:</p>
-  <blockquote>For the custom settings, we need names and values, which means a hash</blockquote>
+  <p>That was the code, still independent from the settings themselves (no data in code!). Now, in the datafile, let's disable USB and VirtualBox Remote Desktop Extension, which already gave me pain in some VMs:</p>
+  <blockquote>For the custom settings, we need names and values, which means a hash as the value for the ':custom' key</blockquote>
   <pre>
     ---
     vm_1:
@@ -526,14 +527,14 @@ layout: default
 
   <p>There's no hard line telling which files you should have and which data should be in each one. Go for the best bet between flexibility and simplicity.</p>
   <br>
-  <p>Now we have 3 files with less than 20 lines each, all of them quite readable, and that gets us 3 VMs with different OSs, RAM and CPU settings, IP and provider specific stuff. And that we can very easily change, extend and/or reuse. Happy? Me too.</p>
+  <p>Now we have 3 files with less than 20 lines each, all of them quite readable, and that gets us 3 VMs with different OSs, RAM and CPU settings, IP and virtualizer specific stuff. And that we can very easily change, extend and/or reuse. Happy? Me too.</p>
 
   <h2 id="where">Where do we go from here?</h2>
 
   <p>What else can go in its own file and be consumed by the code? Maybe common hardware settings, network, some provisioning?</p>
   <p>Look for repeating patterns. We took code and data apart at all when it became clear that the code was almost the same to all VMs. Then created the boxes file when VMs settings also seemed repetitive. That's the way to go.</p>
   <p>It's not a good idea, though, to place every single repetiion pattern in distinct files. In some cases, you can end up with too many files with too little content and a file and variable maze to develop in.</p>
-  <p>The most important thing to keep in mind about dividing all data in their files is that this should always make maintenance easier. Also, that other people who are not Ruby developers should be able to use your Vagrantfile. If you changed the data architecture, and it seems more complicated, it probably is. Even more to those who didn't write it. Rethink or discard.</p>
+  <p>The most important thing to keep in mind about dividing all data in their files is that this should always make maintenance easier. Other people, sometimes not Ruby developers, and even you months later, should be able to (re)use your Vagrantfile. If you changed the data architecture, and it seems more complicated, it probably is - Even more to those who didn't write it. Redo or undo.</p>
 
   <p>Now you know why and how to separate data from code, hands on! Happy Vagrantfiles!</p>
 
