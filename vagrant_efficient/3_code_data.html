@@ -32,7 +32,7 @@ layout: default
 
   <p>If you already know about YAML files and how they're loaded into Ruby code, you might skip this part of the articles, and get going with what I've summarized below.</p>
 
-  <p>In part two, we ended with a hash with data for all VMs, then the code with a loop iterating from that hash. The code and data distinction is somewhat clear. Let's create an external file `etc/vms.yaml`, in YAML format, with that data and some more (stuff I usually needed in my tests):</p>
+  <p>In part two, we ended with a hash with data for all VMs, then the code with a loop iterating from that hash. The code and data distinction is somewhat clear. Let's create an external file <code>etc/vms.yaml</code>, in YAML format, with that data and some more (stuff I usually needed in my tests):</p>
 
   <pre>
     ---
@@ -90,7 +90,7 @@ layout: default
 
   <p>You can further divide the data in multiple files, if they start showing too much repetition. You probably saw (kudos to you!) the VMs file has almost the same data for the VMs that use the same box. So, let's divide it in two files - VMs and boxes:</p>
 
-  <h4>Boxes data file - `etc/boxes.yaml`</h4>
+  <h4>Boxes data file - <code>etc/boxes.yaml</code></h4>
   <pre>
     ---
     debian_jessie:
@@ -111,7 +111,7 @@ layout: default
         '--vrde': 'off'
   </pre>
 
-  <h4>VMs data file - `etc/vms.yaml`</h4>
+  <h4>VMs data file - <code>etc/vms.yaml</code></h4>
   <pre>
     ---
     vm_1:

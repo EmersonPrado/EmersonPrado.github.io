@@ -32,7 +32,7 @@ layout: default
 
   <p>Se você já conhece arquivos YAML, e sabe como importá-los no código Ruby, talvez você possa pular esta parte dos artigos, e fazer tudo funcionar com o resumo abaixo.</p>
 
-  <p>Na parte 2, ficamos com um <i>hash</i> com dados de todas as MVs, e um código com um laço iterando a partir do <i>hash</i>. A diferença entre o código e os dados está razoavelmente visível. Vamos criar o arquivo externo `etc/mvs.yaml`, no formato YAML, com estes dados e mais (detalhes a mais que eu costumo precisar):</p>
+  <p>Na parte 2, ficamos com um <i>hash</i> com dados de todas as MVs, e um código com um laço iterando a partir do <i>hash</i>. A diferença entre o código e os dados está razoavelmente visível. Vamos criar o arquivo externo <code>etc/mvs.yaml<code>, no formato YAML, com estes dados e mais (detalhes a mais que eu costumo precisar):</p>
 
   <pre>
     ---
@@ -90,7 +90,7 @@ layout: default
 
   <p>Podemos dividir em mais arquivos, se um arquivo começa a ficar repetitivo. Você deve ter percebido (palmas pra você!) que o arquivo das MVs tem praticamente os mesmos dados para as MVs que usam o mesmo <i>box</i>. Então, vamos dividir em 2 arquivos - MVs e <i>boxes</i>:</p>
 
-  <h4>Arquivo dos <i>Boxes</i> - `etc/boxes.yaml`</h4>
+  <h4>Arquivo dos <i>Boxes</i> - <code>etc/boxes.yaml</code></h4>
   <pre>
     ---
     debian_jessie:
@@ -111,7 +111,7 @@ layout: default
         '--vrde': 'off'
   </pre>
 
-  <h4>Arquivo das MVs - `etc/mvs.yaml`</h4>
+  <h4>Arquivo das MVs - <code>etc/mvs.yaml</code></h4>
   <pre>
     ---
     vm_1:
