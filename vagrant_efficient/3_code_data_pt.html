@@ -339,6 +339,41 @@ layout: default
 
   <h4 id="yaml_dicas">Dicas</h4>
 
+  <p>Agora, um truque interessante. O Ruby suporta carregar YAML em objetos, e o contrário também: jogar objetos em YAML. Isso ajuda muito na conversão que vamos fazer. Vamos experimentar com o comando <code>ruby -e</code> do Ruby:</p>
+  <pre>
+  ruby -e '
+    require "yaml"        # Carrega o módulo com funções YAML
+    puts()
+    puts("Convertendo YAML para objeto:")
+    puts("#{YAML.load("
+  ---
+  1: Um
+  Dois: 2
+    ")}")                 # Converte YAML em objeto e coloca na tela
+    puts()
+    puts("Convertendo objeto para YAML:")
+    puts("#{YAML.dump(
+      {1 => "Um", "Dois" => 2}
+    )}")                  # Converte objeto em YAML e coloca na tela
+  '
+
+  Convertendo YAML para objeto:
+  {1=>"Um", "Dois"=>2}
+
+  Convertendo objeto para YAML:
+  ---
+  1: Um
+  Dois: 2
+  </pre>
+  <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
+
+  <p>Dicas pra aprender YAML de verdade:</p>
+  <ul>
+    <li>Esta <a href="https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html">ótima introdução</a> da documentação do Ansible. É uma introdução bem abrangente, mas simples e de fácil leitura.</li>
+    <li>Um <a href="https://www.tutorialspoint.com/yaml/index.htm">tutorial completo</a> do Tutorials Point. Passa por tudo (eu acho).</li>
+    <li>O <a href="https://yaml.org/spec/1.2/spec.html">manual oficial</a>. Mantenha sempre manuais oficiais por perto.</li>
+  </ul>
+
   <h2 id="junto">Tudo ao mesmo tempo agora</h2>
 
   <p>Vamos usar o comando <code>dump</code> com o <i>hash</i> do nosso Vagrantfile. Mas, em vez de ver o resultado na tela, vamos mandar pra um arquivo com a lista de máquinas virtuais:</p>
