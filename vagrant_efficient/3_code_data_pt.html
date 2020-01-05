@@ -240,6 +240,103 @@ layout: default
 
   <h4 id="yaml_aninhamento">Aninhamento</h4>
 
+  <p>Assim como <i>arrays</i> e <i>hashes</i> podem ser aninhados em objetos Ruby, também podem em arquivos YAML. O que indica o aninhamento é a indentação, e alguma atenção especial aos objetos "externos":</p>
+
+  <ol>
+    <li>Inicie objetos "externos" como sempre, mas sem o conteúdo - o item do <i>array</i> ou o valor do <i>hash</i>. Ou seja:<ol>
+      <li>Para um <i>array</i> "externo", coloque só o hífen</li>
+      <li>Para um <i>hash</i> "externo", coloque só a chave e os dois pontos</li>
+    </ol></li>
+    <li>Indente objetos "internos" com dois espaços. São dois mesmo. Lembre-se: YAML é exigente.</li>
+    <li>Para aninhar mais, faça exatamente a mesma coisa, mas indentando com dois espaços para cada nível de aninhamento. São dois mesmo. Lembre-se: YAML é exigente.</li>
+    <li>Nunca indente com tabulações. De jeito nenhum! Não sei se já avisei, mas YAML é exigente.</li>
+  </ol>
+
+  <p>Exemplos (cada um é um arquivo)</p>
+
+  <pre>
+  ---
+  # Um array de arrays
+  -                     # Item 1 do array externo = Array interno 1
+    - Item_1_1          # Item 1 do array interno 1
+    - Item_1_2
+  -
+    - Item_2_1
+    - Item_2_2
+
+  # Um hash de hashes
+  ---
+  chave_1:                      # Valor da chave 1 do hash externo = Hash interno 1
+    chave_1_1: valor_1_1        # Elemento 1 do hash interno 1
+    chave_1_2: valor_1_2
+  chave_2:
+    chave_2_1: valor_2_1
+    chave_2_2: valor_2_2
+
+  # Um array de hashes
+  ---
+  -                     # Você já entendeu
+    chave_1_1: valor_1_1
+    chave_1_2: valor_1_2
+  -
+    chave_2_1: valor_2_1
+    chave_2_2: valor_2_2
+
+  # Um hash de arrays
+  ---
+  chave_1:
+    - valor_1_1
+    - valor_1_2
+  chave_2:
+    - valor_2_1
+    - valor_2_2
+
+  # Um array de arrays de arrays
+  ---
+  -
+    -
+      - 1_1
+      - 1_2
+    -
+      - 2_1
+      - 2_2
+
+  # Um hash de hashes de hashes
+  ---
+  chave_1:
+    chave_1_1:
+      chave_1_1_1: valor_1_1_1
+      chave_1_1_2: valor_1_1_2
+    chave_1_2:
+      chave_1_2_1: valor_1_2_1
+      chave_1_2_2: valor_1_2_2
+  chave_2:
+    chave_2_1:
+      chave_2_1_1: valor_2_1_1
+      chave_2_1_2: valor_2_1_2
+    chave_2_2:
+      chave_2_2_1: valor_2_2_1
+      chave_2_2_2: valor_2_2_2
+
+  # Essa viagem é realmente necessária?
+  ---
+  chave_1:
+    -
+      chave_1_1_1:
+        - valor_1_1_1_1
+        - valor_1_1_1_2
+      chave_1_1_2:
+        - valor_1_1_2_1
+        - valor_1_1_2_2
+    -
+      chave_1_2_1: ...
+  chave_2:
+    ...
+
+  # Isso mesmo: comentários - Alinhados e em linhas separadas
+  # Imagine isso no hash enorme da parte 2
+  </pre>
+
   <h4 id="yaml_dicas">Dicas</h4>
 
   <h2 id="junto">Tudo ao mesmo tempo agora</h2>
