@@ -240,7 +240,7 @@ layout: default
 
   <h4 id="yaml_nesting">Nesting</h4>
 
-  <p>Just as arrays and hashes can be nested in Ruby objects, so can they in YAML files. Nesting is indicated by indentation, plus some special attention in first items:</p>
+  <p>Just as arrays and hashes can be nested in Ruby objects, so can they in YAML files. Nesting is indicated by indentation, plus some special attention in "outer" objects:</p>
 
   <ol>
     <li>Start "outer" objects as normal, but omitting the contents - the array item or the hash value. That is:<ol>
@@ -267,7 +267,7 @@ layout: default
   # A hash of hashes
   ---
   key_1:                # Outer hash value 1 = Inner hash 1
-    key_1_1: value_1_1  # Inner hash 1 key 1
+    key_1_1: value_1_1  # Inner hash 1 element 1
     key_1_2: value_1_2
   key_2:
     key_2_1: value_2_1
@@ -344,23 +344,23 @@ layout: default
   ruby -e '
     require "yaml"        # Loads module with YAML functions
     puts()
-    puts("Converting object to YAML:")
+    puts("Converting YAML to object:")
     puts("#{YAML.load("
   ---
   1: One
   Two: 2
-    ")}")                 # Loads YAML string into Ruby object and puts in screen
+    ")}")                 # Loads YAML into object and puts in screen
     puts()
-    puts("Converting YAML to object:")
+    puts("Converting object to YAML:")
     puts("#{YAML.dump(
       {1 => "One", "Two" => 2}
-    )}")                  # Dumps Ruby object into YAML string and puts in screen
+    )}")                  # Dumps object into YAML and puts in screen
   '
 
-  Converting object to YAML:
+  Converting YAML to object:
   {1=>"One", "Two"=>2}
 
-  Converting YAML to object:
+  Converting object to YAML:
   ---
   1: One
   Two: 2
