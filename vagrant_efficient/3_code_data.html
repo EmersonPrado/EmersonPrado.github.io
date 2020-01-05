@@ -207,10 +207,18 @@ layout: default
 
   <h4 id="yaml_basics">Basics</h4>
 
+  <p>The YAML file contents format depends primarily on the type of object it contains:</p>
+
+  <ol>
+    <li>Start with a line with 3 dashes. This tells the OS it's an YAML file. Not quite required, but highly recommended.</li>
+    <li>For a single value, just put it plainly in the additional line. It could be next to the dashes in the same line, but would look weird.</li>
+    <li>For an array, put each item in a line, prepended by one dash and one space. I do mean one. Remember: YAML is picky.</li>
+    <li>For a hash, put each key in the beginning of a line, followed by a colon, then space(s), and the value. I do mean the beginning, and also space(s) between the colon and the value. Remember: YAML is picky.</li>
+  </ol>
+
   <h4 id="yaml_nesting">Nesting</h4>
 
   <h4 id="yaml_hints">Hints</h4>
-
 
   <h2 id="together">Putting pieces together</h2>
   <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
