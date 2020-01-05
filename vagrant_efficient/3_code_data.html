@@ -240,6 +240,18 @@ layout: default
 
   <h4 id="yaml_nesting">Nesting</h4>
 
+  <p>Just as arrays and hashes can be nested in Ruby objects, so can they in YAML files. Nesting is indicated by indentation, plus some special attention in first items:</p>
+
+  <ol>
+    <li>Start "outer" objects as normal, but omitting the contents - the array item or the hash value. That is:<ol>
+      <li>For an "outer" array, just put the dash</li>
+      <li>For an "outer" hash, just put the key and the colon</li>
+    </ol></li>
+    <li>Indent "inner" objects with two spaces. I do mean two. Remember: YAML is picky.</li>
+    <li>For additional nesting, do exactly the same, but indented with two additional spaces per depth level. I do mean two. Remember: YAML is picky.</li>
+    <li>Never indent with tabs. Ever! Don't know if I already warned you, but YAML is picky.</li>
+  </ol>
+
   <h4 id="yaml_hints">Hints</h4>
 
   <h2 id="together">Putting pieces together</h2>
