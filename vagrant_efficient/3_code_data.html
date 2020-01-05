@@ -252,6 +252,91 @@ layout: default
     <li>Never indent with tabs. Ever! Don't know if I already warned you, but YAML is picky.</li>
   </ol>
 
+  <p>Examples (each one is a file)</p>
+
+  <pre>
+  ---
+  # An array of arrays
+  -                     # Outer array item 1 = Inner array 1
+    - Item_1_1          # Inner array 1 item 1
+    - Item_1_2
+  -
+    - Item_2_1
+    - Item_2_2
+
+  # A hash of hashes
+  ---
+  key_1:                # Outer hash value 1 = Inner hash 1
+    key_1_1: value_1_1  # Inner hash 1 key 1
+    key_1_2: value_1_2
+  key_2:
+    key_2_1: value_2_1
+    key_2_2: value_2_2
+
+  # An array of hashes
+  ---
+  -                     # You already got it
+    key_1_1: value_1_1
+    key_1_2: value_1_2
+  -
+    key_2_1: value_2_1
+    key_2_2: value_2_2
+
+  # A hash of arrays
+  ---
+  key_1:
+    - value_1_1
+    - value_1_2
+  key_2:
+    - value_2_1
+    - value_2_2
+
+  # An array of arrays of arrays
+  ---
+  -
+    -
+      - 1_1
+      - 1_2
+    -
+      - 2_1
+      - 2_2
+
+  # A hash of hashes of hashes
+  ---
+  key_1:
+    key_1_1:
+      key_1_1_1: value_1_1_1
+      key_1_1_2: value_1_1_2
+    key_1_2:
+      key_1_2_1: value_1_2_1
+      key_1_2_2: value_1_2_2
+  key_2:
+    key_2_1:
+      key_2_1_1: value_2_1_1
+      key_2_1_2: value_2_1_2
+    key_2_2:
+      key_2_2_1: value_2_2_1
+      key_2_2_2: value_2_2_2
+
+  # Is this trip really necessary?
+  ---
+  key_1:
+    -
+      key_1_1_1:
+        - value_1_1_1_1
+        - value_1_1_1_2
+      key_1_1_2:
+        - value_1_1_2_1
+        - value_1_1_2_2
+    -
+      key_1_2_1: ...
+  key_2:
+    ...
+
+  # Yes, comments - Both inline and standalone
+  # Try this into the hanging hash from part 2
+  </pre>
+
   <h4 id="yaml_hints">Hints</h4>
 
   <h2 id="together">Putting pieces together</h2>
