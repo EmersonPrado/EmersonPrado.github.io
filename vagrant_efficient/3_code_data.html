@@ -16,7 +16,11 @@ layout: default
     <li><a href="#solution">Solution - each thing where it belongs</a>
       <ol>
         <li><a href="#variables">Variables versus logic</a></li>
-        <li><a href="#yaml">Yaml</a></li>
+        <li><a href="#yaml">Yaml</a><ol>
+          <li><a href="#yaml_basics">Basics</a></li>
+          <li><a href="#yaml_nesting">Nesting</a></li>
+          <li><a href="#yaml_hints">Hints</a></li>
+        </ol></li>
       </ol>
     </li>
     <li><a href="#together">Putting pieces together</a>
@@ -197,120 +201,16 @@ layout: default
 
   <h3 id="yaml">Yaml</h3>
 
-  <p>We still have code and data in the same file. Fortunately, we don't have to. Ruby has native support for a structured file format called YAML. This file format can store our data, making our Vagrantfile finally clean.</p>
-  <p>This is how it works: YAML files support simple variables, arrays, hashes and nesting, without much hassle (given you get familiar to the picky format). And Ruby can load an YAML file into a variable. So, all we have to do is to create a data file for each data structure, then load them in the Vagrantfile. With only code.</p>
-  <p>But how does a YAML file look like? Let's get some examples:</p>
+  <p>We still have code and data in the same file. Fortunately, we don't have to. Ruby has native support for a structured file format called YAML. So our data can go into such files, finally cleaning our Vagrantfile.</p>
+  <p>This is how it works: a YAML file can store a Ruby object, which can be a single value, an array, a hash, or nested arrays/hashes, without much hassle (given you get familiar to the picky format). And Ruby can load an YAML file into a variable.</p>
+  <p>So, all we have to do is to create a data file for each data structure, then load them in variables in the Vagrantfile. With only code.</p>
 
-  <p>An array</p>
-  <pre>
-  ---
-  # My list
-  - Array element 1
-  - Array element 2
-  </pre>
+  <h4 id="yaml_basics">Basics</h4>
 
-  <p>A hash</p>
-  <pre>
-  ---
-  # My mapping
-  key_1: value_1
-  key_2: value_2
-  </pre>
+  <h4 id="yaml_nesting">Nesting</h4>
 
-  <p>A disturbing mess</p>
-  <pre>
-  ---
-  # A hash of arrays
-  key_1:
-    - value_1
-    - value_2
-  key_2:
-    - value_1
-    - value_2
-  # An array of hashes
-  - key_1: value_1
-  - key_2: value_2
-  - key_3:      # Who said all items should be equal?
-    - value 3_1
-    - value 3_2
-  # Is this trip really necessary?
-  key_1:
-    key_1_1:
-    - value_1_1_1
-    - value_1_1_2
-    key_1_2:
-    - value_1_2_1
-    - value_1_2_2
-  key_2:
-    key_2_1:
-    - value_2_1_1
-    - value_2_1_2
-    key_2_2:
-    - value_2_2_1
-    - value_2_2_2
-  # Yes, comments - Both inline and standalone
-  # Try this into the hanging hash from part 2
-  </pre>
+  <h4 id="yaml_hints">Hints</h4>
 
-  <p>Things to note:</p>
-  <ul>
-    <li>The first line has 3 dashes. This tells the OS it's a YAML file. Not quite a strong requirement, but highly recommended.</li>
-    <li>Arrays have items prepended by <b>one</b> dash and <b>one</b> space. I do mean one. Remember: YAML is picky.</li>
-    <li>Hashes have keys appended by a colon, followed by the value. There must be space(s) before the value. Remember: YAML is picky.</li>
-    <li><b>Spaces in line beginnings are absolutely critical</b>. Use exactly two for each depth level. Variable names use no spaces, array values and hash keys use two, nested items use four, and so on. I might not have warned you, but YAML is picky.</li>
-  </ul>
-
-  <p>For real YAML learning, check out:</p>
-  <ul>
-    <li>This <a href="https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html">nice overview</a> from Ansible docs. It is quite a thorough overview, but still a simple and light-reading one.</li>
-    <li>A <a href="https://www.tutorialspoint.com/yaml/index.htm">full tutorial</a> from Tutorials Point. Walks you through everything (I guess).</li>
-    <li>The <a href="https://yaml.org/spec/1.2/spec.html">official manual</a>. Official manuals should always be at hand.</li>
-  </ul>
-
-  <p>Now, a nice trick. Ruby supports loading a YAML file into a variable. And also the other way round: dumping a variable into an YAML file. This can help a lot for our conversion:</p>
-  <pre>
-  ruby -e '
-    require "yaml"
-    puts YAML.dump({
-      "key_1" => {
-        "key_1_1" => [
-          "item_1_1_1",
-          "item_1_1_2"
-        ],
-        "key_1_2" => [
-          "item_1_2_1",
-          "item_1_2_2"
-        ]
-      },
-      "key_2" => {
-        "key_2_1" => [
-          "item_2_1_1",
-          "item_2_1_2"
-        ],
-        "key_2_2" => [
-          "item_2_2_1",
-          "item_2_2_2"
-        ]
-      }
-    })
-  '
-  ---
-  key_1:
-    key_1_1:
-    - item_1_1_1
-    - item_1_1_2
-    key_1_2:
-    - item_1_2_1
-    - item_1_2_2
-  key_2:
-    key_2_1:
-    - item_2_1_1
-    - item_2_1_2
-    key_2_2:
-    - item_2_2_1
-    - item_2_2_2
-  </pre>
-  <p>Do it with any variable and see the results. Helps understanding YAML syntax.</p>
 
   <h2 id="together">Putting pieces together</h2>
   <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
