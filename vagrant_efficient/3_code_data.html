@@ -339,6 +339,41 @@ layout: default
 
   <h4 id="yaml_hints">Hints</h4>
 
+  <p>Now, a nice trick. Ruby supports loading YAML into objects, and the other way round: dumping objects into YAML. This can help a lot for our conversion. Let's try it with Ruby <code>ruby -e</code> command:</p>
+  <pre>
+  ruby -e '
+    require "yaml"        # Loads module with YAML functions
+    puts()
+    puts("Converting object to YAML:")
+    puts("#{YAML.load("
+  ---
+  1: One
+  Two: 2
+    ")}")                 # Loads YAML string into Ruby object and puts in screen
+    puts()
+    puts("Converting YAML to object:")
+    puts("#{YAML.dump(
+      {1 => "One", "Two" => 2}
+    )}")                  # Dumps Ruby object into YAML string and puts in screen
+  '
+
+  Converting object to YAML:
+  {1=>"One", "Two"=>2}
+
+  Converting YAML to object:
+  ---
+  1: One
+  Two: 2
+  </pre>
+  <p>Do it with any object or YAML content and see the results. Helps a lot in understanding YAML syntax.</p>
+
+  <p>For real YAML learning, check out:</p>
+  <ul>
+    <li>This <a href="https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html">nice overview</a> from Ansible docs. It is quite a thorough overview, but still a simple and light-reading one.</li>
+    <li>A <a href="https://www.tutorialspoint.com/yaml/index.htm">full tutorial</a> from Tutorials Point. Walks you through everything (I guess).</li>
+    <li>The <a href="https://yaml.org/spec/1.2/spec.html">official manual</a>. Official manuals should always be at hand.</li>
+  </ul>
+
   <h2 id="together">Putting pieces together</h2>
   <p>Let's use the dump feature with the hash from our Vagrantfile. But, instead of seeing the output in the screen, let's write it to a virtual machines list file:</p>
   <pre>
