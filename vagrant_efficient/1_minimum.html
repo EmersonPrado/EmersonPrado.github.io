@@ -84,15 +84,15 @@ layout: default
 
   <h2 id="minimum">Bare minimum for Vagrant to work</h2>
 
-  <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <b>Vagrantfile</b>, which is the general configuration file for your managed virtual environment.
-  I also <b>strongly</b> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
+  <p>Besides intalling required software - a virtualizer like VirtualBox, Ruby, and Vagrant itself - you have to create a base directory for your project, then write a <strong>Vagrantfile</strong>, which is the general configuration file for your managed virtual environment.
+  I also <strong>strongly</strong> recommend a versioning tool like <a href="https://git-scm.com/">Git</a>.</p>
   <blockquote>The <code>Vagrantfile</code> is Vagrant environment's central piece. It tells Vagrant how the virtual machines should be created and configured.</blockquote>
   <p>A nice starting point is to run <code>vagrant init</code> inside your project's base directory. This command creates a minimum <code>Vagrantfile</code>, with lots of comments which teach how to write basic settings. I recommend reading the resulting file to get a good grasp. I also recommend reading the command help with <code>vagrant init -h</code>.</p>
   <p>But, for really mastering the stuff, it's good to write a <code>Vagrantfile</code> from scratch. The bare minimum mandatory contents is:</p>
 
   <ol>
-  	<li>A block with <code>Vagrant.configure("2") do |config|</code>, where <code>config</code> is a <b>configurations object</b>. Vagrant is a Ruby module, and <code>Vagrant.configure</code> is a method which processes configurations inside the block.</li>
-  	<li>Inside the <code>Vagrant.configure</code> block, more blocks with <code>config.vm.define 'name' do |vm|</code>, where <code>vm</code> is the <b>virtual machine object</b>, with each virtual machine settings. <code>name</code> will be the one used in Vagrant shell commands.</li>
+  	<li>A block with <code>Vagrant.configure("2") do |config|</code>, where <code>config</code> is a <strong>configurations object</strong>. Vagrant is a Ruby module, and <code>Vagrant.configure</code> is a method which processes configurations inside the block.</li>
+  	<li>Inside the <code>Vagrant.configure</code> block, more blocks with <code>config.vm.define 'name' do |vm|</code>, where <code>vm</code> is the <strong>virtual machine object</strong>, with each virtual machine settings. <code>name</code> will be the one used in Vagrant shell commands.</li>
   	<li>Inside each <code>vm.define</code> block, the virtual machine settings. At the very least, the box name, for Vagrant to download and “mirror”, then create the virtual machine.</li>
     <li>Optionally, global settings, inside <code>Vagrant.configure</code> block and outside <code>vm.define</code> blocks, which will affect all VMs.</li>
   </ol>
