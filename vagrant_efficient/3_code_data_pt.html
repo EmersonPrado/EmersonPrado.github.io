@@ -344,19 +344,24 @@ layout: default
   <p>Agora, um truque interessante. Como o Ruby converte YAML em objetos, mas também converte objetos em YAML, podemos usar esse recurso para converter o <i>hash</i> do nosso Vagrantfile em um arquivo YAML. Vamos experimentar alguns valores arbitrários com o comando <code>ruby -e</code> do Ruby:</p>
   <pre>
   ruby -e '
-    require "yaml"        # Carrega o módulo com funções YAML
+    # Carrega o módulo com funções YAML
+    require "yaml"
+
+    # Converte YAML em objeto e coloca na tela
     puts()
     puts("Convertendo YAML para objeto:")
     puts("#{YAML.load("
   ---
   1: Um
   Dois: 2
-    ")}")                 # Converte YAML em objeto e coloca na tela
+    ")}")
+
+    # Converte objeto em YAML e coloca na tela
     puts()
     puts("Convertendo objeto para YAML:")
     puts("#{YAML.dump(
       {1 => "Um", "Dois" => 2}
-    )}")                  # Converte objeto em YAML e coloca na tela
+    )}")
   '
 
   Convertendo YAML para objeto:
@@ -367,6 +372,7 @@ layout: default
   1: Um
   Dois: 2
   </pre>
+
   <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
 
   <p>Dicas pra aprender YAML de verdade:</p>
