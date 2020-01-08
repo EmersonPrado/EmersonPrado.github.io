@@ -341,7 +341,7 @@ layout: default
 
   <h4 id="yaml_dicas">Dicas</h4>
 
-  <p>Agora, um truque interessante. O Ruby suporta carregar YAML em objetos, e o contrário também: jogar objetos em YAML. Isso ajuda muito na conversão que vamos fazer. Vamos experimentar com o comando <code>ruby -e</code> do Ruby:</p>
+  <p>Agora, um truque interessante. Como o Ruby converte YAML em objetos, mas também converte objetos em YAML, podemos usar esse recurso para converter o <i>hash</i> do nosso Vagrantfile em um arquivo YAML. Vamos experimentar alguns valores arbitrários com o comando <code>ruby -e</code> do Ruby:</p>
   <pre>
   ruby -e '
     require "yaml"        # Carrega o módulo com funções YAML

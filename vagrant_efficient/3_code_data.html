@@ -341,7 +341,7 @@ layout: default
 
   <h4 id="yaml_hints">Hints</h4>
 
-  <p>Now, a nice trick. Ruby supports loading YAML into objects, and the other way round: dumping objects into YAML. This can help a lot for our conversion. Let's try it with Ruby <code>ruby -e</code> command:</p>
+  <p>Now, a nice trick. Since Ruby can YAML into objects, but also objects into YAML, we can use this functionality to convert the hash from our Vagrantfile into an YAML file. Let's try some random values with Ruby <code>ruby -e</code> command:</p>
   <pre>
   ruby -e '
     require "yaml"        # Loads module with YAML functions
