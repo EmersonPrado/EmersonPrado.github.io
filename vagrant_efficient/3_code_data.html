@@ -259,7 +259,7 @@ layout: default
   <pre>
   ---
   # An array of arrays
-  -                     # Outer array item 1 = Inner array 1
+  - # Outer array item 1 = Inner array 1
     - Item_1_1          # Inner array 1 item 1
     - Item_1_2
   -
@@ -268,7 +268,7 @@ layout: default
 
   # A hash of hashes
   ---
-  key_1:                # Outer hash element 1 value = Inner hash 1
+  key_1:  # Outer hash element 1 value = Inner hash 1
     key_1_1: value_1_1  # Inner hash 1 element 1
     key_1_2: value_1_2
   key_2:
@@ -277,7 +277,7 @@ layout: default
 
   # An array of hashes
   ---
-  -                     # You already got it
+  - # You already got it
     key_1_1: value_1_1
     key_1_2: value_1_2
   -
@@ -341,7 +341,7 @@ layout: default
 
   <h4 id="yaml_hints">Hints</h4>
 
-  <p>Now, a nice trick. Since Ruby can YAML into objects, but also objects into YAML, we can use this functionality to convert the hash from our Vagrantfile into an YAML file. Let's try some random values with Ruby <code>ruby -e</code> command:</p>
+  <p>Now, a nice trick. Since Ruby can convert YAML into objects, but also objects into YAML, we can use this functionality to convert the hash from our Vagrantfile into an YAML file. Let's try some random values with Ruby <code>ruby -e</code> command:</p>
   <pre>
   ruby -e '
     # Loads module with YAML functions

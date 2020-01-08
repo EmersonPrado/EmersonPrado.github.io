@@ -259,7 +259,7 @@ layout: default
   <pre>
   ---
   # Um array de arrays
-  -                     # Item 1 do array externo = Array interno 1
+  - # Item 1 do array externo = Array interno 1
     - Item_1_1          # Item 1 do array interno 1
     - Item_1_2
   -
@@ -268,7 +268,7 @@ layout: default
 
   # Um hash de hashes
   ---
-  chave_1:                      # Valor do elemento 1 do hash externo = Hash interno 1
+  chave_1:  # Valor do elemento 1 do hash externo = Hash interno 1
     chave_1_1: valor_1_1        # Elemento 1 do hash interno 1
     chave_1_2: valor_1_2
   chave_2:
@@ -277,7 +277,7 @@ layout: default
 
   # Um array de hashes
   ---
-  -                     # Você já entendeu
+  - # Você já entendeu
     chave_1_1: valor_1_1
     chave_1_2: valor_1_2
   -
@@ -341,7 +341,7 @@ layout: default
 
   <h4 id="yaml_dicas">Dicas</h4>
 
-  <p>Agora, um truque interessante. Como o Ruby converte YAML em objetos, mas também converte objetos em YAML, podemos usar esse recurso para converter o <i>hash</i> do nosso Vagrantfile em um arquivo YAML. Vamos experimentar alguns valores arbitrários com o comando <code>ruby -e</code> do Ruby:</p>
+  <p>Agora, um truque interessante. Como o Ruby converte YAML em objetos, mas também objetos em YAML, podemos usar esse recurso para converter o <i>hash</i> do nosso Vagrantfile em um arquivo YAML. Vamos experimentar alguns valores arbitrários com o comando <code>ruby -e</code> do Ruby:</p>
   <pre>
   ruby -e '
     # Carrega o módulo com funções YAML
