@@ -36,126 +36,64 @@ layout: default
 
   <h2 id="tldr">TL;DR</h2>
 
-  <p>If you already know about YAML files and how they're loaded into Ruby code, you might skip this part of the articles, and get going with what I've summarized below.</p>
+  <p>If you already know about YAML files, you might skip this part of the articles, and get going with what I've summarized below.</p>
 
-  <p>In part two, we ended with a hash with data for all VMs, then the code with a loop iterating from that hash. The code and data distinction is somewhat clear. Let's create an external file <code>etc/vms.yaml</code>, in YAML format, with that data and some more (stuff I usually needed in my tests):</p>
+  <p>Code and data mixed up in the Vagrantfile makes maintenance and versioning messy. We can make it easier and more organized by putting data in YAML files and load them into the Vagrantfile.</p>
 
-  <pre>
-    ---
-    vm_1:
-      :box: ARTACK/debian-jessie
-      :ram: 256
-      :ip: 192.168.1.2
-      :custom:
-        '--usb': 'off'
-        '--usbehci': 'off'
-        '--usbxhci': 'off'
-        '--vrde': 'off'
-    vm_2:
-      :box: ARTACK/debian-jessie
-      :ram: 256
-      :ip: 192.168.1.3
-      :custom:
-        '--usb': 'off'
-        '--usbehci': 'off'
-        '--usbxhci': 'off'
-        '--vrde': 'off'
-    vm_3:
-      :box: centos/7
-      :cpu: 2
-      :custom:
-        '--usb': 'off'
-        '--usbehci': 'off'
-        '--usbxhci': 'off'
-        '--vrde': 'off'
-  </pre>
-
-  <p>Then, in the Vagrantfile, load this file into a variable, and use this variable in the loop, consuming the various nested keys and values:</p>
+  <p>YAML files can store objects like strings, numbers, arrays and hashes. These last two can be nested. Some exaples to refresh your mind (read each one as a file):</p>
 
   <pre>
-    require 'yaml'
-    VMS = YAML.load_file('etc/vms.yaml')
+  --- # Always start with 3 dashes in the first line, telling the OS it's an YAML file
+  # It MUST be the FIRST line and THREE dashes. Exactly.
+  # Hash signs indicate comments. Standalone or inline.
+  # This file has a number
+  3.14
 
-    Vagrant.configure("2") do |config|
-      VMS.each do |name, confs|
-        config.vm.define name do |vm|
-          config.vbguest.auto_update = false
-          vm.vm.box = confs[:box]
-          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
-          vm.vm.provider 'virtualbox' do |virtualbox|
-            virtualbox.memory = confs[:ram] if confs.has_key?(:ram)
-            virtualbox.cpus = confs[:cpu] if confs.has_key?(:cpu)
-            confs[:custom].each do |custom, value|
-              virtualbox.customize ['modifyvm', :id, custom, value]
-            end if confs.has_key?(:custom)
-          end
-        end
-      end
-    end
+  --- # Another file
+  This file has this string
+
+  --- # Array (items classes can vary)
+  - One
+  - -3.14
+  - Blowin' in the Wind
+  # Items MUST be prepended by ONE dash and ONE space. Exactly.
+
+  --- # Hash (keys and values can vary)
+  One: 1
+  2: Two
+  Multi-word key: Multi-word value
+  "Key with colon: just quote it": Value
+  # Keys MUST be prepended by NOTHING and appended by ONE colon. Exactly.
+  # Vaues MUST be separated from keys by spaces.
+
+  --- # Nesting from an array
+  - # Outer array item 1 is middle array below
+    - item_1_1
+    - item_1_2
+    - # More nesting - Middle array item 3 is inner array below
+      - item_1_3_1
+      - item_1_3_2
+    - # Nesting hashes into arrays
+      key_1_4_1: value_1_4_1
+      key_1_4_2: value_1_4_2
+  - # Outer array item 2
+    ...
+
+  --- # Nesting from a hash
+  key_1: # Outer hash element 1 value is middle hash below
+    key_1_1: value_1_1
+    key_1_2: value_1_1
+    key_1_3: # More nesting - Middle hash element 3 value is inner hash below
+      key_1_3_1: value_1_3_1
+      key_1_3_2: value_1_3_2
+    key_1_4: # Nesting arrays into hashes
+      - item_1_4_1
+      - item_1_4_2
+  key_2: # Outer hash element 2
+    ...
   </pre>
 
-  <p>You can further divide the data in multiple files, if they start showing too much repetition. You probably saw (kudos to you!) the VMs file has almost the same data for the VMs that use the same box. So, let's divide it in two files - VMs and boxes:</p>
-
-  <h4>Boxes data file - <code>etc/boxes.yaml</code></h4>
-  <pre>
-    ---
-    debian_jessie:
-      :name: ARTACK/debian-jessie
-      :ram: 256
-      :custom:
-        '--usb': 'off'
-        '--usbehci': 'off'
-        '--usbxhci': 'off'
-        '--vrde': 'off'
-    centos_7:
-      :name: centos/7
-      :cpu: 2
-      :custom:
-        '--usb': 'off'
-        '--usbehci': 'off'
-        '--usbxhci': 'off'
-        '--vrde': 'off'
-  </pre>
-
-  <h4>VMs data file - <code>etc/vms.yaml</code></h4>
-  <pre>
-    ---
-    vm_1:
-      :box: debian_jessie
-      :ip: 192.168.1.2
-    vm_2:
-      :box: debian_jessie
-      :ip: 192.168.1.3
-    vm_3:
-      :box: centos_7
-  </pre>
-
-  <h4>Then, the Vagrantfile</h4>
-  <pre>
-    require 'yaml'
-    BOXES = YAML.load_file('etc/boxes.yaml')
-    VMS = YAML.load_file('etc/vms.yaml')
-
-    Vagrant.configure("2") do |config|
-      VMS.each do |name, confs|
-        config.vm.define name do |vm|
-          config.vbguest.auto_update = false
-          box = BOXES[confs[:box]]
-          vm.vm.box = box[:name]
-          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
-          vm.vm.provider 'virtualbox' do |virtualbox|
-            virtualbox.memory = box[:ram] if box.has_key?(:ram)
-            virtualbox.cpus = box[:cpu] if box.has_key?(:cpu)
-            box[:custom].each do |custom, value|
-              virtualbox.customize ['modifyvm', :id, custom, value]
-            end if box.has_key?(:custom)
-          end
-        end
-      end
-    end
-  </pre>
-
-  <p>Complexity is the limit. You can have a single data file, or many ones dividing the data. Keep in mind the compromise between conciseness and simplicity. Always remember everything should be easy to understand and mantain by other people, including non-developers. Use your good sense and keep up!</p>
+  <p>For the Vagrantfile integration part, go to part 4 (coming soon).</p>
 
   <h2 id="problem">Problem - messing with code to each environment change</h2>
 
