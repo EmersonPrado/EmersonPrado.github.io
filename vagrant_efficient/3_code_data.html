@@ -17,7 +17,6 @@ layout: default
     <li><a href="#problem">Problem - messing with code to each environment change</a></li>
     <li><a href="#solution">Solution - each thing where it belongs</a>
       <ol>
-        <li><a href="#variables">Variables versus logic</a></li>
         <li><a href="#yaml">Yaml</a><ol>
           <li><a href="#yaml_basics">Basics</a></li>
           <li><a href="#yaml_nesting">Nesting</a></li>
@@ -95,7 +94,7 @@ layout: default
 
   <p>For the Vagrantfile integration part, go to part 4 (coming soon).</p>
 
-  <h2 id="problem">Problem - messing with code to each environment change</h2>
+  <h2 id="problem">Problem - messing with code for each environment change</h2>
 
   <p>Your environment will change. Period. You might have to test an application's new version, or debug something in it, or try it in more OS options, or update boxes, etc. That's one of the main reasons you're using Vagrant in first place. In the common Vagrant use, every change means editing your Vagrantfile. This means trouble because:</p>
   <ul>
@@ -107,37 +106,9 @@ layout: default
 
   <h2 id="solution">Solution - each thing where it belongs</h2>
 
-  <p>If the problem is code and data mixed up, the solution is obvious: let's take them apart. We'll accomplish this in two steps: taking code and data to different Vagrantfile sections, then actually removing data from it.</p>
-
-  <h3 id="variables">Variables versus logic</h3>
-
-  <p>The first part is fairly easy. For us to move data upwards in the Vagrantfile, all we have to do is setting variables before we write logic. Like:</p>
-
-  <pre>
-  # Code and data together
-  $ ruby -e '
-  {1 => "a", 2 => "b", 3 => "c"}.each do |key, value|
-    puts "Key: #{key} - Value: #{value}"
-  end
-  '
-  Key: 1 - Value: a
-  Key: 2 - Value: b
-  Key: 3 - Value: c
-
-  # Data first, stored in a variable, then the code using it
-  $ ruby -e '
-  stuff = {1 => "a", 2 => "b", 3 => "c"}
-  # Whatever
-  stuff.each do |key, value|
-    puts "Key: #{key} - Value: #{value}"
-  end
-  '
-  Key: 1 - Value: a
-  Key: 2 - Value: b
-  Key: 3 - Value: c
-  </pre>
-
-  <p>I agree it didn't get quite neater - it got somewhat longer indeed. But it is more organized and focused. We just don't have a method and a code block around when we have to think about the data, nor a hash, or whatever data structure, when we have to think about the code. Just think about the huge hash we were dealing with in the last example of part 2, and the advantage becomes more clear.</p>
+  <p>If the problem is code and data mixed up, the solution is obvious: let's take them apart.</p>
+  <p>Since the Vagrantfile is intended to have code describing your environment, it's already the right place for code. So, the data should be somewhere else.</p>
+  <p>A good way to store data is, you bet, in files which format is intended to store data. Lucky we, there's one such format whith is a close friend to Ruby.</p>
 
   <h3 id="yaml">Yaml</h3>
 
