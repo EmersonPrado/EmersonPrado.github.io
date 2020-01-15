@@ -114,32 +114,36 @@ layout: default
   <p>The YAML file contents format depends primarily on the type of object it contains:</p>
 
   <ol>
-    <li>Start with a line with 3 dashes. This tells the OS it's an YAML file. Not quite required, but highly recommended.</li>
+    <li>Start with 3 dashes in the first line. This tells the OS it's an YAML file. Not quite required, but highly recommended.</li>
     <li>For a single value, just put it plainly in the additional line. It could be next to the dashes in the same line, but would look weird.</li>
     <li>For an array, put each item in a line, prepended by one dash and one space. I do mean one. Remember: YAML is picky!</li>
     <li>For a hash, put each key in the beginning of a line, followed by a colon, then space(s), and the value. I do mean the beginning, and also space(s) between the colon and the value. Remember: YAML is picky!</li>
+    <li>Comments are indicated by a hash sign.</li>
   </ol>
 
   <p>Examples (each one is a file)</p>
 
   <pre>
-  # A number
   ---
+  # A number
   3.14
 
-  # A string
   ---
+  # A string
   Hello, world!
 
-  # A 2-item array (items classes can vary)
   ---
-  - 1
-  - Two
+  # An array (items classes can vary)
+  - One
+  - -3.14
+  - Blowin' in the Wind
 
   ---
-  # A 2-element hash (keys and values classes can vary)
+  # A hash (keys and values classes can vary)
   One: 1
   2: Two
+  Multi-word key: Multi-word value
+  "Key with colon: just quote it": Value
   </pre>
 
   <h4 id="yaml_nesting">Nesting</h4>

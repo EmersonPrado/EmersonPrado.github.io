@@ -115,32 +115,36 @@ layout: default
   <p>O formato do conteúdo do arquivo YAML depende principalmente do tipo de objeto armazenado:</p>
 
   <ol>
-    <li>Comece com uma linha com 3 hífens. É isso que informa ao SO que o arquivo é YAML. Não é uma exigência, mas é altamente recomendado.</li>
+    <li>Comece com 3 hífens na primeira linha. É isso que informa ao SO que o arquivo é YAML. Não é uma exigência, mas é altamente recomendado.</li>
     <li>Para um valor simples, é só colocá-lo na linha seguinte. Poderia até ficar junto com os hífens, mas ficaria esquisito.</li>
     <li>Para um <i>array</i>, coloque cada item em uma linha, depois de um hífen e um espaço. É um mesmo. Lembre-se: YAML é exigente!</li>
     <li>Para um <i>hash</i>, coloque cada chave no começo de uma linha, seguida de dois pontos, depois espaço(s), e então o valor. É no começo mesmo, com espaço(s) mesmo entre os dois pontos e o valor. Lembre-se: YAML é exigente!</li>
+    <li>Coloque comentários depois de uma cerquilha (#).</li>
   </ol>
 
   <p>Exemplos (cada um é um arquivo)</p>
 
   <pre>
-  # Um número
   ---
+  # Um número
   3.14
 
-  # Uma string
   ---
+  # Uma string
   Olá, mundo!
 
-  # Um array com 2 itens (as classes dos itens podem variar)
   ---
-  - 1
-  - Dois
+  # Um array (as classes dos itens podem variar)
+  - Um
+  - -3.14
+  - Blowin' in the Wind
 
   ---
-  # Um hash com 2 elementos (as classes das chaves e valores podem variar)
+  # Um hash (as classes das chaves e valores podem variar)
   Um: 1
   2: Dois
+  Chave multi-palavra: Valor multi-palavra
+  "Chave com dois pontos: coloque entre aspas": Valor
   </pre>
 
   <h4 id="yaml_aninhamento">Aninhamento</h4>
