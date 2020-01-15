@@ -21,7 +21,7 @@ layout: default
       <li><a href="#yaml_aninhamento">Aninhamento</a></li>
       <li><a href="#yaml_referencias">Referências</a></li>
     </ol></li>
-    <li><a href="#depois">E depois?</a></li>
+    <li><a href="#proximo">Próximo passo</a></li>
   </ol>
 
   <h2 id="tldr">TL;DR</h2>
@@ -214,13 +214,8 @@ layout: default
     <li>O <a href="https://yaml.org/spec/1.2/spec.html">manual oficial</a>. Mantenha sempre manuais oficiais por perto.</li>
   </ul>
 
-  <h2 id="depois">E depois?</h2>
+  <h2 id="proximo">Próximo passo</h2>
 
-  <p>Que outros dados podem ser colocados em arquivos separados para o código usar? Talvez algumas configurações de <i>hardware</i>, rede, algum provisionamento?</p>
-  <p>Procure padrões de repetição. Só conseguimos começar a separar dados de código quando ficou claro que o código era praticamente o mesmo para todas as MVs. Pudemos criar arquivos com dados dos <i>boxes</i> porque vimos que as configurações das MVs também se repetiam. É por aí.</p>
-  <p>Isso não quer dizer que seja uma boa ideia colocar cada mínima repetição em um arquivo separado. Dependendo do caso, você pode acabar com arquivos demais, com conteúdo de menos, e desenvolvendo sobre um emaranhado de arquivos e variáveis.</p>
-  <p>O que você precisa ter sempre em mente é que dividir dados em arquivos deve deixar a manutenção mais fácil. Outros, às vezes não programadores Ruby, e até você meses depois, precisam conseguir (re)usar seu Vagrantfile. Se você mudou a arquitetura dos dados, e desconfia que ficou mais complicada, provavelmente ficou mesmo - Principalmente pra quem não criou os arquivos. Refaça ou desfaça.</p>
-
-  <p>Agora que já sabe por que e como separar os dados do código, mãos à obra! Bons Vagrantfiles!</p>
+  <p>Agora, é só pegar o <i>hash</i> enorme da parte 2, colocar em um arquivo YAML, e carregar o objeto no Vagrantfile. Vamos à parte 4 (em breve)!</p>
 
 </body>

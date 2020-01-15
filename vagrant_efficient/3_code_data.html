@@ -21,7 +21,7 @@ layout: default
       <li><a href="#yaml_nesting">Nesting</a></li>
       <li><a href="#yaml_references">References</a></li>
     </ol></li>
-    <li><a href="#where">Where do we go from here?</a></li>
+    <li><a href="#next">Next step</a></li>
   </ol>
 
   <h2 id="tldr">TL;DR</h2>
@@ -213,13 +213,8 @@ layout: default
     <li>The <a href="https://yaml.org/spec/1.2/spec.html">official manual</a>. Official manuals should always be at hand.</li>
   </ul>
 
-  <h2 id="where">Where do we go from here?</h2>
+  <h2 id="next">Next step</h2>
 
-  <p>What else can go in its own file and be consumed by the code? Maybe common hardware settings, network, some provisioning?</p>
-  <p>Look for repeating patterns. We took code and data apart at all when it became clear that the code was almost the same to all VMs. Then created the boxes file when VMs settings also seemed repetitive. That's the way to go.</p>
-  <p>It's not a good idea, though, to place every single repetiion pattern in distinct files. In some cases, you can end up with too many files with too little content and a file and variable maze to develop in.</p>
-  <p>The most important thing to keep in mind about dividing all data in their files is that this should always make maintenance easier. Other people, sometimes not Ruby developers, and even you months later, should be able to (re)use your Vagrantfile. If you changed the data architecture, and it seems more complicated, it probably is - Even more to those who didn't write it. Redo or undo.</p>
-
-  <p>Now you know why and how to separate data from code, hands on! Happy Vagrantfiles!</p>
+  <p>Now, all we have to do is to take the huge hash from part 2, move it to an YAML file, then load the object in the Vagrantfile. On to part 4 (coming soon)!</p>
 
 </body>
