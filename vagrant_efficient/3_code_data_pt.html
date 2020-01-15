@@ -34,9 +34,10 @@ layout: default
   <p>Arquivos YAML podem armazenar objetos como <i>strings</i>, números, <i>arrays</i> e <i>hashes</i>. Estes dois últimos podem ser aninhados. Seguem exemplos pra refrescar a memória (cada exemplo é um arquivo).</p>
 
   <pre>
-  --- # Comece sempre com 3 hífens na primeira linha, informando ao SO que é um arquivo YAML
+  ---
+  # Comece uma linha com 3 hífens, informando ao SO que é um arquivo YAML
   # PRECISA ser a PRIMEIRA linha e TRÊS hífens. Exatamente.
-  # Cerquilhas (#) indicam comentários. Na própria linha ou depois do conteúdo.
+  # Cerquilhas (#) indicam comentários. No fim da linha ou em linha própria.
   # Este arquivo contém um número
   3.14
 
@@ -54,14 +55,15 @@ layout: default
   2: Dois
   Chave multi-palavra: Valor multi-palavra
   "Chave com dois pontos: coloque entre aspas": Valor
-  # Chaves PRECISAM ser precedidas por NADA e seguidas por dois pontos. Exatamente.
+  # Chaves PRECISAM ter NADA antes e dois pontos depois. Exatamente.
   # VALORES PRECISAM ser separados das chaves por espaços.
 
   --- # Aninhamento a partir de um array
   - # O item 1 do array externo é o array intermediário abaixo
     - item_1_1
     - item_1_2
-    - # Mais aninhamento - O item 3 do array intermediário é o array interno abaixo
+    - # Mais aninhamento
+      # O item 3 do array intermediário é o array interno abaixo
       - item_1_3_1
       - item_1_3_2
     - # Aninhando hashes em arrays
@@ -74,7 +76,8 @@ layout: default
   chave_1: # O valor do elemento 1 do hash externo é o hash intermediário abaixo
     chave_1_1: valor_1_1
     chave_1_2: valor_1_1
-    chave_1_3: # Mais aninhamento - O valor do elemento 3 do hash intermediário é o hash interno abaixo
+    chave_1_3: # Mais aninhamento
+      # O valor do elemento 3 do hash intermediário é o hash interno abaixo
       chave_1_3_1: valor_1_3_1
       chave_1_3_2: valor_1_3_2
     chave_1_4: # Aninhando arrays em hashes
@@ -166,7 +169,8 @@ layout: default
   - # O item 1 do array externo é o array intermediário abaixo
     - item_1_1
     - item_1_2
-    - # Mais aninhamento - O item 3 do array intermediário é o array interno abaixo
+    - # Mais aninhamento
+      # O item 3 do array intermediário é o array interno abaixo
       - item_3_1
       - item_3_2
     - # Aninhando hashes em arrays
@@ -180,7 +184,8 @@ layout: default
   chave_1: # O valor do elemento 1 do hash externo é o hash intermediário abaixo
     chave_1_1: valor_1_1
     chave_1_2: valor_1_1
-    chave_1_3: # Mais aninhamento - O valor do elemento 3 do hash intermediário é o hash interno abaixo
+    chave_1_3: # Mais aninhamento
+      # O valor do elemento 3 do hash intermediário é o hash interno abaixo
       chave_1_3_1: valor_1_3_1
       chave_1_3_2: valor_1_3_2
     chave_1_4: # Aninhando arrays em hashes
