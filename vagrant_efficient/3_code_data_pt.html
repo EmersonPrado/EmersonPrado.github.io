@@ -15,15 +15,12 @@ layout: default
   <ol>
     <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#problema">Problema - mexer no código a cada mudança no ambiente</a></li>
-    <li><a href="#solucao">Solução - cada macaco no seu galho</a>
-      <ol>
-        <li><a href="#yaml">Yaml</a><ol>
-          <li><a href="#yaml_basico">O básico</a></li>
-          <li><a href="#yaml_aninhamento">Aninhamento</a></li>
-          <li><a href="#yaml_referencias">Referências</a></li>
-        </ol></li>
-      </ol>
-    </li>
+    <li><a href="#solucao">Solução - cada macaco no seu galho</li>
+    <li><a href="#yaml">Yaml</a><ol>
+      <li><a href="#yaml_basico">O básico</a></li>
+      <li><a href="#yaml_aninhamento">Aninhamento</a></li>
+      <li><a href="#yaml_referencias">Referências</a></li>
+    </ol></li>
     <li><a href="#depois">E depois?</a></li>
   </ol>
 
@@ -105,12 +102,12 @@ layout: default
   <p>Como o intuito do Vagrantfile é conter o código do seu ambiente, ele já é o lugar certo pro código. Então, os dados têm que ir pra outro lugar.</p>
   <p>Uma boa forma de armazenar os dados é, claro, em arquivos com formato próprio para armazenar dados. Pra sorte nossa, existe um formato que é amigo íntimo do Ruby.</p>
 
-  <h3 id="yaml">Yaml</h3>
+  <h2 id="yaml">Yaml</h2>
 
   <p>YAML é um formato de arquivo de dados estruturados que pode armazenar um objeto Ruby, que pode ser um valor simples, um <i>array</i>, um <i>hash</i>, ou <i>arrays/hashes</i> aninhados, sem muita dor de cabeça (desde que você se acostume com o formato exigente).</p>
   <p>Então, com os dados em arquivos YAML, fica fácil carregá-los no Vagrantfile. Assim, o Vagrantfile terá apenas código, e os arquivos YAML, só dados. Aplausos!</p>
 
-  <h4 id="yaml_basico">O Básico</h4>
+  <h3 id="yaml_basico">O Básico</h3>
 
   <p>O formato do conteúdo do arquivo YAML depende principalmente do tipo de objeto armazenado:</p>
 
@@ -147,7 +144,7 @@ layout: default
   "Chave com dois pontos: coloque entre aspas": Valor
   </pre>
 
-  <h4 id="yaml_aninhamento">Aninhamento</h4>
+  <h3 id="yaml_aninhamento">Aninhamento</h3>
 
   <p>Assim como <i>arrays</i> e <i>hashes</i> podem ser aninhados em objetos Ruby, também podem em arquivos YAML. O que indica o aninhamento é a indentação, e alguma atenção especial aos objetos "externos":</p>
 
@@ -208,7 +205,7 @@ layout: default
     ...
   </pre>
 
-  <h4 id="yaml_referencias">Referências</h4>
+  <h3 id="yaml_referencias">Referências</h3>
 
   <p>Dicas pra aprender YAML de verdade:</p>
   <ul>

@@ -15,15 +15,12 @@ layout: default
   <ol>
     <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#problem">Problem - messing with code to each environment change</a></li>
-    <li><a href="#solution">Solution - each thing where it belongs</a>
-      <ol>
-        <li><a href="#yaml">Yaml</a><ol>
-          <li><a href="#yaml_basics">Basics</a></li>
-          <li><a href="#yaml_nesting">Nesting</a></li>
-          <li><a href="#yaml_references">References</a></li>
-        </ol></li>
-      </ol>
-    </li>
+    <li><a href="#solution">Solution - each thing where it belongs</a></li>
+    <li><a href="#yaml">Yaml</a><ol>
+      <li><a href="#yaml_basics">Basics</a></li>
+      <li><a href="#yaml_nesting">Nesting</a></li>
+      <li><a href="#yaml_references">References</a></li>
+    </ol></li>
     <li><a href="#where">Where do we go from here?</a></li>
   </ol>
 
@@ -104,12 +101,12 @@ layout: default
   <p>Since the Vagrantfile is intended to have code describing your environment, it's already the right place for code. So, the data should be somewhere else.</p>
   <p>A good way to store data is, you bet, in files which format is intended to store data. Lucky we, there's one such format whith is a close friend to Ruby.</p>
 
-  <h3 id="yaml">Yaml</h3>
+  <h2 id="yaml">Yaml</h2>
 
   <p>YAML is a structured file format which can store a Ruby object, which can be a single value, an array, a hash, or nested arrays/hashes, without much hassle (given you get familiar to the picky format).</p>
   <p>So, placing data in YAML files makes it easy to load data into the Vagrantfile. Then, the Vagrantfile will be only code, and the YAML files, only data. Cheers!</p>
 
-  <h4 id="yaml_basics">Basics</h4>
+  <h3 id="yaml_basics">Basics</h3>
 
   <p>The YAML file contents format depends primarily on the type of object it contains:</p>
 
@@ -146,7 +143,7 @@ layout: default
   "Key with colon: just quote it": Value
   </pre>
 
-  <h4 id="yaml_nesting">Nesting</h4>
+  <h3 id="yaml_nesting">Nesting</h3>
 
   <p>Just as arrays and hashes can be nested in Ruby objects, so can they in YAML files. Nesting is indicated by indentation, plus some special attention in "outer" objects:</p>
 
@@ -207,7 +204,7 @@ layout: default
     ...
   </pre>
 
-  <h4 id="yaml_references">References</h4>
+  <h3 id="yaml_references">References</h3>
 
   <p>For real YAML learning, check out:</p>
   <ul>
