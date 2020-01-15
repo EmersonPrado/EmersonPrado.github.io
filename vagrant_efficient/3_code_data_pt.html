@@ -107,9 +107,8 @@ layout: default
 
   <h3 id="yaml">Yaml</h3>
 
-  <p>Os dados e o código ainda estão no mesmo arquivo. Felizmente, não precisam. O Ruby suporta nativamente um formato de arquivo de dados estruturados: YAML. Este formato pode guardar os dados, deixando nosso Vagrantfile finalmente limpo.</p>
-  <p>Funciona assim: arquivos YAML podem conter um objeto Ruby, que pode ser um valor simples, um <i>array</i>, um <i>hash</i> ou <i>arrays</i>/<i>hashes</i> aninhados, com alguma facilidade (desde que você se acostume com o formato exigente). E o Ruby carrega arquivos YAML em variáveis.</p>
-  <p>Então, é só criar um arquivo pra cada estrutura de dados, e depois carregar no Vagrantfile. Que agora só terá código.</p>
+  <p>YAML é um formato de arquivo de dados estruturados que pode armazenar um objeto Ruby, que pode ser um valor simples, um <i>array</i>, um <i>hash</i>, ou <i>arrays/hashes</i> aninhados, sem muita dor de cabeça (desde que você se acostume com o formato exigente).</p>
+  <p>Então, com os dados em arquivos YAML, fica fácil carregá-los no Vagrantfile. Assim, o Vagrantfile terá apenas código, e os arquivos YAML, só dados. Aplausos!</p>
 
   <h4 id="yaml_basico">O Básico</h4>
 

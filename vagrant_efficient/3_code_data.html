@@ -106,9 +106,8 @@ layout: default
 
   <h3 id="yaml">Yaml</h3>
 
-  <p>We still have code and data in the same file. Fortunately, we don't have to. Ruby has native support for a structured file format called YAML. So our data can go into such files, finally cleaning our Vagrantfile.</p>
-  <p>This is how it works: a YAML file can store a Ruby object, which can be a single value, an array, a hash, or nested arrays/hashes, without much hassle (given you get familiar to the picky format). And Ruby can load an YAML file into a variable.</p>
-  <p>So, all we have to do is to create a data file for each data structure, then load them in variables in the Vagrantfile. With only code.</p>
+  <p>YAML is a structured file format which can store a Ruby object, which can be a single value, an array, a hash, or nested arrays/hashes, without much hassle (given you get familiar to the picky format).</p>
+  <p>So, placing data in YAML files makes it easy to load data into the Vagrantfile. Then, the Vagrantfile will be only code, and the YAML files, only data. Cheers!</p>
 
   <h4 id="yaml_basics">Basics</h4>
 
