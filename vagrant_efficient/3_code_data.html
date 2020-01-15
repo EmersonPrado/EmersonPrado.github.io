@@ -20,7 +20,7 @@ layout: default
         <li><a href="#yaml">Yaml</a><ol>
           <li><a href="#yaml_basics">Basics</a></li>
           <li><a href="#yaml_nesting">Nesting</a></li>
-          <li><a href="#yaml_hints">Hints</a></li>
+          <li><a href="#yaml_references">References</a></li>
         </ol></li>
       </ol>
     </li>
@@ -237,46 +237,9 @@ layout: default
       key_1_2_1: ...
   key_2:
     ...
-
-  # Yes, comments - Both inline and standalone
-  # Try this into the hanging hash from part 2
   </pre>
 
-  <h4 id="yaml_hints">Hints</h4>
-
-  <p>Now, a nice trick. Since Ruby can convert YAML into objects, but also objects into YAML, we can use this functionality to convert the hash from our Vagrantfile into an YAML file. Let's try some random values with Ruby <code>ruby -e</code> command:</p>
-  <pre>
-  ruby -e '
-    # Loads module with YAML functions
-    require "yaml"
-
-    # Loads YAML into object and puts in screen
-    puts()
-    puts("Converting YAML to object:")
-    puts("#{YAML.load("
-  ---
-  1: One
-  Two: 2
-    ")}")
-
-    # Dumps object into YAML and puts in screen
-    puts()
-    puts("Converting object to YAML:")
-    puts("#{YAML.dump(
-      {1 => "One", "Two" => 2}
-    )}")
-  '
-
-  Converting YAML to object:
-  {1=>"One", "Two"=>2}
-
-  Converting object to YAML:
-  ---
-  1: One
-  Two: 2
-  </pre>
-
-  <p>Do it with any object or YAML content and see the results. Helps a lot in understanding YAML syntax.</p>
+  <h4 id="yaml_references">References</h4>
 
   <p>For real YAML learning, check out:</p>
   <ul>

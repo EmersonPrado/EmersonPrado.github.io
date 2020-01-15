@@ -20,7 +20,7 @@ layout: default
         <li><a href="#yaml">Yaml</a><ol>
           <li><a href="#yaml_basico">O básico</a></li>
           <li><a href="#yaml_aninhamento">Aninhamento</a></li>
-          <li><a href="#yaml_dicas">Dicas</a></li>
+          <li><a href="#yaml_referencias">Referências</a></li>
         </ol></li>
       </ol>
     </li>
@@ -238,46 +238,9 @@ layout: default
       chave_1_2_1: ...
   chave_2:
     ...
-
-  # Isso mesmo: comentários - Alinhados e em linhas separadas
-  # Imagine isso no hash enorme da parte 2
   </pre>
 
-  <h4 id="yaml_dicas">Dicas</h4>
-
-  <p>Agora, um truque interessante. Como o Ruby converte YAML em objetos, mas também objetos em YAML, podemos usar esse recurso para converter o <i>hash</i> do nosso Vagrantfile em um arquivo YAML. Vamos experimentar alguns valores arbitrários com o comando <code>ruby -e</code> do Ruby:</p>
-  <pre>
-  ruby -e '
-    # Carrega o módulo com funções YAML
-    require "yaml"
-
-    # Converte YAML em objeto e coloca na tela
-    puts()
-    puts("Convertendo YAML para objeto:")
-    puts("#{YAML.load("
-  ---
-  1: Um
-  Dois: 2
-    ")}")
-
-    # Converte objeto em YAML e coloca na tela
-    puts()
-    puts("Convertendo objeto para YAML:")
-    puts("#{YAML.dump(
-      {1 => "Um", "Dois" => 2}
-    )}")
-  '
-
-  Convertendo YAML para objeto:
-  {1=>"Um", "Dois"=>2}
-
-  Convertendo objeto para YAML:
-  ---
-  1: Um
-  Dois: 2
-  </pre>
-
-  <p>Teste o resultado com várias variáveis. Ajuda muito a entender a sintaxe do YAML.</p>
+  <h4 id="yaml_referencias">Referências</h4>
 
   <p>Dicas pra aprender YAML de verdade:</p>
   <ul>
