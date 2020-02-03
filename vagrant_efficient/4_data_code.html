@@ -10,6 +10,8 @@ layout: default
 
   <p style="color:DarkSlateBlue">Emerson Prado - XX/XX/XXXX</p>
 
+  <p>In the <a href="3_code_data.html">third part</a> of this series, we saw the YAML file format and how it can store data. Now let's use it to finally make our environment easily readable and mantainable.</p>
+
   <ol>
     <li><a href="#tldr">TL;DR</a></li>
     <li><a href="#native">Ruby and YAML</a><ol>
@@ -23,6 +25,152 @@ layout: default
   </ol>
 
   <h2 id="tldr">TL;DR</h2>
+
+  <p>If you already know how to convert back and forth between Ruby objects and YAML files, you might skip this part of the articles, and get going with what I've summarized below.</p>
+
+  <p>In part two, we ended with a hash with data for all VMs, then the code with a loop iterating from that hash. Let's use Ruby <code>dump</code> function to create an YAML file <code>etc/vms.yaml</code> with that hash:</p>
+
+  <pre>
+  mkdir etc
+  ruby -e "
+    require 'yaml'
+    puts(YAML.dump({
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7'
+      }
+    }))
+  " > etc/vms.yaml
+  </pre>
+
+  <p>In my experiments, I needed some extra VirtualBox settings. So I added them in the YAML file generated above.</p>
+
+  <pre>
+  cat etc/vms.yaml
+  ---
+  vm_1:
+    :box: ARTACK/debian-jessie    # From the dump command above
+    :ram: 256                     # Added manually
+    :ip: 192.168.1.2              # From the dump command above
+    :custom:                      # Added manually
+      '--usb': 'off'
+      '--usbehci': 'off'
+      '--usbxhci': 'off'
+      '--vrde': 'off'
+  vm_2:
+    :box: ARTACK/debian-jessie
+    :ram: 256
+    :ip: 192.168.1.3
+    :custom:
+      '--usb': 'off'
+      '--usbehci': 'off'
+      '--usbxhci': 'off'
+      '--vrde': 'off'
+  vm_3:
+    :box: centos/7
+    :cpu: 2
+    :custom:
+      '--usb': 'off'
+      '--usbehci': 'off'
+      '--usbxhci': 'off'
+      '--vrde': 'off'
+  </pre>
+
+  <p>Then, in the Vagrantfile, let's load this file into a variable, which will have the same hash as before. Finally, the loop will use this variable, with the additional settings:</p>
+
+  <pre>
+  require 'yaml'
+  VMS = YAML.load_file('etc/vms.yaml')    # Load YAML file in variable
+
+  Vagrant.configure("2") do |config|
+    VMS.each do |name, confs|             # Loop from variable
+      config.vm.define name do |vm|
+        config.vbguest.auto_update = false
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+        vm.vm.provider 'virtualbox' do |virtualbox|       # Additional settings
+          virtualbox.memory = confs[:ram] if confs.has_key?(:ram)
+          virtualbox.cpus = confs[:cpu] if confs.has_key?(:cpu)
+          confs[:custom].each do |custom, value|
+            virtualbox.customize ['modifyvm', :id, custom, value]
+          end if confs.has_key?(:custom)
+        end
+      end
+    end
+  end
+  </pre>
+
+  <p>You probably saw (kudos to you!) the VMs file has almost the same data for the VMs that use the same box. We can divide it in two files - VMs and boxes:</p>
+
+  <h4>Boxes data file - <code>etc/boxes.yaml</code></h4>
+  <pre>
+  ---
+  debian_jessie:
+    :name: ARTACK/debian-jessie
+    :ram: 256
+    :custom:
+      '--usb': 'off'
+      '--usbehci': 'off'
+      '--usbxhci': 'off'
+      '--vrde': 'off'
+  centos_7:
+    :name: centos/7
+    :cpu: 2
+    :custom:
+      '--usb': 'off'
+      '--usbehci': 'off'
+      '--usbxhci': 'off'
+      '--vrde': 'off'
+  </pre>
+
+  <h4>VMs data file - <code>etc/vms.yaml</code></h4>
+  <pre>
+  ---
+  vm_1:
+    :box: debian_jessie   # VM settings include which box to use
+    :ip: 192.168.1.2
+  vm_2:
+    :box: debian_jessie
+    :ip: 192.168.1.3
+  vm_3:
+    :box: centos_7
+  </pre>
+
+  <h4>Then, the Vagrantfile</h4>
+  <pre>
+  require 'yaml'
+  BOXES = YAML.load_file('etc/boxes.yaml')        # Boxes variable
+  VMS = YAML.load_file('etc/vms.yaml')            # VMs variable
+
+  Vagrant.configure("2") do |config|
+    VMS.each do |name, confs|                     # Loop from VMs variable
+      config.vm.define name do |vm|
+        config.vbguest.auto_update = false
+        box = BOXES[confs[:box]]                  # Box settings from boxes variable
+        vm.vm.box = box[:name]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+        vm.vm.provider 'virtualbox' do |virtualbox|
+          virtualbox.memory = box[:ram] if box.has_key?(:ram)
+          virtualbox.cpus = box[:cpu] if box.has_key?(:cpu)
+          box[:custom].each do |custom, value|
+            virtualbox.customize ['modifyvm', :id, custom, value]
+          end if box.has_key?(:custom)
+        end
+      end
+    end
+  end
+  </pre>
+
+  <p>Now, we have 3 small and well organized files, each one with only data or only code, and all of them quite easy to understand and maintain. That means job done!</p>
+
+  <p>Complexity is the limit. You can have a single data file, or many ones dividing the data. Keep in mind the compromise between conciseness and simplicity. Always remember everything should be easy to understand and mantain by other people, including non-developers. Use your good sense and keep up!</p>
 
   <h2 id="native">Ruby and YAML</h2>
 
