@@ -174,9 +174,75 @@ layout: default
 
   <h2 id="native">Ruby and YAML</h2>
 
+  <p>In part 3, I said Ruby and YAML were close friends. In developer language, this means there's a <a href="https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/index.html">specialized module</a> which deals with YAML inside Ruby's standard library. In more real world words, it means you can use some YAML conversion methods (and more) without installing anything besides Ruby itself. You just have to load the module before using its functions, with <code>require 'yaml'</code>.</p>
+
   <h3 id="ruby2yaml">Ruby to YAML conversion</h3>
 
+  <p>To convert Ruby objects into YAML, we use the <code>dump</code> method, which dumps an YAML string with the object passed.</p>
+
+  <pre>
+  ruby -e '
+    require "yaml"
+    puts(YAML.dump([
+      3,
+      "Array",
+      "Items"
+    ]))
+  '
+  ---
+  - 3
+  - Array
+  - Items
+
+  ruby -e '
+    require "yaml"
+    puts(YAML.dump({
+      "First"  => "Hash element",
+      "Second" => "Hash element",
+      "Third"  => "Hash element"
+    }))
+  '
+  ---
+  First: Hash element
+  Second: Hash element
+  Third: Hash element
+  </pre>
+
   <h3 id="yaml2ruby">YAML to Ruby conversion</h3>
+
+  <p>To go the other way, from YAML to Ruby objects, we use the <code>load</code> method, which loads a provided YAML string in a Ruby object. I'll remove the indentation from the data sections because YAML doesn't allow free indenting (side note: YAML is picky).</p>
+
+  <pre>
+  ruby -e '
+    require "yaml"
+    YAML.load("
+  ---
+  - 1
+  - 2
+  - 3
+    ").each do |item|
+      puts("Item: #{item}")
+    end
+  '
+  Item: 1
+  Item: 2
+  Item: 3
+
+  ruby -e '
+    require "yaml"
+    YAML.load("
+  ---
+  1: One
+  2: Two
+  3: Three
+    ").each do |key, value|
+      puts("Key: #{key} - Value: #{value}")
+    end
+  '
+  Key: 1 - Value: One
+  Key: 2 - Value: Two
+  Key: 3 - Value: Three
+  </pre>
 
   <h2 id="vagranfile">Our Vagrantfile</h2>
 

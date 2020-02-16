@@ -174,9 +174,75 @@ layout: default
 
   <h2 id="nativo">Ruby e YAML</h2>
 
+  <p>Na parte 3, eu disse que Ruby e YAML são amigos íntimos. Na língua de programadores, isso quer dizer que existe um <a href="https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/index.html">módulo especializado</a>, na biblioteca padrão do Ruby, que trata YAML. Em palavras mais do mundo real, quer dizer que dá pra usar métodos de conversão pra YAML (e mais) instalando nada mais que o próprio Ruby. É só carregar o módulo antes de usar as funções, com <code>require 'yaml'</code>.</p>
+
   <h3 id="rubyprayaml">Conversão Ruby pra YAML</h3>
 
+  <p>Pra converter objetos Ruby em YAML, usamos o método <code>dump</code>, que devolve uma string YAML com o objeto passado.</p>
+
+  <pre>
+  ruby -e '
+    require "yaml"
+    puts(YAML.dump([
+      "Array com",
+      3,
+      "Itens"
+    ]))
+  '
+  ---
+  - Array com
+  - 3
+  - Itens
+
+  ruby -e '
+    require "yaml"
+    puts(YAML.dump({
+      "Primeiro"  => "elemento do hash",
+      "Segundo" => "elemento do hash",
+      "Terceiro"  => "elemento do hash"
+    }))
+  '
+  ---
+  Primeiro: elemento do hash
+  Segundo: elemento do hash
+  Terceiro: elemento do hash
+  </pre>
+
   <h3 id="yamlpraruby">Conversão YAML pra Ruby</h3>
+
+  <p>Pro vice-versa, converter YAML em objetos Ruby, usamos o método <code>load</code>, que carrega a string YAML passada em um objeto Ruby. Vou tirar a indentação das seções com dados abaixo porque o YAML não permite indentação a gosto (observação: YAML é exigente).</p>
+
+  <pre>
+  ruby -e '
+    require "yaml"
+    YAML.load("
+  ---
+  - 1
+  - 2
+  - 3
+    ").each do |item|
+      puts("Item: #{item}")
+    end
+  '
+  Item: 1
+  Item: 2
+  Item: 3
+
+  ruby -e '
+    require "yaml"
+    YAML.load("
+  ---
+  1: Um
+  2: Dois
+  3: Três
+    ").each do |chave, valor|
+      puts("Chave: #{chave} - Valor: #{valor}")
+    end
+  '
+  Chave: 1 - Valor: Um
+  Chave: 2 - Valor: Dois
+  Chave: 3 - Valor: Três
+  </pre>
 
   <h2 id="vagranfile">Nosso Vagrantfile</h2>
 
