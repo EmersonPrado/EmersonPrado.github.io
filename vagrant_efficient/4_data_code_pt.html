@@ -246,6 +246,58 @@ layout: default
 
   <h2 id="vagranfile">Nosso Vagrantfile</h2>
 
+  <p>Nossa missão agora é transformar o <i>hash</i> enorme que ficou pendurado na <a href="2_ruby_pt.html#vagrantfile">parte 2</a> em um belo arquivo só com dados, e deixar o Vagrantfile só com código.</p>
+  <p>É claro que o método <code>dump</code> pode fazer a conversão. Mas com uma diferença: o resultado precisa ir pra um arquivo, em vez da tela. É só redirecionar a saída do comando para um arquivo. Vamos batizar o arquivo de <code>vms.yaml</code>. Pra mais limpeza, vamos criar um diretório para este arquivo de configurações. Não imagino qualquer nome melhor que <code>etc</code>.</p>
+
+  <pre>
+  mkdir etc
+
+  ruby -e "
+    require 'yaml'
+    puts(YAML.dump({
+      'vm_1' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.2'
+      },
+      'vm_2' => {
+        :box => 'ARTACK/debian-jessie',
+        :ip => '192.168.1.3'
+      },
+      'vm_3' => {
+        :box => 'centos/7',
+      }
+    }))
+  " > etc/vms.yaml
+
+  cat etc/vms.yaml
+  ---
+  vm_1:
+    :box: ARTACK/debian-jessie
+    :ip: 192.168.1.2
+  vm_2:
+    :box: ARTACK/debian-jessie
+    :ip: 192.168.1.3
+  vm_3:
+    :box: centos/7
+  </pre>
+
+  <p>Depois, pra carregar o objeto no Vagrantfile, é só fazer a conversão inversa, com a mesma diferença: vamos carregar a <i>string</i> do arquivo, em vez de digitar. Simples: e só trocar o método <code>load</code> pelo <code>load_file</code>.</p>
+
+  <pre>
+  require 'yaml'
+  VMS = YAML.load_file('etc/vms.yaml')    # Carrega arquivo YAML na variável
+
+  Vagrant.configure("2") do |config|
+    VMS.each do |nome, confs|             # Itera a partir da variável
+      config.vm.define nome do |vm|
+        config.vbguest.auto_update = false
+        vm.vm.box = confs[:box]
+        vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+      end
+    end
+  end
+  </pre>
+
   <h2 id="mais_confs">Mais configurações</h2>
 
   <h2 id="mais_arqs">Mais arquivos</h2>
