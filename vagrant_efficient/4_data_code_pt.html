@@ -10,7 +10,7 @@ layout: default
 
   <p style="color:DarkSlateBlue">Emerson Prado - XX/XX/XXXX</p>
 
-  <p>Na <a href="2_ruby_pt.html">parte 2</a> desta série de artigos, nos livramos de muita repetição de código (e de muito lugar bom pra erros de digitação) usando <i>arrays</i>, <i>hashes</i>, laços e condicionais. Agora, vamos tornar o código mais limpo e a manutenção mais focada, colocando código e dados no lugar de cada um.</p>
+  <p>Na <a href="3_code_data_pt.html">parte 3</a> desta série de artigos, vimos o formato YAML e como ele armazena dados. Vamos usar este formato pra, finalmente, deixar nosso ambiente fácil de ler e manter.</p>
 
   <ol>
     <li><a href="#tldr">TL;DR</a></li>
@@ -26,9 +26,9 @@ layout: default
 
   <h2 id="tldr">TL;DR</h2>
 
-  <p>Se você já conhece arquivos YAML, e sabe como importá-los no código Ruby, talvez você possa pular esta parte dos artigos, e fazer tudo funcionar com o resumo abaixo.</p>
+  <p>Se você já sabe converter de objetos Ruby para arquivos YAML e vice-versa, talvez você possa pular esta parte dos artigos, e fazer tudo funcionar com o resumo abaixo.</p>
 
-  <p>Na parte 2, ficamos com um <i>hash</i> com dados de todas as MVs, e um código com um laço iterando a partir do <i>hash</i>. Vamos usar o método <code>dump</code> do Ruby pra criar o arquivo externo <code>etc/mvs.yaml</code>, no formato YAML, com este <i>hash</i>:</p>
+  <p>Na <a href="2_ruby_pt.html">parte 2</a>, ficamos com um <i>hash</i> com dados de todas as MVs, e um código com um laço iterando a partir do <i>hash</i>. Vamos usar o método <code>dump</code> do Ruby pra criar o arquivo externo <code>etc/mvs.yaml</code>, no formato YAML, com este <i>hash</i>:</p>
 
   <pre>
   mkdir etc
