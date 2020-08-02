@@ -395,6 +395,72 @@ layout: default
 
   <h2 id="mais_arqs">Mais arquivos</h2>
 
+  <p>Eu ouvi você dizer "Peraí! Os arquivos de dados estão muito repetitivos!". Fiquei orgulhoso de você!</p>
+  <p>Sim, muitas configurações serão parecidas. Todas as MVs de um mesmo <i>box</i> têm, pelo menos, o mesmo nome e versão de <i>box</i>. Às vezes, os mesmos recursos e/ou configurações personalizadas. Pra que repetir configurações de MVs se podemos ter um arquivo pros próprios <i>boxes</i>?</p>
+
+  <h4>Arquivo de dados dos <i>boxes</i></h4>
+  <pre>
+    ---
+    debian_jessie:
+      :nome: ARTACK/debian-jessie
+      :ram: 256
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+    centos_7:
+      :nome: centos/7
+      :cpu: 2
+      :custom:
+        '--usb': 'off'
+        '--usbehci': 'off'
+        '--usbxhci': 'off'
+        '--vrde': 'off'
+  </pre>
+
+  <h4>Arquivo de dados das MVs</h4>
+  <pre>
+    ---
+    vm_1:
+      :box: debian_jessie
+      :ip: 192.168.1.2
+    vm_2:
+      :box: debian_jessie
+      :ip: 192.168.1.3
+    vm_3:
+      :box: centos_7
+  </pre>
+
+  <h4>Então, no Vagrantfile:</h4>
+  <pre>
+    require 'yaml'
+    BOXES = YAML.load_file('etc/boxes.yaml')
+    MVS = YAML.load_file('etc/mvs.yaml')
+
+    Vagrant.configure("2") do |config|
+      MVS.each do |nome, confs|
+        config.vm.define nome do |vm|
+          config.vbguest.auto_update = false
+          box = BOXES[confs[:box]]
+          vm.vm.box = box[:nome]
+          vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
+          vm.vm.provider 'virtualbox' do |virtualbox|
+            virtualbox.memory = box[:ram] if box.has_key?(:ram)
+            virtualbox.cpus = box[:cpu] if box.has_key?(:cpu)
+            box[:custom].each do |custom, value|
+              virtualbox.customize ['modifyvm', :id, custom, value]
+            end if box.has_key?(:custom)
+          end
+        end
+      end
+    end
+  </pre>
+
+  <p>Não há fórmula mágica que determine quantos arquivos e o que colocar em cada um. Use o bom senso, equilibrando flexibilidade e simplicidade.</p>
+  <br>
+  <p>Agora temos 3 arquivos com menos de 20 linhas cada um, todos fáceis de ler, e que resultam em 3 MVs com configurações múltiplas de SO, RAM, CPU, IP e particularidades do virtualizador. E que são fáceis de mudar, expandir e/ou reutilizar. Satisfeito? Eu também.</p>
+
   <h2 id="depois">E depois?</h2>
 
   <p>Que outros dados podem ser colocados em arquivos separados para o código usar? Talvez algumas configurações de <i>hardware</i>, rede, algum provisionamento?</p>
