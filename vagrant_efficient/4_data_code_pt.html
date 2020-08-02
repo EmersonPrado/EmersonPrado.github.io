@@ -87,10 +87,10 @@ layout: default
 
   <pre>
   require 'yaml'
-  VMS = YAML.load_file('etc/mvs.yaml')    # Carrega arquivo YAML em variável
+  MVS = YAML.load_file('etc/mvs.yaml')    # Carrega arquivo YAML em variável
 
   Vagrant.configure("2") do |config|
-    VMS.each do |name, confs|             # Laço a partir da variável
+    MVS.each do |name, confs|             # Laço a partir da variável
       config.vm.define name do |vm|
         config.vbguest.auto_update = false
         vm.vm.box = confs[:box]
@@ -247,7 +247,7 @@ layout: default
   <h2 id="vagranfile">Nosso Vagrantfile</h2>
 
   <p>Nossa missão agora é transformar o <i>hash</i> enorme que ficou pendurado na <a href="2_ruby_pt.html#vagrantfile">parte 2</a> em um belo arquivo só com dados, e deixar o Vagrantfile só com código.</p>
-  <p>É claro que o método <code>dump</code> pode fazer a conversão. Mas com uma diferença: o resultado precisa ir pra um arquivo, em vez da tela. É só redirecionar a saída do comando para um arquivo. Vamos batizar o arquivo de <code>vms.yaml</code>. Pra mais limpeza, vamos criar um diretório para este arquivo de configurações. Não imagino qualquer nome melhor que <code>etc</code>.</p>
+  <p>É claro que o método <code>dump</code> pode fazer a conversão. Mas com uma diferença: o resultado precisa ir pra um arquivo, em vez da tela. É só redirecionar a saída do comando para um arquivo. Vamos batizar o arquivo de <code>mvs.yaml</code>. Pra mais limpeza, vamos criar um diretório para este arquivo de configurações. Não imagino qualquer nome melhor que <code>etc</code>.</p>
 
   <pre>
   mkdir etc
@@ -267,9 +267,9 @@ layout: default
         :box => 'centos/7',
       }
     }))
-  " > etc/vms.yaml
+  " > etc/mvs.yaml
 
-  cat etc/vms.yaml
+  cat etc/mvs.yaml
   ---
   vm_1:
     :box: ARTACK/debian-jessie
@@ -285,10 +285,10 @@ layout: default
 
   <pre>
   require 'yaml'
-  VMS = YAML.load_file('etc/vms.yaml')    # Carrega arquivo YAML na variável
+  MVS = YAML.load_file('etc/mvs.yaml')    # Carrega arquivo YAML na variável
 
   Vagrant.configure("2") do |config|
-    VMS.each do |nome, confs|             # Itera a partir da variável
+    MVS.each do |nome, confs|             # Itera a partir da variável
       config.vm.define nome do |vm|
         config.vbguest.auto_update = false
         vm.vm.box = confs[:box]
