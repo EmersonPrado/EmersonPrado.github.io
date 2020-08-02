@@ -178,7 +178,7 @@ layout: default
 
   <h3 id="rubyprayaml">Conversão Ruby pra YAML</h3>
 
-  <p>Pra converter objetos Ruby em YAML, usamos o método <code>dump</code>, que devolve uma string YAML com o objeto passado.</p>
+  <p>Pra converter objetos Ruby em YAML, usamos o método <code>dump</code>, que devolve uma <i>string</i> YAML com o objeto passado.</p>
 
   <pre>
   ruby -e '
@@ -197,20 +197,20 @@ layout: default
   ruby -e '
     require "yaml"
     puts(YAML.dump({
-      "Primeiro"  => "elemento do hash",
-      "Segundo" => "elemento do hash",
-      "Terceiro"  => "elemento do hash"
+      "Primeiro"  => "Elemento do hash",
+      "Segundo" => "Elemento do hash",
+      "Terceiro"  => "Elemento do hash"
     }))
   '
   ---
-  Primeiro: elemento do hash
-  Segundo: elemento do hash
-  Terceiro: elemento do hash
+  Primeiro: Elemento do hash
+  Segundo: Elemento do hash
+  Terceiro: Elemento do hash
   </pre>
 
   <h3 id="yamlpraruby">Conversão YAML pra Ruby</h3>
 
-  <p>Pro vice-versa, converter YAML em objetos Ruby, usamos o método <code>load</code>, que carrega a string YAML passada em um objeto Ruby. Vou tirar a indentação das seções com dados abaixo porque o YAML não permite indentação a gosto (observação: YAML é exigente).</p>
+  <p>Pro vice-versa, converter YAML em objetos Ruby, usamos o método <code>load</code>, que carrega a <i>string</i> YAML passada em um objeto Ruby. Vou tirar a indentação das seções com dados abaixo porque o YAML não permite indentação a gosto (observação: YAML é exigente).</p>
 
   <pre>
   ruby -e '
