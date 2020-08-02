@@ -95,7 +95,8 @@ layout: default
         config.vbguest.auto_update = false
         vm.vm.box = confs[:box]
         vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
-        vm.vm.provider 'virtualbox' do |virtualbox|       # Additional settings
+        # Additional settings
+        vm.vm.provider 'virtualbox' do |virtualbox|
           virtualbox.memory = confs[:ram] if confs.has_key?(:ram)
           virtualbox.cpus = confs[:cpu] if confs.has_key?(:cpu)
           confs[:custom].each do |custom, value|
@@ -150,10 +151,12 @@ layout: default
   VMS = YAML.load_file('etc/vms.yaml')            # VMs variable
 
   Vagrant.configure("2") do |config|
-    VMS.each do |name, confs|                     # Loop from VMs variable
+    # Loop from VMs variable
+    VMS.each do |name, confs|
       config.vm.define name do |vm|
         config.vbguest.auto_update = false
-        box = BOXES[confs[:box]]                  # Box settings from boxes variable
+        # Box settings from boxes variable
+        box = BOXES[confs[:box]]
         vm.vm.box = box[:name]
         vm.vm.network "private_network", ip: confs[:ip] if confs.has_key?(:ip)
         vm.vm.provider 'virtualbox' do |virtualbox|
